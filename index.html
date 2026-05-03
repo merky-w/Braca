@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pekara Braca - Sveže pečeni hleb, pite i torte u Zenti (Senta). Porodična tradicija od prvog dana."
+    />
+    <title>Pekara Braca | Zenta</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===== CSS VARIABLES & RESET ===== */
+      :root {
+        --clr-cream: #f5f0e6;
+        --clr-warm: #d4a574;
+        --clr-brown: #8b5a2b;
+        --clr-dark: #2c1810;
+        --clr-white: #ffffff;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Inter", system-ui, sans-serif;
+        --shadow: 0 4px 12px rgba(44, 24, 16, 0.1);
+        --radius: 8px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--clr-dark);
+        background: var(--clr-cream);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul {
+        list-style: none;
+      }
+      button,
+      select,
+      input,
+      textarea {
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      /* ===== UTILITIES ===== */
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section {
+        padding: 4% 0;
+      }
+      .section-title {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        text-align: center;
+        margin-bottom: 2%;
+        color: var(--clr-brown);
+      }
+      .section-subtitle {
+        text-align: center;
+        color: #555;
+        max-width: 65%;
+        margin: 0 auto 3%;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+      }
+      .btn {
+        display: inline-block;
+        background: var(--clr-warm);
+        color: var(--clr-white);
+        padding: 2% 3%;
+        border-radius: var(--radius);
+        font-weight: 500;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        min-height: 44px; /* Touch friendly */
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      /* ===== HEADER ===== */
+      header {
+        position: sticky;
+        top: 0;
+        background: var(--clr-white);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        padding: 1.5% 0;
+      }
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .logo {
+        font-family: var(--font-heading);
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        font-weight: 700;
+        color: var(--clr-brown);
+      }
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 4%;
+      }
+      #langSelect {
+        padding: 1.5% 2%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: var(--clr-white);
+        font-size: 0.9rem;
+      }
+      .nav-links {
+        display: flex;
+        gap: 5%;
+      }
+      .nav-links a {
+        font-weight: 500;
+        color: var(--clr-dark);
+        position: relative;
+        padding: 2% 0;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--clr-warm);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 1.5%;
+      }
+      .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--clr-dark);
+        transition: 0.3s;
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        background:
+          linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.6)),
+          linear-gradient(135deg, #8b5a2b 0%, #d4a574 100%);
+        background-size: cover;
+        background-position: center;
+        color: var(--clr-white);
+        text-align: center;
+        padding: 8% 0 6%;
+      }
+      .hero h1 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        margin-bottom: 2%;
+        line-height: 1.1;
+      }
+      .hero p {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        max-width: 70%;
+        margin: 0 auto 3%;
+        opacity: 0.95;
+      }
+
+      /* ===== ABOUT ===== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3%;
+        align-items: center;
+        width: 100%;
+      }
+      .about-img {
+        background: var(--clr-warm);
+        height: 250px;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--clr-white);
+        font-weight: 500;
+      }
+      .about-text h3 {
+        font-family: var(--font-heading);
+        font-size: clamp(1.4rem, 3vw, 1.8rem);
+        margin-bottom: 2%;
+        color: var(--clr-brown);
+      }
+
+      /* ===== MENU ===== */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2%;
+        width: 100%;
+      }
+      .menu-card {
+        background: var(--clr-white);
+        padding: 3%;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        transition: transform 0.2s;
+      }
+      .menu-card:hover {
+        transform: translateY(-4px);
+      }
+      .menu-card h4 {
+        font-family: var(--font-heading);
+        font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+        margin: 1% 0;
+        color: var(--clr-brown);
+      }
+      .price {
+        font-weight: 600;
+        color: var(--clr-warm);
+        display: block;
+        margin-top: 1%;
+      }
+
+      /* ===== CONTACT ===== */
+      .contact-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3%;
+        width: 100%;
+      }
+      .contact-info,
+      .contact-form {
+        background: var(--clr-white);
+        padding: 3%;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      .info-item {
+        margin-bottom: 2%;
+      }
+      .info-item strong {
+        display: block;
+        color: var(--clr-brown);
+        margin-bottom: 0.5%;
+      }
+      .form-group {
+        margin-bottom: 2%;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 1%;
+        font-weight: 500;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 2%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.95rem;
+      }
+      .map-placeholder {
+        background: #e0d8c9;
+        height: 180px;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        margin-top: 2%;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        background: var(--clr-dark);
+        color: var(--clr-cream);
+        padding: 3% 0;
+        text-align: center;
+      }
+      .footer-links {
+        margin: 2% 0;
+      }
+      .footer-links a {
+        margin: 0 2%;
+        opacity: 0.8;
+        transition: 0.2s;
+      }
+      .footer-links a:hover {
+        opacity: 1;
+      }
+
+      /* ===== MOBILE ===== */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          position: fixed;
+          top: 65px;
+          right: 0;
+          background: var(--clr-white);
+          flex-direction: column;
+          width: 75%;
+          height: calc(100vh - 65px);
+          padding: 5% 8%;
+          box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          z-index: 99;
+        }
+        .nav-links.open {
+          transform: translateX(0);
+        }
+        .hero {
+          padding: 10% 0 8%;
+        }
+        .hero p {
+          max-width: 90%;
+        }
+        .section-subtitle {
+          max-width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="container header-inner">
+        <a href="#home" class="logo">Pekara Braca</a>
+        <div class="header-controls">
+          <select id="langSelect" aria-label="Choose language">
+            <option value="sr">Srpski</option>
+            <option value="en">English</option>
+            <option value="hu">Magyar</option>
+          </select>
+          <button
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle navigation"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+        <nav>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home" data-i18n="nav_home">Početna</a></li>
+            <li><a href="#about" data-i18n="nav_about">O nama</a></li>
+            <li><a href="#menu" data-i18n="nav_menu">Meni</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="home" class="hero">
+        <div class="container">
+          <h1 data-i18n="hero_title">Tradicija pečena svakog dana</h1>
+          <p data-i18n="hero_desc">
+            Dobrodošli u Pekaru Braca. Autentični hlebovi, pite i torte,
+            pravljeni s ljubavlju u srcu Zente.
+          </p>
+          <a href="#menu" class="btn" data-i18n="hero_btn">Pogledaj meni</a>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="about_title">Naša priča</h2>
+          <p class="section-subtitle" data-i18n="about_subtitle">
+            Porodični biznis, voljen od zajednice. Pečemo kako treba.
+          </p>
+          <div class="about-grid">
+            <div class="about-img">📷 Dodajte sliku pekare</div>
+            <div class="about-text">
+              <h3 data-i18n="about_heading">
+                Ukorenjeni u Zenti, pečeni s pažnjom
+              </h3>
+              <p data-i18n="about_p1">
+                Generacijama, Pekara Braca je stub svakodnevnog života u Zenti.
+                Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i
+                pečemo sve od nule. Bez konzervansa. Samo iskusi, topli,
+                tradicionalni ukusi koji spajaju porodice.
+              </p>
+              <p data-i18n="about_p2">
+                Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku
+                ili svečanim tortama, svaki proizvod izlazi iz naših rerena
+                svež, mirisan i spreman za deljenje.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU -->
+      <section id="menu" class="section" style="background: var(--clr-white)">
+        <div class="container">
+          <h2 class="section-title" data-i18n="menu_title">Naši favoriti</h2>
+          <p class="section-subtitle" data-i18n="menu_subtitle">
+            Sveže pečeno svakog jutra. Cene podložne promenama.
+          </p>
+          <div class="menu-grid">
+            <div class="menu-card">
+              <h4 data-i18n="card1_t">Tradicionalna pogača</h4>
+              <p data-i18n="card1_d">
+                Mekan, puterast hleb sa notom jogurta. Savršen uz sir ili
+                kajmak.
+              </p>
+              <span class="price">150 RSD</span>
+            </div>
+            <div class="menu-card">
+              <h4 data-i18n="card2_t">Mesni burek</h4>
+              <p data-i18n="card2_d">
+                Hrskave kore punjene začinjenom junetinom i lukom.
+              </p>
+              <span class="price">220 RSD</span>
+            </div>
+            <div class="menu-card">
+              <h4 data-i18n="card3_t">Burek sa sirom i spanaćem</h4>
+              <p data-i18n="card3_d">
+                Lagan, slan i sveže pečen. Lokalni doručak broj jedan.
+              </p>
+              <span class="price">200 RSD</span>
+            </div>
+            <div class="menu-card">
+              <h4 data-i18n="card4_t">Vanila rolat</h4>
+              <p data-i18n="card4_d">
+                Delikatan biskvit u bogatoj vanila kremi, posut šećerom u prahu.
+              </p>
+              <span class="price">250 RSD</span>
+            </div>
+            <div class="menu-card">
+              <h4 data-i18n="card5_t">Hleb od integralnog brašna</h4>
+              <p data-i18n="card5_d">
+                Sitan, hranljiv kvasni hleb. Pečen svakog dana za dugotrajnu
+                svežinu.
+              </p>
+              <span class="price">180 RSD</span>
+            </div>
+            <div class="menu-card">
+              <h4 data-i18n="card6_t">Espresso / Turska kafa</h4>
+              <p data-i18n="card6_d">
+                Jak, aromatičan, služen uz tradicionalni turski rahatlokum.
+              </p>
+              <span class="price">100 / 120 RSD</span>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 3%">
+            <a href="#contact" class="btn" data-i18n="menu_order_btn"
+              >Naručite po meri</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="contact_title">Posetite nas</h2>
+          <p class="section-subtitle" data-i18n="contact_subtitle">
+            Otvoreni svakog dana. Svež hleb ne čeka.
+          </p>
+          <div class="contact-wrapper">
+            <div class="contact-info">
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  margin-bottom: 2%;
+                  color: var(--clr-brown);
+                "
+                data-i18n="location_title"
+              >
+                Lokacija i radno vreme
+              </h3>
+              <div class="info-item">
+                <strong data-i18n="location_addr_label">Adresa</strong>
+                <span data-i18n="location_addr_val"
+                  >Glavna ulica 42, 24400 Zenta (Senta), Srbija</span
+                >
+              </div>
+              <div class="info-item">
+                <strong data-i18n="location_phone_label">Telefon</strong>
+                +381 24 XXX XXX
+              </div>
+              <div class="info-item">
+                <strong data-i18n="location_email_label">Email</strong>
+                info@pekarabraca.rs
+              </div>
+              <div class="info-item">
+                <strong data-i18n="location_hours_label">Radno vreme</strong>
+                <span data-i18n="location_hours_val"
+                  >Pon–Pet: 05:30 – 20:00<br />Sub: 05:30 – 18:00<br />Ned:
+                  06:00 – 15:00</span
+                >
+              </div>
+              <div class="map-placeholder">📍 Google Maps Embed Ovde</div>
+            </div>
+            <div class="contact-form">
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  margin-bottom: 2%;
+                  color: var(--clr-brown);
+                "
+                data-i18n="form_title"
+              >
+                Pošaljite poruku
+              </h3>
+              <form id="contactForm">
+                <div class="form-group">
+                  <label for="name" data-i18n="form_name_label">Vaše ime</label>
+                  <input
+                    type="text"
+                    id="name"
+                    data-i18n-placeholder="form_name_ph"
+                    placeholder="Unesite ime"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email" data-i18n="form_email_label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    data-i18n-placeholder="form_email_ph"
+                    placeholder="vas@email.com"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message" data-i18n="form_msg_label"
+                    >Poruka / Narudžbina</label
+                  >
+                  <textarea
+                    id="message"
+                    rows="4"
+                    data-i18n-placeholder="form_msg_ph"
+                    placeholder="Vaša poruka ovde..."
+                    required
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn"
+                  style="width: 100%"
+                  data-i18n="form_submit"
+                >
+                  Pošalji poruku
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <p
+          style="
+            font-family: var(--font-heading);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+          "
+        >
+          Pekara Braca
+        </p>
+        <div class="footer-links">
+          <a href="#home" data-i18n="nav_home">Početna</a>
+          <a href="#about" data-i18n="nav_about">O nama</a>
+          <a href="#menu" data-i18n="nav_menu">Meni</a>
+          <a href="#contact" data-i18n="nav_contact">Kontakt</a>
+        </div>
+        <p>&copy; <span id="year"></span> Pekara Braca. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      // ===== TRANSLATIONS =====
+      const translations = {
+        sr: {
+          nav_home: "Početna",
+          nav_about: "O nama",
+          nav_menu: "Meni",
+          nav_contact: "Kontakt",
+          hero_title: "Tradicija pečena svakog dana",
+          hero_desc:
+            "Dobrodošli u Pekaru Braca. Autentični hlebovi, pite i torte, pravljeni s ljubavlju u srcu Zente.",
+          hero_btn: "Pogledaj meni",
+          about_title: "Naša priča",
+          about_subtitle:
+            "Porodični biznis, voljen od zajednice. Pečemo kako treba.",
+          about_heading: "Ukorenjeni u Zenti, pečeni s pažnjom",
+          about_p1:
+            "Generacijama, Pekara Braca je stub svakodnevnog života u Zenti. Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i pečemo sve od nule. Bez konzervansa. Samo iskusi, topli, tradicionalni ukusi koji spajaju porodice.",
+          about_p2:
+            "Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku ili svečanim tortama, svaki proizvod izlazi iz naših rerena svež, mirisan i spreman za deljenje.",
+          menu_title: "Naši favoriti",
+          menu_subtitle: "Sveže pečeno svakog jutra. Cene podložne promenama.",
+          menu_order_btn: "Naručite po meri",
+          card1_t: "Tradicionalna pogača",
+          card1_d:
+            "Mekan, puterast hleb sa notom jogurta. Savršen uz sir ili kajmak.",
+          card2_t: "Mesni burek",
+          card2_d: "Hrskave kore punjene začinjenom junetinom i lukom.",
+          card3_t: "Burek sa sirom i spanaćem",
+          card3_d: "Lagan, slan i sveže pečen. Lokalni doručak broj jedan.",
+          card4_t: "Vanila rolat",
+          card4_d:
+            "Delikatan biskvit u bogatoj vanila kremi, posut šećerom u prahu.",
+          card5_t: "Hleb od integralnog brašna",
+          card5_d:
+            "Sitan, hranljiv kvasni hleb. Pečen svakog dana za dugotrajnu svežinu.",
+          card6_t: "Espresso / Turska kafa",
+          card6_d:
+            "Jak, aromatičan, služen uz tradicionalni turski rahatlokum.",
+          contact_title: "Posetite nas",
+          contact_subtitle: "Otvoreni svakog dana. Svež hleb ne čeka.",
+          location_title: "Lokacija i radno vreme",
+          location_addr_label: "Adresa",
+          location_addr_val: "Glavna ulica 42, 24400 Zenta (Senta), Srbija",
+          location_phone_label: "Telefon",
+          location_email_label: "Email",
+          location_hours_label: "Radno vreme",
+          location_hours_val:
+            "Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00",
+          form_title: "Pošaljite poruku",
+          form_name_label: "Vaše ime",
+          form_name_ph: "Unesite ime",
+          form_email_label: "Email",
+          form_email_ph: "vas@email.com",
+          form_msg_label: "Poruka / Narudžbina",
+          form_msg_ph: "Vaša poruka ovde...",
+          form_submit: "Pošalji poruku",
+        },
+        en: {
+          nav_home: "Home",
+          nav_about: "About",
+          nav_menu: "Menu",
+          nav_contact: "Contact",
+          hero_title: "Tradition Baked Fresh Daily",
+          hero_desc:
+            "Welcome to Pekara Braca. Authentic breads, pastries & cakes, made with love in the heart of Zenta.",
+          hero_btn: "View Our Menu",
+          about_title: "Our Story",
+          about_subtitle:
+            "Family-owned, community-loved. Baking the way it should be.",
+          about_heading: "Rooted in Zenta, Crafted with Care",
+          about_p1:
+            "For generations, Pekara Braca has been a cornerstone of Zenta’s daily life. We start before dawn, kneading dough by hand, selecting local grains, and baking everything from scratch. No preservatives. Just honest, warm, traditional flavors that bring families together.",
+          about_p2:
+            "Whether it’s our signature pogača, flaky burek, or celebration cakes, every item leaves our ovens fresh, fragrant, and ready to be shared.",
+          menu_title: "Our Favorites",
+          menu_subtitle:
+            "Freshly baked every morning. Prices subject to change.",
+          menu_order_btn: "Place a Custom Order",
+          card1_t: "Traditional Pogača",
+          card1_d:
+            "Soft, buttery flatbread with a hint of yogurt. Perfect with cheese or kajmak.",
+          card2_t: "Meat Burek",
+          card2_d:
+            "Flaky phyllo layers filled with seasoned minced beef & onions.",
+          card3_t: "Cheese & Spinach Burek",
+          card3_d:
+            "Light, savory, and freshly baked. A local breakfast staple.",
+          card4_t: "Vanilla Cream Roll",
+          card4_d:
+            "Delicate sponge wrapped in rich vanilla cream & dusted with powdered sugar.",
+          card5_t: "Whole Grain Loaf",
+          card5_d:
+            "Hearty, fiber-rich sourdough. Baked daily for lasting freshness.",
+          card6_t: "Espresso / Turkish Coffee",
+          card6_d:
+            "Strong, aromatic, served with a traditional Turkish delight.",
+          contact_title: "Visit Us",
+          contact_subtitle: "Open daily. Fresh bread waits for no one.",
+          location_title: "Location & Hours",
+          location_addr_label: "Address",
+          location_addr_val: "Glavna ulica 42, 24400 Zenta (Senta), Serbia",
+          location_phone_label: "Phone",
+          location_email_label: "Email",
+          location_hours_label: "Opening Hours",
+          location_hours_val:
+            "Mon–Fri: 05:30 – 20:00<br>Sat: 05:30 – 18:00<br>Sun: 06:00 – 15:00",
+          form_title: "Send a Message",
+          form_name_label: "Your Name",
+          form_name_ph: "Enter your name",
+          form_email_label: "Email",
+          form_email_ph: "you@email.com",
+          form_msg_label: "Message / Order Request",
+          form_msg_ph: "Type your message here...",
+          form_submit: "Send Message",
+        },
+        hu: {
+          nav_home: "Főoldal",
+          nav_about: "Rólunk",
+          nav_menu: "Étlap",
+          nav_contact: "Kapcsolat",
+          hero_title: "Hagyomány, naponta frissen sütve",
+          hero_desc:
+            "Üdvözöljük a Pekara Bracában. Eredeti kenyerek, péksütemények és torták, szeretettel készítve Zenta szívében.",
+          hero_btn: "Étlap megtekintése",
+          about_title: "Történetünk",
+          about_subtitle:
+            "Családi vállalkozás, a közösség kedvence. Úgy sütünk, ahogy kell.",
+          about_heading: "Zentában gyökerezve, odafigyeléssel készítve",
+          about_p1:
+            "Generációk óta a Pekara Braca Zenta mindennapi életének egyik alapköve. Hajnal előtt kelünk, kézzel gyúrjuk a tésztát, helyi alapanyagokat választunk, és mindent a nulláról sütünk. Tartósítószer nélkül. Csak őszinte, meleg, hagyományos ízek, amelyek összehozzák a családokat.",
+          about_p2:
+            "Legyen szó jellegzetes pogácsánkról, roppanós burekről vagy ünnepi tortákról, minden termék frissen, illatosan és megosztásra készen hagyja el sütőinket.",
+          menu_title: "Kedvenceink",
+          menu_subtitle: "Minden reggel frissen sütve. Az árak változhatnak.",
+          menu_order_btn: "Egyedi rendelés",
+          card1_t: "Hagyományos pogácsa",
+          card1_d:
+            "Puha, vajas lapos kenyér joghurtos jegyekkel. Tökéletes sajttal vagy kajmakkal.",
+          card2_t: "Húsos burek",
+          card2_d:
+            "Roppant rétestészta rétegek fűszerezett darált marhahússal és hagymával töltve.",
+          card3_t: "Sajtos és spenótos burek",
+          card3_d:
+            "Könnyű, sós és frissen sütött. A helyi reggeli alapdarabja.",
+          card4_t: "Vaníliakrémes tekercs",
+          card4_d:
+            "Delikát piskóta gazdag vaníliakrémmel és porcukorral megszórva.",
+          card5_t: "Teljes kiőrlésű kenyér",
+          card5_d:
+            "Kiadós, rostokban gazdag kovászos kenyér. Naponta sütve a tartós frissességért.",
+          card6_t: "Espresso / Török kávé",
+          card6_d: "Erős, aromás, hagyományos török édes kíséretében.",
+          contact_title: "Látogasson el hozzánk",
+          contact_subtitle: "Naponta nyitva. A friss kenyér nem vár.",
+          location_title: "Cím és nyitvatartás",
+          location_addr_label: "Cím",
+          location_addr_val: "Fő utca 42, 24400 Zenta (Senta), Szerbia",
+          location_phone_label: "Telefon",
+          location_email_label: "Email",
+          location_hours_label: "Nyitvatartás",
+          location_hours_val:
+            "H–P: 05:30 – 20:00<br>Szo: 05:30 – 18:00<br>V: 06:00 – 15:00",
+          form_title: "Üzenet küldése",
+          form_name_label: "Név",
+          form_name_ph: "Írja be a nevét",
+          form_email_label: "Email",
+          form_email_ph: "pelda@email.hu",
+          form_msg_label: "Üzenet / Rendelés",
+          form_msg_ph: "Írja ide az üzenetét...",
+          form_submit: "Üzenet küldése",
+        },
+      };
+
+      // ===== LANGUAGE SWITCHER =====
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        const dict = translations[lang];
+
+        // Text content
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key]) el.textContent = dict[key];
+        });
+
+        // Placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (dict[key]) el.placeholder = dict[key];
+        });
+
+        // Handle line breaks in specific elements
+        if (lang === "sr" || lang === "en" || lang === "hu") {
+          const hoursEl = document.querySelector(
+            '[data-i18n="location_hours_val"]',
+          );
+          if (hoursEl)
+            hoursEl.innerHTML = dict.location_hours_val.replace(/\n/g, "<br>");
+        }
+
+        localStorage.setItem("pekarabraca_lang", lang);
+        document.getElementById("langSelect").value = lang;
+      }
+
+      // Init language
+      const savedLang = localStorage.getItem("pekarabraca_lang") || "sr";
+      setLanguage(savedLang);
+      document
+        .getElementById("langSelect")
+        .addEventListener("change", (e) => setLanguage(e.target.value));
+
+      // ===== MOBILE MENU =====
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+
+      hamburger.addEventListener("click", () =>
+        navLinks.classList.toggle("open"),
+      );
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => navLinks.classList.remove("open"));
+      });
+
+      // ===== ACTIVE NAV HIGHLIGHT =====
+      const sections = document.querySelectorAll("section");
+      const navItems = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 100;
+          if (window.scrollY >= sectionTop)
+            current = section.getAttribute("id");
+        });
+        navItems.forEach((a) => {
+          a.classList.toggle(
+            "active",
+            a.getAttribute("href") === `#${current}`,
+          );
+        });
+      });
+
+      // ===== DYNAMIC YEAR & FORM HANDLER =====
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert(
+            translations[
+              localStorage.getItem("pekarabraca_lang") || "sr"
+            ].form_submit.replace(
+              "Pošalji poruku",
+              "Thank you! / Hvala! / Köszönjük!",
+            ),
+          );
+          this.reset();
+        });
+    </script>
+  </body>
+</html>
