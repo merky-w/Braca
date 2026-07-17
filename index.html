@@ -130,6 +130,41 @@
       .footer-links { margin: 1rem 0; }
       .footer-links button { background: none; border: none; color: var(--clr-cream); opacity: 0.85; cursor: pointer; margin: 0 0.75rem; font-size: 1rem; transition: opacity 0.2s; }
       .footer-links button:hover { opacity: 1; }
+
+      /* ===== MENU FILTER TABS ===== */
+      .menu-filter-tabs {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 2.5rem;
+        padding: 0.5rem;
+      }
+      .filter-tab {
+        padding: 0.7rem 1.3rem;
+        border-radius: 30px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--clr-dark);
+        background: var(--clr-white);
+        border: 1.5px solid #e0d8c9;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .filter-tab:hover {
+        border-color: var(--clr-warm);
+        background: var(--clr-cream);
+      }
+      .filter-tab.active {
+        background: var(--clr-brown);
+        color: var(--clr-white);
+        border-color: var(--clr-brown);
+      }
+      .filter-tab .emoji { font-size: 1.1rem; }
+
       @media (max-width: 768px) {
         .header-inner { justify-content: center; }
         .nav-tabs { gap: 0.35rem; }
@@ -140,6 +175,7 @@
         .hero { padding: 3.5rem 0 3rem; }
         .modal-img { height: 220px; }
         .menu-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+        .filter-tab { padding: 0.6rem 1rem; font-size: 0.85rem; }
       }
     </style>
   </head>
@@ -180,7 +216,7 @@
             <h2 class="section-title" data-i18n="features_title">Zašto Pekara Braca</h2>
             <p class="section-subtitle" data-i18n="features_subtitle">Tri generacije porodične tradicije u svakom zalogaju.</p>
             <div class="home-features">
-              <div class="feature-card"><div class="feature-icon"></div><h3 data-i18n="feat1_title">Lokalni sastojci</h3><p data-i18n="feat1_desc">Brašno i žitarice od proverenih lokalnih dobavljača iz Vojvodine.</p></div>
+              <div class="feature-card"><div class="feature-icon">🌾</div><h3 data-i18n="feat1_title">Lokalni sastojci</h3><p data-i18n="feat1_desc">Brašno i žitarice od proverenih lokalnih dobavljača iz Vojvodine.</p></div>
               <div class="feature-card"><div class="feature-icon">🤲</div><h3 data-i18n="feat2_title">Ručna izrada</h3><p data-i18n="feat2_desc">Svaki proizvod mesimo i oblikujemo rukom, kao pre pedeset godina.</p></div>
               <div class="feature-card"><div class="feature-icon">🌅</div><h3 data-i18n="feat3_title">Sveže svakog jutra</h3><p data-i18n="feat3_desc">Počinjemo pre zore da bi vas dočekao topao, mirisan hleb.</p></div>
             </div>
@@ -193,6 +229,10 @@
           <div class="container">
             <h2 class="section-title" data-i18n="menu_title">Naš meni</h2>
             <p class="section-subtitle" data-i18n="menu_subtitle">Sveže pečeno svakog jutra. Kliknite na proizvod za više detalja.</p>
+
+            <!-- FILTER TABS -->
+            <div class="menu-filter-tabs" id="menuFilterTabs"></div>
+
             <div id="menuContainer"></div>
             <div style="text-align: center; margin-top: 2.5rem;">
               <button class="btn" onclick="showPage('find')" data-i18n="menu_order_btn">Naručite po meri</button>
@@ -312,31 +352,36 @@
     <script>
       // ===== IMAGES =====
       const IMG = {
-        croissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18b0b48a9-31c3-448d-bd81-f9ed7eca173d.png',
-        chocoCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1d555546f-c420-4c4f-9ee4-e05313fa9e08.png',
-        fruitCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19a057069-16b9-4b4f-9167-8f9c0a566d8b.png',
-        cinnamonRolls: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18887e71b-b56b-47f5-a85c-0f50fc851cfa.png',
-        donuts: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/177866fd0-a520-430e-92ee-af00a127b077.png',
-        muffins: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1198ae77f-7e95-49d1-9461-11806a9186cb.png',
-        cupcakes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/153dd994e-1760-4ff6-8ea3-3e2214305f4d.png',
-        brownies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1be178354-29e8-4d94-bc1d-ab0d5418cc5d.png',
-        cookies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1165701a7-285a-49f8-a6c8-95c6b87b773d.png',
-        macarons: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1735a5079-a79f-4f4e-926e-cf91ceb388d7.png',
-        eclairs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1673065e5-e84e-43ba-8918-c27747b198c2.png',
-        creamPuffs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/10aff5317-0798-43a8-a3cf-97ca5b285a32.png',
-        danish: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/119db622d-8cf2-4de9-81f9-410ad9bc7aac.png',
-        appleStrudel: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/16f76b848-437d-462c-8e60-e180aa208279.png',
-        baklava: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1ab30620b-e9ce-4b0f-8c24-1dc586959ae9.png',
-        cheesecake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/17c2f660a-5f4f-4d6f-bc41-8d67c5219a66.png',
-        chocolateCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b357b97d-9e47-4112-a697-e4d912ad6ad0.png',
-        carrotCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19df712e9-2b5f-4927-97d6-1534b9f3fc40.png',
-        fruitTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1720f13b0-e8b7-404e-9747-f7f0e2013036.png',
-        lemonTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/124260b62-5945-4cc6-a7a4-bc11206ead8d.png',
-        applePie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1f43cc7af-878f-49f3-bc57-1d81f415086c.png',
-        cherryPie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/12d278cc4-55bf-4852-9820-a3b552320b16.png',
-        brioche: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1f6b4adc2-6d00-4aae-8aa7-9f330935b068.png',
-        waffles: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1dc44bf78-3064-41eb-9b1d-331ff1bea860.png',
-        pancakes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/110520313-1473-4dcc-8e1d-820b0d6eb8cd.png',
+        sweetCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/17a5e624f-a80f-4676-ba3b-b092344b33a3.png',
+        saltyCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18d260bd2-aaf0-4fc4-a739-96e1f318ee8c.png',
+        hotCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/17cef77f4-736b-4d27-8a80-6a0542f20130.png',
+        coldCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1c25977b6-c5ff-4868-b374-15d7f42ff1fb.png',
+        snacksCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1a2549218-9f2f-42d7-b32b-115b30a7afb7.png',
+        counterCategory: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1aaa03d6b-61f8-4895-b898-76f68ca75ae7.png',
+        croissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/16165e3df-2d43-4236-81f7-b0fc74a9887e.png',
+        chocoCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19f02a035-6274-4a34-9ca9-4a2d268e02d5.png',
+        fruitCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1cb189190-8754-4d81-a0e8-5516b205bac7.png',
+        cinnamonRolls: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b9f695f7-a7c4-4953-8406-548b65e23e9f.png',
+        donuts: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/15fe4a9c2-e388-43eb-96d3-99e4b0fd59fa.png',
+        muffins: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/137f9a70d-fdd6-4bf1-bbba-e1a9b4e1023e.png',
+        cupcakes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1417e9125-f220-4f69-99cb-df00b8aa30a0.png',
+        brownies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1575e9b37-66ff-48e6-8359-8f1532fbfc12.png',
+        cookies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/11d2c4e30-a539-49f0-b1b8-32ce63ec857a.png',
+        macarons: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/15ffba1fe-d9fc-409b-b010-9de7dbc52485.png',
+        eclairs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/17bc95985-e1fa-4506-94ff-37eea170eed2.png',
+        creamPuffs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1f56e8230-2e4c-4d3c-bd42-e0001aefe2a5.png',
+        danish: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/180c0ed6e-b869-461b-9bbe-7834cadd7377.png',
+        appleStrudel: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18a5e476d-6a7e-4310-9df6-43a8094b0806.png',
+        baklava: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/189af2919-620b-480d-94ee-1097edd3f426.png',
+        cheesecake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18509d064-67f8-4363-95cd-3b30c9d31153.png',
+        chocolateCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/14a3f54d2-e150-48df-9aa3-849d4eff9f5b.png',
+        carrotCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/123e6f5e1-e263-4847-a2b3-0aa04008c07e.png',
+        fruitTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1ff5d8c0a-5a6c-435e-ac77-986527cc69e9.png',
+        lemonTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18c75cb62-b2a6-4c85-bf10-244303130a0c.png',
+        applePie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b23c3dec-31c4-42a2-9ddc-610daf9a957c.png',
+        cherryPie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/192d4ef3a-8b4b-450e-b2cd-a08a4d8cac34.png',
+        brioche: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1c0b7bb7b-cafc-428b-8cd8-c944b81c5b49.png',
+        waffles: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1ac0ce399-426f-457c-aee1-d5db25abeabe.png',
         ricePudding: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1411df533-20e8-4212-a918-026d756f0d2f.png',
         pannaCotta: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/165442b72-9316-40b2-8a2d-f2d13097f165.png',
         breads: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18a835e4c-d636-4080-a655-839bc55b0df0.png',
@@ -407,7 +452,7 @@
           i18n: { sr: { t: 'Brioš', d: 'Mekan, puterast francuski hleb, blago sladak.' }, en: { t: 'Brioche', d: 'Soft, buttery French bread, slightly sweet.' }, hu: { t: 'Brioche', d: 'Puha, vajas francia kenyér, enyhén édes.' } } },
         { id: 'waffle', cat: 'sweet', sub: 'cakes-tarts', img: IMG.waffles, price: '200 RSD',
           i18n: { sr: { t: 'Vafl', d: 'Hrskavi vafl sa šećerom u prahu, voćem ili čokoladom.' }, en: { t: 'Waffle', d: 'Crispy waffle with powdered sugar, fruit or chocolate.' }, hu: { t: 'Gofri', d: 'Ropogós gofri porcukorral, gyümölccsel vagy csokoládéval.' } } },
-        { id: 'pancake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.pancakes, price: '180 RSD',
+        { id: 'pancake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.waffles, price: '180 RSD',
           i18n: { sr: { t: 'Palačinka', d: 'Tanke palačinke sa džemom, čokoladom ili voćem.' }, en: { t: 'Pancake', d: 'Thin pancakes with jam, chocolate or fruit.' }, hu: { t: 'Palacsinta', d: 'Vékony palacsinta lekvárral, csokoládéval vagy gyümölccsel.' } } },
         { id: 'rice-pudding', cat: 'sweet', sub: 'cakes-tarts', img: IMG.ricePudding, price: '150 RSD',
           i18n: { sr: { t: 'Pirinač na mleku', d: 'Kremasti pirinač kuvan u mleku sa cimetom.' }, en: { t: 'Rice Pudding', d: 'Creamy rice cooked in milk with cinnamon.' }, hu: { t: 'Tejberizs', d: 'Krémes rizs tejben főzve fahéjjal.' } } },
@@ -499,197 +544,207 @@
           i18n: { sr: { t: 'Samosa', d: 'Trouglasto pecivo punjeno povrćem ili mesom.' }, en: { t: 'Samosa', d: 'Triangular pastry filled with vegetables or meat.' }, hu: { t: 'Samosza', d: 'Háromszög alakú tészta zöldséggel vagy hússal töltve.' } } },
 
         // ===== SMALL SNACKS =====
-        { id: 'nuts', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '200 RSD',
+        { id: 'nuts', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '200 RSD',
           i18n: { sr: { t: 'Mešavina orašastih', d: 'Mešavina badema, lešnika i oraha.' }, en: { t: 'Mixed Nuts', d: 'Mix of almonds, hazelnuts and walnuts.' }, hu: { t: 'Vegyes dió', d: 'Mandula, mogyoró és dió keveréke.' } } },
-        { id: 'roasted-almonds', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '250 RSD',
+        { id: 'roasted-almonds', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '250 RSD',
           i18n: { sr: { t: 'Pečeni bademi', d: 'Hrskavi pečeni bademi sa solju.' }, en: { t: 'Roasted Almonds', d: 'Crispy roasted almonds with salt.' }, hu: { t: 'Pirított mandula', d: 'Ropogós pirított mandula sóval.' } } },
-        { id: 'peanuts', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '180 RSD',
+        { id: 'peanuts', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '180 RSD',
           i18n: { sr: { t: 'Kikiriki', d: 'Slani kikiriki, savršen grickalica.' }, en: { t: 'Peanuts', d: 'Salted peanuts, perfect snack.' }, hu: { t: 'Földimogyoró', d: 'Sós földimogyoró, tökéletes rágcsálnivaló.' } } },
-        { id: 'trail-mix', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '220 RSD',
+        { id: 'trail-mix', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '220 RSD',
           i18n: { sr: { t: 'Planinarska mešavina', d: 'Mešavina orašastih, suvog voća i semenki.' }, en: { t: 'Trail Mix', d: 'Mix of nuts, dried fruit and seeds.' }, hu: { t: 'Túrós mix', d: 'Dió, szárított gyümölcs és magvak keveréke.' } } },
-        { id: 'chocolate-bar', cat: 'snacks', sub: 'snacks', img: IMG.brownies, price: '150 RSD',
+        { id: 'chocolate-bar', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '150 RSD',
           i18n: { sr: { t: 'Čokoladica', d: 'Mlečna ili tamna čokolada.' }, en: { t: 'Chocolate Bar', d: 'Milk or dark chocolate bar.' }, hu: { t: 'Csokoládétábla', d: 'Tej- vagy étcsokoládé tábla.' } } },
-        { id: 'granola-bar', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '180 RSD',
+        { id: 'granola-bar', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '180 RSD',
           i18n: { sr: { t: 'Granola pločica', d: 'Zdrava pločica sa ovsenim pahuljicama i medom.' }, en: { t: 'Granola Bar', d: 'Healthy bar with oats and honey.' }, hu: { t: 'Granola rúd', d: 'Egészséges rúd zabbal és mézzel.' } } },
-        { id: 'crackers', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '120 RSD',
+        { id: 'crackers', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '120 RSD',
           i18n: { sr: { t: 'Krekeri', d: 'Hrskavi krekeri, odlični uz sir.' }, en: { t: 'Crackers', d: 'Crispy crackers, great with cheese.' }, hu: { t: 'Keksz', d: 'Ropogós kekszek, nagyszerű sajttal.' } } },
-        { id: 'chips', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '100 RSD',
+        { id: 'chips', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '100 RSD',
           i18n: { sr: { t: 'Čips', d: 'Hrskavi krompir čips.' }, en: { t: 'Chips', d: 'Crispy potato chips.' }, hu: { t: 'Chips', d: 'Ropogós burgonyachips.' } } },
-        { id: 'popcorn', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '120 RSD',
+        { id: 'popcorn', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '120 RSD',
           i18n: { sr: { t: 'Kokice', d: 'Slane ili slatke kokice.' }, en: { t: 'Popcorn', d: 'Salted or sweet popcorn.' }, hu: { t: 'Pattogatott kukorica', d: 'Sós vagy édes pattogatott kukorica.' } } },
-        { id: 'dried-fruit', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '200 RSD',
+        { id: 'dried-fruit', cat: 'snacks', sub: 'snacks', img: IMG.snacksCategory, price: '200 RSD',
           i18n: { sr: { t: 'Suvo voće', d: 'Mešavina suvih kajsija, šljiva i grožđica.' }, en: { t: 'Dried Fruit', d: 'Mix of dried apricots, plums and raisins.' }, hu: { t: 'Szárított gyümölcs', d: 'Szárított sárgabarack, szilva és mazsola keveréke.' } } },
 
         // ===== BAKERY COUNTER =====
-        { id: 'cheese-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '200 RSD',
+        { id: 'cheese-burek', cat: 'counter', sub: 'burek', img: IMG.counterCategory, price: '200 RSD',
           i18n: { sr: { t: 'Sirni burek', d: 'Tradicionalni burek sa belim sirom u lisnatom testu.' }, en: { t: 'Cheese Burek', d: 'Traditional burek with white cheese in flaky phyllo.' }, hu: { t: 'Sajtos burek', d: 'Hagyományos burek fehér sajttal leveles tésztában.' } } },
-        { id: 'meat-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '220 RSD',
+        { id: 'meat-burek', cat: 'counter', sub: 'burek', img: IMG.counterCategory, price: '220 RSD',
           i18n: { sr: { t: 'Mesni burek', d: 'Burek sa začinjenim mlevenim mesom.' }, en: { t: 'Meat Burek', d: 'Burek with seasoned minced meat.' }, hu: { t: 'Húsos burek', d: 'Burek fűszerezett darált hússal.' } } },
-        { id: 'potato-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '180 RSD',
+        { id: 'potato-burek', cat: 'counter', sub: 'burek', img: IMG.counterCategory, price: '180 RSD',
           i18n: { sr: { t: 'Krompir burek', d: 'Burek sa krompirom i lukom.' }, en: { t: 'Potato Burek', d: 'Burek with potatoes and onions.' }, hu: { t: 'Krumplis burek', d: 'Burek krumplival és hagymával.' } } },
-        { id: 'spinach-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '200 RSD',
+        { id: 'spinach-burek', cat: 'counter', sub: 'burek', img: IMG.counterCategory, price: '200 RSD',
           i18n: { sr: { t: 'Spanać burek', d: 'Burek sa spanaćem i sirom.' }, en: { t: 'Spinach Burek', d: 'Burek with spinach and cheese.' }, hu: { t: 'Spenótos burek', d: 'Burek spenóttal és sajttal.' } } },
-        { id: 'pizza-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '220 RSD',
+        { id: 'pizza-burek', cat: 'counter', sub: 'burek', img: IMG.counterCategory, price: '220 RSD',
           i18n: { sr: { t: 'Pica burek', d: 'Burek sa prelivom kao pica - sir, šunka, pečurke.' }, en: { t: 'Pizza Burek', d: 'Burek with pizza toppings - cheese, ham, mushrooms.' }, hu: { t: 'Pizzás burek', d: 'Burek pizza feltétekkel - sajt, sonka, gomba.' } } },
-        { id: 'kiflice', cat: 'counter', sub: 'kiflice', img: IMG.rolls, price: '120 RSD',
+        { id: 'kiflice', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '120 RSD',
           i18n: { sr: { t: 'Kiflice', d: 'Male rolnice punjene sirom, džemom ili čokoladom.' }, en: { t: 'Kiflice', d: 'Small rolls filled with cheese, jam or chocolate.' }, hu: { t: 'Kifli', d: 'Kis tekercsek sajttal, lekvárral vagy csokoládéval töltve.' } } },
-        { id: 'pita-pastry', cat: 'counter', sub: 'kiflice', img: IMG.applePie, price: '180 RSD',
+        { id: 'pita-pastry', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '180 RSD',
           i18n: { sr: { t: 'Pita pecivo', d: 'Tradicionalna pita sa različitim nadevima.' }, en: { t: 'Pita Pastry', d: 'Traditional pita with various fillings.' }, hu: { t: 'Pite péksütemény', d: 'Hagyományos pite különféle töltelékekkel.' } } },
-        { id: 'savory-pies', cat: 'counter', sub: 'kiflice', img: IMG.applePie, price: '200 RSD',
+        { id: 'savory-pies', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '200 RSD',
           i18n: { sr: { t: 'Slane pite', d: 'Razne slane pite po dnevnom izboru.' }, en: { t: 'Savory Pies', d: 'Various savory pies by daily selection.' }, hu: { t: 'Sós piték', d: 'Különböző sós piték napi választék szerint.' } } },
-        { id: 'sweet-rolls-counter', cat: 'counter', sub: 'kiflice', img: IMG.cinnamonRolls, price: '150 RSD',
+        { id: 'sweet-rolls-counter', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '150 RSD',
           i18n: { sr: { t: 'Slatke rolnice', d: 'Slatke rolnice sa raznim nadevima.' }, en: { t: 'Sweet Rolls', d: 'Sweet rolls with various fillings.' }, hu: { t: 'Édes tekercsek', d: 'Édes tekercsek különféle töltelékekkel.' } } },
-        { id: 'filled-croissants', cat: 'counter', sub: 'kiflice', img: IMG.chocoCroissants, price: '180 RSD',
+        { id: 'filled-croissants', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '180 RSD',
           i18n: { sr: { t: 'Punjeni kroasani', d: 'Kroasani sa čokoladom, kremom ili džemom.' }, en: { t: 'Filled Croissants', d: 'Croissants with chocolate, cream or jam.' }, hu: { t: 'Töltött croissantok', d: 'Croissantok csokoládéval, krémmel vagy lekvárral.' } } },
-        { id: 'sandwiches-counter', cat: 'counter', sub: 'kiflice', img: IMG.rolls, price: '250 RSD',
+        { id: 'sandwiches-counter', cat: 'counter', sub: 'kiflice', img: IMG.counterCategory, price: '250 RSD',
           i18n: { sr: { t: 'Sendviči', d: 'Sveži sendviči po dnevnom izboru.' }, en: { t: 'Sandwiches', d: 'Fresh sandwiches by daily selection.' }, hu: { t: 'Szendvicsek', d: 'Friss szendvicsek napi választék szerint.' } } },
 
         // ===== HOT DRINKS =====
-        { id: 'espresso', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '120 RSD',
+        { id: 'espresso', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '120 RSD',
           i18n: { sr: { t: 'Espresso', d: 'Jak, koncentrisan espresso.' }, en: { t: 'Espresso', d: 'Strong, concentrated espresso.' }, hu: { t: 'Espresso', d: 'Erős, koncentrált espresso.' } } },
-        { id: 'double-espresso', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+        { id: 'double-espresso', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '150 RSD',
           i18n: { sr: { t: 'Dupli espresso', d: 'Dupla doza espressa za prave ljubitelje kafe.' }, en: { t: 'Double Espresso', d: 'Double shot of espresso for true coffee lovers.' }, hu: { t: 'Dupla espresso', d: 'Dupla adag espresso az igazi kávérajongóknak.' } } },
-        { id: 'americano', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+        { id: 'americano', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '150 RSD',
           i18n: { sr: { t: 'Americano', d: 'Espresso razblažen vrućom vodom.' }, en: { t: 'Americano', d: 'Espresso diluted with hot water.' }, hu: { t: 'Americano', d: 'Espresso forró vízzel hígítva.' } } },
-        { id: 'cappuccino', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+        { id: 'cappuccino', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '180 RSD',
           i18n: { sr: { t: 'Kapučino', d: 'Espresso sa toplom mlečnom penom.' }, en: { t: 'Cappuccino', d: 'Espresso with steamed milk foam.' }, hu: { t: 'Cappuccino', d: 'Espresso gőzölt tejhabbal.' } } },
-        { id: 'latte', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '200 RSD',
+        { id: 'latte', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '200 RSD',
           i18n: { sr: { t: 'Latte', d: 'Espresso sa puno topljenog mleka.' }, en: { t: 'Latte', d: 'Espresso with lots of steamed milk.' }, hu: { t: 'Latte', d: 'Espresso sok gőzölt tejjel.' } } },
-        { id: 'flat-white', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '220 RSD',
+        { id: 'flat-white', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '220 RSD',
           i18n: { sr: { t: 'Flat white', d: 'Espresso sa svilenkastom mlečnom penom.' }, en: { t: 'Flat White', d: 'Espresso with silky microfoam milk.' }, hu: { t: 'Flat white', d: 'Espresso selymes mikrohabos tejjel.' } } },
-        { id: 'macchiato', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+        { id: 'macchiato', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '180 RSD',
           i18n: { sr: { t: 'Makiato', d: 'Espresso sa malo mlečne pene.' }, en: { t: 'Macchiato', d: 'Espresso with a dash of milk foam.' }, hu: { t: 'Macchiato', d: 'Espresso egy kevés tejhabbal.' } } },
-        { id: 'mocha', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '220 RSD',
+        { id: 'mocha', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '220 RSD',
           i18n: { sr: { t: 'Moka', d: 'Espresso sa čokoladom i mlekom.' }, en: { t: 'Mocha', d: 'Espresso with chocolate and milk.' }, hu: { t: 'Mocha', d: 'Espresso csokoládéval és tejjel.' } } },
-        { id: 'instant-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '100 RSD',
+        { id: 'instant-coffee', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '100 RSD',
           i18n: { sr: { t: 'Instant kafa', d: 'Brza instant kafa sa mlekom.' }, en: { t: 'Instant Coffee', d: 'Quick instant coffee with milk.' }, hu: { t: 'Instant kávé', d: 'Gyors instant kávé tejjel.' } } },
-        { id: 'turkish-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '120 RSD',
+        { id: 'turkish-coffee', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '120 RSD',
           i18n: { sr: { t: 'Turska kafa', d: 'Tradicionalna turska kafa kuvana u džezvi.' }, en: { t: 'Turkish Coffee', d: 'Traditional Turkish coffee brewed in a cezve.' }, hu: { t: 'Török kávé', d: 'Hagyományos török kávé cezvében főzve.' } } },
-        { id: 'filter-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+        { id: 'filter-coffee', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '150 RSD',
           i18n: { sr: { t: 'Filter kafa', d: 'Klasična filter kafa.' }, en: { t: 'Filter Coffee', d: 'Classic filter coffee.' }, hu: { t: 'Szűrős kávé', d: 'Klasszikus szűrős kávé.' } } },
-        { id: 'decaf', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+        { id: 'decaf', cat: 'hot', sub: 'coffee', img: IMG.hotCategory, price: '180 RSD',
           i18n: { sr: { t: 'Kafa bez kofeina', d: 'Ukus kafe bez kofeina.' }, en: { t: 'Decaf Coffee', d: 'Coffee flavor without the caffeine.' }, hu: { t: 'Koffeinmentes kávé', d: 'Kávé íze koffein nélkül.' } } },
-        { id: 'hot-chocolate', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '180 RSD',
+        { id: 'hot-chocolate', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '180 RSD',
           i18n: { sr: { t: 'Vruća čokolada', d: 'Bogata vruća čokolada sa mlekom.' }, en: { t: 'Hot Chocolate', d: 'Rich hot chocolate with milk.' }, hu: { t: 'Forró csokoládé', d: 'Gazdag forró csokoládé tejjel.' } } },
-        { id: 'hot-milk', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '100 RSD',
+        { id: 'hot-milk', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '100 RSD',
           i18n: { sr: { t: 'Vruće mleko', d: 'Toplo mleko, odlično za decu.' }, en: { t: 'Hot Milk', d: 'Warm milk, great for children.' }, hu: { t: 'Forró tej', d: 'Meleg tej, gyerekeknek is kiváló.' } } },
-        { id: 'black-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '120 RSD',
+        { id: 'black-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '120 RSD',
           i18n: { sr: { t: 'Crni čaj', d: 'Klasičan crni čaj.' }, en: { t: 'Black Tea', d: 'Classic black tea.' }, hu: { t: 'Fekete tea', d: 'Klasszikus fekete tea.' } } },
-        { id: 'green-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+        { id: 'green-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '130 RSD',
           i18n: { sr: { t: 'Zeleni čaj', d: 'Osvežavajući zeleni čaj.' }, en: { t: 'Green Tea', d: 'Refreshing green tea.' }, hu: { t: 'Zöld tea', d: 'Frissítő zöld tea.' } } },
-        { id: 'herbal-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+        { id: 'herbal-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '130 RSD',
           i18n: { sr: { t: 'Biljni čaj', d: 'Mešavina lekovitog bilja.' }, en: { t: 'Herbal Tea', d: 'Blend of medicinal herbs.' }, hu: { t: 'Gyógytea', d: 'Gyógynövények keveréke.' } } },
-        { id: 'chamomile', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+        { id: 'chamomile', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '130 RSD',
           i18n: { sr: { t: 'Kamilica', d: 'Umirujuća kamilica, idealna pred spavanje.' }, en: { t: 'Chamomile', d: 'Soothing chamomile, ideal before bed.' }, hu: { t: 'Kamilla', d: 'Nyugtató kamilla, ideális lefekvés előtt.' } } },
-        { id: 'mint-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+        { id: 'mint-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '130 RSD',
           i18n: { sr: { t: 'Nana čaj', d: 'Osvežavajući čaj od nane.' }, en: { t: 'Mint Tea', d: 'Refreshing mint tea.' }, hu: { t: 'Mentatea', d: 'Frissítő mentatea.' } } },
-        { id: 'ginger-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+        { id: 'ginger-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '140 RSD',
           i18n: { sr: { t: 'Đumbir čaj', d: 'Začinjen čaj od đumbira sa limunom.' }, en: { t: 'Ginger Tea', d: 'Spicy ginger tea with lemon.' }, hu: { t: 'Gyömbértea', d: 'Fűszeres gyömbértea citrommal.' } } },
-        { id: 'fruit-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+        { id: 'fruit-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '140 RSD',
           i18n: { sr: { t: 'Voćni čaj', d: 'Čaj sa ukusom šumskog voća.' }, en: { t: 'Fruit Tea', d: 'Tea with forest fruit flavor.' }, hu: { t: 'Gyümölcstea', d: 'Tea erdei gyümölcs ízzel.' } } },
-        { id: 'lemon-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+        { id: 'lemon-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '140 RSD',
           i18n: { sr: { t: 'Limun čaj', d: 'Čaj sa limunom i medom.' }, en: { t: 'Lemon Tea', d: 'Tea with lemon and honey.' }, hu: { t: 'Citromtea', d: 'Tea citrommal és mézzel.' } } },
-        { id: 'chai-latte', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '200 RSD',
+        { id: 'chai-latte', cat: 'hot', sub: 'tea-chocolate', img: IMG.hotCategory, price: '200 RSD',
           i18n: { sr: { t: 'Čaj latte', d: 'Začinjen čaj sa mlekom i penom.' }, en: { t: 'Chai Latte', d: 'Spiced tea with milk and foam.' }, hu: { t: 'Chai latte', d: 'Fűszeres tea tejjel és habbal.' } } },
 
         // ===== COLD DRINKS =====
-        { id: 'water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '80 RSD',
+        { id: 'water', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '80 RSD',
           i18n: { sr: { t: 'Voda', d: 'Flaširana voda, negazirana.' }, en: { t: 'Water', d: 'Bottled still water.' }, hu: { t: 'Víz', d: 'Palackozott szénsavmentes víz.' } } },
-        { id: 'sparkling-water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '100 RSD',
+        { id: 'sparkling-water', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '100 RSD',
           i18n: { sr: { t: 'Gazirana voda', d: 'Mineralna voda sa gasom.' }, en: { t: 'Sparkling Water', d: 'Mineral water with carbonation.' }, hu: { t: 'Szénsavas víz', d: 'Szénsavas ásványvíz.' } } },
-        { id: 'mineral-water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '100 RSD',
+        { id: 'mineral-water', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '100 RSD',
           i18n: { sr: { t: 'Mineralna voda', d: 'Prirodna mineralna voda.' }, en: { t: 'Mineral Water', d: 'Natural mineral water.' }, hu: { t: 'Ásványvíz', d: 'Természetes ásványvíz.' } } },
-        { id: 'lemonade', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+        { id: 'lemonade', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '150 RSD',
           i18n: { sr: { t: 'Limonada', d: 'Domaća limunada sa mentom.' }, en: { t: 'Lemonade', d: 'Homemade lemonade with mint.' }, hu: { t: 'Limonádé', d: 'Házi limonádé mentával.' } } },
-        { id: 'fresh-lemonade', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'fresh-lemonade', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sveža limunada', d: 'Cedjeni limun sa šećerom i ledom.' }, en: { t: 'Fresh Lemonade', d: 'Freshly squeezed lemon with sugar and ice.' }, hu: { t: 'Friss limonádé', d: 'Frissen facsart citrom cukorral és jéggel.' } } },
-        { id: 'iced-tea', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+        { id: 'iced-tea', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '150 RSD',
           i18n: { sr: { t: 'Ledeni čaj', d: 'Hladan čaj sa limunom.' }, en: { t: 'Iced Tea', d: 'Cold tea with lemon.' }, hu: { t: 'Jeges tea', d: 'Hideg tea citrommal.' } } },
-        { id: 'iced-coffee', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'iced-coffee', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Ledeni kafa', d: 'Hladna kafa sa mlekom i ledom.' }, en: { t: 'Iced Coffee', d: 'Cold coffee with milk and ice.' }, hu: { t: 'Jeges kávé', d: 'Hideg kávé tejjel és jéggel.' } } },
-        { id: 'cold-brew', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '200 RSD',
+        { id: 'cold-brew', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '200 RSD',
           i18n: { sr: { t: 'Cold brew kafa', d: 'Kafa hladno ekstrahovana 12 sati.' }, en: { t: 'Cold Brew Coffee', d: 'Coffee cold-extracted for 12 hours.' }, hu: { t: 'Cold brew kávé', d: '12 órán át hidegen áztatott kávé.' } } },
-        { id: 'milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '120 RSD',
+        { id: 'milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '120 RSD',
           i18n: { sr: { t: 'Mleko', d: 'Sveže kravlje mleko.' }, en: { t: 'Milk', d: 'Fresh cow milk.' }, hu: { t: 'Tej', d: 'Friss tehéntej.' } } },
-        { id: 'chocolate-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '150 RSD',
+        { id: 'chocolate-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '150 RSD',
           i18n: { sr: { t: 'Čokoladno mleko', d: 'Mleko sa čokoladom.' }, en: { t: 'Chocolate Milk', d: 'Milk with chocolate.' }, hu: { t: 'Csokoládés tej', d: 'Tej csokoládéval.' } } },
-        { id: 'strawberry-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+        { id: 'strawberry-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '160 RSD',
           i18n: { sr: { t: 'Jagoda mleko', d: 'Mleko sa ukusom jagode.' }, en: { t: 'Strawberry Milk', d: 'Milk with strawberry flavor.' }, hu: { t: 'Eper tej', d: 'Tej eper ízzel.' } } },
-        { id: 'vanilla-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+        { id: 'vanilla-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '160 RSD',
           i18n: { sr: { t: 'Vanila mleko', d: 'Mleko sa ukusom vanile.' }, en: { t: 'Vanilla Milk', d: 'Milk with vanilla flavor.' }, hu: { t: 'Vaníliás tej', d: 'Tej vanília ízzel.' } } },
-        { id: 'banana-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+        { id: 'banana-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '160 RSD',
           i18n: { sr: { t: 'Banana mleko', d: 'Mleko sa ukusom banane.' }, en: { t: 'Banana Milk', d: 'Milk with banana flavor.' }, hu: { t: 'Banános tej', d: 'Tej banán ízzel.' } } },
-        { id: 'oat-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'oat-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Ovseno mleko', d: 'Biljno mleko od ovsa.' }, en: { t: 'Oat Milk', d: 'Plant-based milk from oats.' }, hu: { t: 'Zabtej', d: 'Növényi tej zabból.' } } },
-        { id: 'almond-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '200 RSD',
+        { id: 'almond-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '200 RSD',
           i18n: { sr: { t: 'Bademovo mleko', d: 'Biljno mleko od badema.' }, en: { t: 'Almond Milk', d: 'Plant-based milk from almonds.' }, hu: { t: 'Mandulatej', d: 'Növényi tej mandulából.' } } },
-        { id: 'soy-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'soy-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sojino mleko', d: 'Biljno mleko od soje.' }, en: { t: 'Soy Milk', d: 'Plant-based milk from soy.' }, hu: { t: 'Szójatej', d: 'Növényi tej szójából.' } } },
-        { id: 'coconut-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '200 RSD',
+        { id: 'coconut-milk', cat: 'cold', sub: 'milk-alt', img: IMG.coldCategory, price: '200 RSD',
           i18n: { sr: { t: 'Kokosovo mleko', d: 'Kremasto mleko od kokosa.' }, en: { t: 'Coconut Milk', d: 'Creamy milk from coconut.' }, hu: { t: 'Kókusztej', d: 'Krémes tej kókuszdióból.' } } },
-        { id: 'orange-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'orange-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sok od narandže', d: 'Cedjeni sok od narandže.' }, en: { t: 'Orange Juice', d: 'Freshly squeezed orange juice.' }, hu: { t: 'Narancslé', d: 'Frissen facsart narancslé.' } } },
-        { id: 'apple-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '160 RSD',
+        { id: 'apple-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '160 RSD',
           i18n: { sr: { t: 'Sok od jabuke', d: 'Bistar sok od jabuke.' }, en: { t: 'Apple Juice', d: 'Clear apple juice.' }, hu: { t: 'Almalé', d: 'Tiszta almalé.' } } },
-        { id: 'pineapple-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'pineapple-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sok od ananasa', d: 'Tropski sok od ananasa.' }, en: { t: 'Pineapple Juice', d: 'Tropical pineapple juice.' }, hu: { t: 'Ananászlé', d: 'Trópusi ananászlé.' } } },
-        { id: 'peach-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '170 RSD',
+        { id: 'peach-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '170 RSD',
           i18n: { sr: { t: 'Sok od breskve', d: 'Slatki sok od breskve.' }, en: { t: 'Peach Juice', d: 'Sweet peach juice.' }, hu: { t: 'Őszibaracklé', d: 'Édes őszibaracklé.' } } },
-        { id: 'mango-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'mango-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sok od manga', d: 'Egzotični sok od manga.' }, en: { t: 'Mango Juice', d: 'Exotic mango juice.' }, hu: { t: 'Mangólé', d: 'Egzotikus mangólé.' } } },
-        { id: 'mixed-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'mixed-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Mešani sok', d: 'Mešavina raznog voća.' }, en: { t: 'Mixed Fruit Juice', d: 'Blend of various fruits.' }, hu: { t: 'Vegyes gyümölcslé', d: 'Különböző gyümölcsök keveréke.' } } },
-        { id: 'lemon-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '160 RSD',
+        { id: 'lemon-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '160 RSD',
           i18n: { sr: { t: 'Limunov sok', d: 'Svež sok od limuna.' }, en: { t: 'Lemon Juice', d: 'Fresh lemon juice.' }, hu: { t: 'Citromlé', d: 'Friss citromlé.' } } },
-        { id: 'cranberry-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'cranberry-juice', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Sok od brusnice', d: 'Kiselkast sok od brusnice.' }, en: { t: 'Cranberry Juice', d: 'Tart cranberry juice.' }, hu: { t: 'Áfonyalé', d: 'Savanykás áfonyalé.' } } },
-        { id: 'fresh-oj', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '220 RSD',
+        { id: 'fresh-oj', cat: 'cold', sub: 'juices', img: IMG.coldCategory, price: '220 RSD',
           i18n: { sr: { t: 'Sveže ceđeni sok od narandže', d: 'Narandža ceđena pred vama.' }, en: { t: 'Freshly Squeezed OJ', d: 'Orange squeezed right in front of you.' }, hu: { t: 'Frissen facsart narancslé', d: 'Narancs frissen facsarva ön előtt.' } } },
-        { id: 'cola', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+        { id: 'cola', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '120 RSD',
           i18n: { sr: { t: 'Kola', d: 'Klasična kola.' }, en: { t: 'Cola', d: 'Classic cola.' }, hu: { t: 'Kóla', d: 'Klasszikus kóla.' } } },
-        { id: 'diet-cola', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+        { id: 'diet-cola', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '120 RSD',
           i18n: { sr: { t: 'Dijet kola', d: 'Kola bez šećera.' }, en: { t: 'Diet Cola', d: 'Sugar-free cola.' }, hu: { t: 'Diétás kóla', d: 'Cukormentes kóla.' } } },
-        { id: 'lemon-soda', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+        { id: 'lemon-soda', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '120 RSD',
           i18n: { sr: { t: 'Limun soda', d: 'Gazirano piće sa ukusom limuna.' }, en: { t: 'Lemon Soda', d: 'Carbonated lemon-flavored drink.' }, hu: { t: 'Citromos szóda', d: 'Szénsavas citrom ízű ital.' } } },
-        { id: 'orange-soda', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+        { id: 'orange-soda', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '120 RSD',
           i18n: { sr: { t: 'Narandža soda', d: 'Gazirano piće sa ukusom narandže.' }, en: { t: 'Orange Soda', d: 'Carbonated orange-flavored drink.' }, hu: { t: 'Narancsos szóda', d: 'Szénsavas narancs ízű ital.' } } },
-        { id: 'energy-drink', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+        { id: 'energy-drink', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '180 RSD',
           i18n: { sr: { t: 'Energetsko piće', d: 'Energetsko piće za dodatnu energiju.' }, en: { t: 'Energy Drink', d: 'Energy drink for an extra boost.' }, hu: { t: 'Energiaital', d: 'Energiaital extra löketért.' } } },
-        { id: 'sports-drink', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+        { id: 'sports-drink', cat: 'cold', sub: 'water-soda', img: IMG.coldCategory, price: '150 RSD',
           i18n: { sr: { t: 'Sportsko piće', d: 'Izotonično piće za hidrataciju.' }, en: { t: 'Sports Drink', d: 'Isotonic drink for hydration.' }, hu: { t: 'Sportital', d: 'Izotóniás ital hidratáláshoz.' } } },
-        { id: 'smoothie', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '250 RSD',
+        { id: 'smoothie', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '250 RSD',
           i18n: { sr: { t: 'Smoothie', d: 'Voćni smoothie sa jogurtom.' }, en: { t: 'Smoothie', d: 'Fruit smoothie with yogurt.' }, hu: { t: 'Smoothie', d: 'Gyümölcsös smoothie joghurttal.' } } },
-        { id: 'milkshake', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '280 RSD',
+        { id: 'milkshake', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '280 RSD',
           i18n: { sr: { t: 'Milkšejk', d: 'Gusti milkšejk sa sladoledom.' }, en: { t: 'Milkshake', d: 'Thick milkshake with ice cream.' }, hu: { t: 'Milkshake', d: 'Vastag milkshake fagylalttal.' } } },
-        { id: 'frappe', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '200 RSD',
+        { id: 'frappe', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '200 RSD',
           i18n: { sr: { t: 'Frape', d: 'Hladna pena kafa sa ledom.' }, en: { t: 'Frappe', d: 'Cold foam coffee with ice.' }, hu: { t: 'Frappe', d: 'Hideg habos kávé jéggel.' } } },
-        { id: 'frappe-coffee', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '220 RSD',
+        { id: 'frappe-coffee', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '220 RSD',
           i18n: { sr: { t: 'Frape kafa', d: 'Klasična frappe kafa sa mlekom.' }, en: { t: 'Frappe Coffee', d: 'Classic frappe coffee with milk.' }, hu: { t: 'Frappe kávé', d: 'Klasszikus frappe kávé tejjel.' } } },
-        { id: 'iced-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '220 RSD',
+        { id: 'iced-latte', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '220 RSD',
           i18n: { sr: { t: 'Ledeni latte', d: 'Hladan latte sa ledom.' }, en: { t: 'Iced Latte', d: 'Cold latte with ice.' }, hu: { t: 'Jeges latte', d: 'Hideg latte jéggel.' } } },
-        { id: 'vanilla-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+        { id: 'vanilla-latte', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '240 RSD',
           i18n: { sr: { t: 'Vanila latte', d: 'Latte sa sirupom od vanile.' }, en: { t: 'Vanilla Latte', d: 'Latte with vanilla syrup.' }, hu: { t: 'Vaníliás latte', d: 'Latte vanília sziruppal.' } } },
-        { id: 'caramel-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+        { id: 'caramel-latte', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '240 RSD',
           i18n: { sr: { t: 'Karamel latte', d: 'Latte sa karamel sirupom.' }, en: { t: 'Caramel Latte', d: 'Latte with caramel syrup.' }, hu: { t: 'Karamellás latte', d: 'Latte karamell sziruppal.' } } },
-        { id: 'hazelnut-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+        { id: 'hazelnut-latte', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '240 RSD',
           i18n: { sr: { t: 'Lešnik latte', d: 'Latte sa sirupom od lešnika.' }, en: { t: 'Hazelnut Latte', d: 'Latte with hazelnut syrup.' }, hu: { t: 'Mogyorós latte', d: 'Latte mogyoró sziruppal.' } } },
-        { id: 'matcha-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '260 RSD',
+        { id: 'matcha-latte', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '260 RSD',
           i18n: { sr: { t: 'Matcha latte', d: 'Latte sa matcha čajem.' }, en: { t: 'Matcha Latte', d: 'Latte with matcha tea.' }, hu: { t: 'Matcha latte', d: 'Latte matcha teával.' } } },
-        { id: 'protein-shake', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '280 RSD',
+        { id: 'protein-shake', cat: 'cold', sub: 'specialty', img: IMG.coldCategory, price: '280 RSD',
           i18n: { sr: { t: 'Proteinski šejk', d: 'Šejk bogat proteinima.' }, en: { t: 'Protein Shake', d: 'Protein-rich shake.' }, hu: { t: 'Fehérje shake', d: 'Fehérjében gazdag shake.' } } },
-        { id: 'non-alc-beer', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '200 RSD',
+        { id: 'non-alc-beer', cat: 'cold', sub: 'occasional', img: IMG.coldCategory, price: '200 RSD',
           i18n: { sr: { t: 'Bezalkoholno pivo', d: 'Pivo bez alkohola.' }, en: { t: 'Non-Alcoholic Beer', d: 'Beer without alcohol.' }, hu: { t: 'Alkoholmentes sör', d: 'Sör alkohol nélkül.' } } },
-        { id: 'non-alc-sparkling', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '250 RSD',
+        { id: 'non-alc-sparkling', cat: 'cold', sub: 'occasional', img: IMG.coldCategory, price: '250 RSD',
           i18n: { sr: { t: 'Bezalkoholno penušavo', d: 'Penušavo vino bez alkohola.' }, en: { t: 'Non-Alcoholic Sparkling', d: 'Sparkling wine without alcohol.' }, hu: { t: 'Alkoholmentes pezsgő', d: 'Pezsgő alkohol nélkül.' } } },
-        { id: 'cider', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '220 RSD',
+        { id: 'cider', cat: 'cold', sub: 'occasional', img: IMG.coldCategory, price: '220 RSD',
           i18n: { sr: { t: 'Sajder', d: 'Jabukovo vino.' }, en: { t: 'Cider', d: 'Apple cider.' }, hu: { t: 'Almabor', d: 'Almás bor.' } } },
-        { id: 'wine', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '300 RSD',
+        { id: 'wine', cat: 'cold', sub: 'occasional', img: IMG.coldCategory, price: '300 RSD',
           i18n: { sr: { t: 'Vino po čaši', d: 'Crveno ili belo vino.' }, en: { t: 'Wine by the Glass', d: 'Red or white wine.' }, hu: { t: 'Boros pohár', d: 'Vörös vagy fehér bor.' } } }
       ];
 
-      // ===== CATEGORY DEFINITIONS =====
+      // ===== CATEGORY DEFINITIONS WITH FILTER TABS =====
+      const filterTabs = [
+        { id: 'all', emoji: '️', i18n: { sr: 'Sve', en: 'All', hu: 'Mind' } },
+        { id: 'sweet', emoji: '🍰', i18n: { sr: 'Slatko', en: 'Sweets', hu: 'Édes' } },
+        { id: 'salty', emoji: '🥖', i18n: { sr: 'Slano', en: 'Salty', hu: 'Sós' } },
+        { id: 'hot', emoji: '☕', i18n: { sr: 'Topli napici', en: 'Hot Drinks', hu: 'Forró italok' } },
+        { id: 'cold', emoji: '🥤', i18n: { sr: 'Hladni napici', en: 'Cold Drinks', hu: 'Hideg italok' } },
+        { id: 'snacks', emoji: '🥨', i18n: { sr: 'Grickalice', en: 'Snacks', hu: 'Rágcsálni' } },
+        { id: 'counter', emoji: '🥪', i18n: { sr: 'Šank', en: 'Counter', hu: 'Pult' } }
+      ];
+
       const categories = [
-        { id: 'sweet', i18n: { sr: { t: ' Slatka peciva', d: 'Kroasani, rolnice, kolači i torte.' }, en: { t: '🍰 Sweet Bakery', d: 'Croissants, rolls, pastries and cakes.' }, hu: { t: '🍰 Édes péksütemények', d: 'Croissantok, tekercsek, péksütemények és torták.' } },
+        { id: 'sweet', i18n: { sr: { t: '🍰 Slatka peciva', d: 'Kroasani, rolnice, kolači i torte.' }, en: { t: '🍰 Sweet Bakery', d: 'Croissants, rolls, pastries and cakes.' }, hu: { t: '🍰 Édes péksütemények', d: 'Croissantok, tekercsek, péksütemények és torták.' } },
           subs: [
             { id: 'croissants', i18n: { sr: 'Kroasani', en: 'Croissants', hu: 'Croissantok' } },
             { id: 'rolls', i18n: { sr: 'Slatke rolnice', en: 'Sweet Rolls', hu: 'Édes tekercsek' } },
@@ -700,7 +755,7 @@
             { id: 'cakes-tarts', i18n: { sr: 'Torte, pite i deserti', en: 'Cakes, Tarts & Desserts', hu: 'Torták, tarták és desszertek' } }
           ]
         },
-        { id: 'salty', i18n: { sr: { t: '🥖 Slana peciva', d: 'Hlebovi, perece i slane pite.' }, en: { t: '🥖 Salty Bakery', d: 'Breads, pretzels and savory pies.' }, hu: { t: '🥖 Sós péksütemények', d: 'Kenyerek, perecek és sós piték.' } },
+        { id: 'salty', i18n: { sr: { t: '🥖 Slana peciva', d: 'Hlebovi, perece i slane pite.' }, en: { t: ' Salty Bakery', d: 'Breads, pretzels and savory pies.' }, hu: { t: '🥖 Sós péksütemények', d: 'Kenyerek, perecek és sós piték.' } },
           subs: [
             { id: 'breads', i18n: { sr: 'Hlebovi', en: 'Breads', hu: 'Kenyerek' } },
             { id: 'pretzels', i18n: { sr: 'Perece i štapići', en: 'Pretzels & Breadsticks', hu: 'Perecek és kenyérrudak' } },
@@ -719,13 +774,13 @@
             { id: 'kiflice', i18n: { sr: 'Kiflice i pite', en: 'Kiflice & Pies', hu: 'Kiflik és piték' } }
           ]
         },
-        { id: 'hot', i18n: { sr: { t: '☕ Topli napici', d: 'Kafa, čaj i vruća čokolada.' }, en: { t: '☕ Hot Drinks', d: 'Coffee, tea and hot chocolate.' }, hu: { t: '☕ Forró italok', d: 'Kávé, tea és forró csokoládé.' } },
+        { id: 'hot', i18n: { sr: { t: '☕ Topli napici', d: 'Kafa, čaj i vruća čokolada.' }, en: { t: '☕ Hot Drinks', d: 'Coffee, tea and hot chocolate.' }, hu: { t: ' Forró italok', d: 'Kávé, tea és forró csokoládé.' } },
           subs: [
             { id: 'coffee', i18n: { sr: 'Kafa', en: 'Coffee', hu: 'Kávé' } },
             { id: 'tea-chocolate', i18n: { sr: 'Čaj i vruća čokolada', en: 'Tea & Hot Chocolate', hu: 'Tea és forró csokoládé' } }
           ]
         },
-        { id: 'cold', i18n: { sr: { t: ' Hladni napici', d: 'Sokovi, limunade, mleko i specijalni napici.' }, en: { t: '🥤 Cold Drinks', d: 'Juices, lemonades, milk and specialty drinks.' }, hu: { t: '🥤 Hideg italok', d: 'Levek, limonádék, tej és különleges italok.' } },
+        { id: 'cold', i18n: { sr: { t: '🥤 Hladni napici', d: 'Sokovi, limunade, mleko i specijalni napici.' }, en: { t: '🥤 Cold Drinks', d: 'Juices, lemonades, milk and specialty drinks.' }, hu: { t: '🥤 Hideg italok', d: 'Levek, limonádék, tej és különleges italok.' } },
           subs: [
             { id: 'water-soda', i18n: { sr: 'Voda i sokovi', en: 'Water & Sodas', hu: 'Víz és üdítők' } },
             { id: 'juices', i18n: { sr: 'Sokovi', en: 'Juices', hu: 'Gyümölcslevek' } },
@@ -853,6 +908,7 @@
 
       let currentLang = 'sr';
       let pendingLang = 'sr';
+      let currentFilter = 'all';
 
       function setLanguage(lang) {
         currentLang = lang;
@@ -867,6 +923,7 @@
           if (dict[key]) el.placeholder = dict[key];
         });
         localStorage.setItem("pekarabraca_lang", lang);
+        renderFilterTabs();
         renderMenu();
       }
 
@@ -883,24 +940,48 @@
         tab.addEventListener('click', () => showPage(tab.getAttribute('data-page')));
       });
 
+      // ===== FILTER TABS =====
+      function renderFilterTabs() {
+        const container = document.getElementById('menuFilterTabs');
+        container.innerHTML = '';
+        filterTabs.forEach(tab => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-tab' + (tab.id === currentFilter ? ' active' : '');
+          btn.innerHTML = `<span class="emoji">${tab.emoji}</span> ${tab.i18n[currentLang]}`;
+          btn.onclick = () => {
+            currentFilter = tab.id;
+            renderFilterTabs();
+            renderMenu();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      // ===== MENU RENDERING =====
       function renderMenu() {
         const container = document.getElementById('menuContainer');
         container.innerHTML = '';
-        categories.forEach(cat => {
+
+        const visibleCategories = currentFilter === 'all' ? categories : categories.filter(c => c.id === currentFilter);
+
+        visibleCategories.forEach(cat => {
           const catDiv = document.createElement('div');
           const catTitle = document.createElement('h3');
           catTitle.className = 'menu-category-title';
           catTitle.textContent = cat.i18n[currentLang].t;
           catDiv.appendChild(catTitle);
+
           cat.subs.forEach(sub => {
             const items = menuData.filter(m => m.cat === cat.id && m.sub === sub.id);
             if (items.length === 0) return;
+
             if (cat.subs.length > 1) {
               const subTitle = document.createElement('p');
               subTitle.className = 'menu-subtitle';
               subTitle.textContent = sub.i18n[currentLang];
               catDiv.appendChild(subTitle);
             }
+
             const grid = document.createElement('div');
             grid.className = 'menu-grid';
             items.forEach(item => {
@@ -919,6 +1000,7 @@
             });
             catDiv.appendChild(grid);
           });
+
           container.appendChild(catDiv);
         });
       }
@@ -976,8 +1058,8 @@
         pendingLang = currentLang;
         const options = [
           { code: 'sr', flag: '🇷🇸', label: 'Srpski' },
-          { code: 'en', flag: '🇬🇧', label: 'English' },
-          { code: 'hu', flag: '🇭🇺', label: 'Magyar' }
+          { code: 'en', flag: '🇬', label: 'English' },
+          { code: 'hu', flag: '🇭', label: 'Magyar' }
         ];
         const container = document.getElementById('settingsLangOptions');
         container.innerHTML = '';
@@ -1039,8 +1121,6 @@
       } else {
         setLanguage(savedLang);
       }
-
-      renderMenu();
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') { closeModal(); closeSettings(); }
