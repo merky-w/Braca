@@ -3,981 +3,1048 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Pekara Braca - Sveže pečeni hleb, pite i torte u Senti. Porodična tradicija od prvog dana."
-    />
+    <meta name="description" content="Pekara Braca - Sveže pečeni hleb, pite, torte i napici u Senti. Porodična tradicija od prvog dana." />
     <title>Pekara Braca | Senta</title>
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
     <style>
-      /* ===== CSS VARIABLES & RESET ===== */
       :root {
-        --clr-cream: #f5f0e6;
-        --clr-warm: #d4a574;
-        --clr-brown: #8b5a2b;
-        --clr-dark: #2c1810;
-        --clr-white: #ffffff;
-        --font-heading: "Playfair Display", serif;
-        --font-body: "Inter", system-ui, sans-serif;
-        --shadow: 0 4px 12px rgba(44, 24, 16, 0.1);
+        --clr-cream: #f5f0e6; --clr-warm: #d4a574; --clr-brown: #8b5a2b;
+        --clr-dark: #2c1810; --clr-white: #ffffff; --clr-muted: #6b5a4a;
+        --font-heading: "Playfair Display", serif; --font-body: "Inter", system-ui, sans-serif;
+        --shadow: 0 2px 8px rgba(44, 24, 16, 0.1); --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.15);
         --radius: 8px;
       }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: var(--font-body);
-        color: var(--clr-dark);
-        background: var(--clr-cream);
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-        object-fit: cover;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-      ul {
-        list-style: none;
-      }
-      button,
-      select,
-      input,
-      textarea {
-        font-family: inherit;
-        cursor: pointer;
-      }
-
-      /* ===== UTILITIES ===== */
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .section {
-        padding: 4% 0;
-      }
-      .section-title {
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 5vw, 2.8rem);
-        text-align: center;
-        margin-bottom: 2%;
-        color: var(--clr-brown);
-      }
-      .section-subtitle {
-        text-align: center;
-        color: #555;
-        max-width: 65%;
-        margin: 0 auto 3%;
-        font-size: clamp(0.9rem, 2vw, 1.1rem);
-      }
-      .btn {
-        display: inline-block;
-        background: var(--clr-warm);
-        color: var(--clr-white);
-        padding: 0.8rem 1.5rem;
-        border-radius: var(--radius);
-        font-weight: 500;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-        min-height: 44px;
-        border: none;
-        text-align: center;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow);
-      }
-
-      /* ===== HEADER ===== */
-      header {
-        position: sticky;
-        top: 0;
-        background: var(--clr-white);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        z-index: 100;
-        padding: 1rem 0;
-      }
-      .header-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-      }
-      .logo {
-        font-family: var(--font-heading);
-        font-size: clamp(1.2rem, 3vw, 1.6rem);
-        font-weight: 700;
-        color: var(--clr-brown);
-        white-space: nowrap;
-      }
-      .header-controls {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-      #langSelect {
-        padding: 0.4rem 0.8rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: var(--clr-white);
-        font-size: 0.9rem;
-      }
-      .nav-links {
-        display: flex;
-        gap: 5%;
-      }
-      .nav-links a {
-        font-weight: 500;
-        color: var(--clr-dark);
-        position: relative;
-        padding: 2% 0;
-      }
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--clr-warm);
-        transition: width 0.3s;
-      }
-      .nav-links a:hover::after,
-      .nav-links a.active::after {
-        width: 100%;
-      }
-
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        padding: 0.5rem;
-        background: none;
-        border: none;
-      }
-      .hamburger span {
-        width: 22px;
-        height: 2px;
-        background: var(--clr-dark);
-        transition: 0.3s;
-      }
-
-      /* ===== HERO ===== */
-      .hero {
-        background:
-          linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.6)),
-          url('https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1200&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center;
-        color: var(--clr-white);
-        text-align: center;
-        padding: 8% 0 6%;
-      }
-      .hero h1 {
-        font-family: var(--font-heading);
-        font-size: clamp(2.2rem, 6vw, 4rem);
-        margin-bottom: 2%;
-        line-height: 1.1;
-      }
-      .hero p {
-        font-size: clamp(1rem, 2.5vw, 1.2rem);
-        max-width: 70%;
-        margin: 0 auto 3%;
-        opacity: 0.95;
-      }
-
-      /* ===== ABOUT ===== */
-      .about-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3%;
-        align-items: center;
-        width: 100%;
-      }
-      .about-img {
-        background: #eee;
-        border-radius: var(--radius);
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        height: 350px;
-      }
-      .about-img img {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.5s ease;
-      }
-      .about-img:hover img {
-        transform: scale(1.05);
-      }
-      .about-text h3 {
-        font-family: var(--font-heading);
-        font-size: clamp(1.4rem, 3vw, 1.8rem);
-        margin-bottom: 2%;
-        color: var(--clr-brown);
-      }
-
-      /* ===== MENU ===== */
-      .menu-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        width: 100%;
-      }
-      .menu-card {
-        background: var(--clr-white);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.2s;
-      }
-      .menu-card:hover {
-        transform: translateY(-4px);
-      }
-      .menu-img-wrapper {
-        height: 220px; /* Slightly taller for better image viewing */
-        overflow: hidden;
-        background: #eee;
-      }
-      .menu-img-wrapper img {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.5s ease;
-      }
-      .menu-card:hover .menu-img-wrapper img {
-        transform: scale(1.05);
-      }
-      .menu-content {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-      }
-      .menu-card h4 {
-        font-family: var(--font-heading);
-        font-size: 1.25rem;
-        margin: 0 0 0.5rem 0;
-        color: var(--clr-brown);
-      }
-      .menu-card p {
-        font-size: 0.9rem;
-        color: #666;
-        margin-bottom: 1rem;
-        flex-grow: 1;
-      }
-      .price {
-        font-weight: 600;
-        color: var(--clr-warm);
-        font-size: 1.1rem;
-        margin-top: auto;
-        padding-top: 0.5rem;
-        border-top: 1px solid #eee;
-      }
-
-      /* ===== CONTACT ===== */
-      .contact-wrapper {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3%;
-        width: 100%;
-      }
-      .contact-info,
-      .contact-form {
-        background: var(--clr-white);
-        padding: 3%;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-      .info-item {
-        margin-bottom: 2%;
-      }
-      .info-item strong {
-        display: block;
-        color: var(--clr-brown);
-        margin-bottom: 0.5%;
-      }
-      .form-group {
-        margin-bottom: 2%;
-      }
-      .form-group label {
-        display: block;
-        margin-bottom: 1%;
-        font-weight: 500;
-      }
-      .form-group input,
-      .form-group textarea {
-        width: 100%;
-        padding: 2%;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 0.95rem;
-      }
-      /* Map Styles */
-      .map-container {
-        margin-top: 2rem;
-        width: 100%;
-        height: 300px;
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: #e0d8c9;
-      }
-      .map-container iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-      }
-
-      /* ===== FOOTER ===== */
-      footer {
-        background: var(--clr-dark);
-        color: var(--clr-cream);
-        padding: 3% 0;
-        text-align: center;
-      }
-      .footer-links {
-        margin: 2% 0;
-      }
-      .footer-links a {
-        margin: 0 2%;
-        opacity: 0.8;
-        transition: 0.2s;
-      }
-      .footer-links a:hover {
-        opacity: 1;
-      }
-
-      /* ===== MOBILE ===== */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: var(--font-body); color: var(--clr-dark); background: var(--clr-cream); line-height: 1.6; font-size: 16px; }
+      img { max-width: 100%; display: block; object-fit: cover; }
+      a { text-decoration: none; color: inherit; }
+      ul { list-style: none; }
+      button, select, input, textarea { font-family: inherit; }
+      .container { width: 92%; max-width: 1180px; margin: 0 auto; }
+      .section { padding: 3rem 0; }
+      .section-title { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.5rem); text-align: center; margin-bottom: 0.75rem; color: var(--clr-brown); }
+      .section-subtitle { text-align: center; color: var(--clr-muted); max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.05rem; }
+      .btn { display: inline-block; background: var(--clr-warm); color: var(--clr-white); padding: 0.85rem 1.6rem; border-radius: var(--radius); font-weight: 500; font-size: 1rem; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer; text-align: center; }
+      .btn:hover { background: #c08f5e; transform: translateY(-1px); }
+      .btn-secondary { background: transparent; color: var(--clr-brown); border: 1.5px solid var(--clr-brown); }
+      .btn-secondary:hover { background: var(--clr-brown); color: var(--clr-white); }
+      header { background: var(--clr-white); box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
+      .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 0; flex-wrap: wrap; gap: 0.8rem; }
+      .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--clr-brown); cursor: pointer; }
+      .header-controls { display: flex; align-items: center; gap: 0.75rem; }
+      .settings-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--clr-cream); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+      .settings-btn:hover { background: #e8dfcf; }
+      .settings-btn svg { width: 20px; height: 20px; fill: var(--clr-brown); }
+      .nav-tabs { display: flex; justify-content: center; gap: 0.5rem; padding: 0.5rem 0 0.9rem; flex-wrap: wrap; }
+      .nav-tab { padding: 0.6rem 1.2rem; border-radius: var(--radius); font-size: 1rem; font-weight: 500; color: var(--clr-dark); background: transparent; border: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
+      .nav-tab:hover { background: var(--clr-cream); }
+      .nav-tab.active { background: var(--clr-brown); color: var(--clr-white); }
+      .page { display: none; }
+      .page.active { display: block; }
+      .hero { background: linear-gradient(rgba(44, 24, 16, 0.55), rgba(44, 24, 16, 0.55)), url('https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b2ce6067-1712-44c9-b1ea-b85f99a10b97.png'); background-size: cover; background-position: center; color: var(--clr-white); text-align: center; padding: 5rem 0 4rem; }
+      .hero h1 { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 1rem; line-height: 1.15; }
+      .hero p { font-size: 1.1rem; max-width: 650px; margin: 0 auto 2rem; opacity: 0.97; }
+      .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+      .home-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+      .feature-card { background: var(--clr-white); padding: 1.8rem; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+      .feature-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+      .feature-card h3 { font-family: var(--font-heading); color: var(--clr-brown); margin-bottom: 0.5rem; font-size: 1.2rem; }
+      .feature-card p { color: var(--clr-muted); font-size: 0.95rem; }
+      .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; margin-bottom: 2.5rem; }
+      .about-hero-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); height: 380px; }
+      .about-hero-img img { width: 100%; height: 100%; }
+      .about-hero-text h2 { font-family: var(--font-heading); font-size: 1.8rem; color: var(--clr-brown); margin-bottom: 1rem; }
+      .about-hero-text p { margin-bottom: 1rem; color: var(--clr-dark); }
+      .about-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2.5rem 0; }
+      .value-card { background: var(--clr-white); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid var(--clr-warm); }
+      .value-card h4 { font-family: var(--font-heading); color: var(--clr-brown); margin-bottom: 0.5rem; }
+      .contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+      .contact-card { background: var(--clr-white); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+      .contact-card h4 { font-family: var(--font-heading); color: var(--clr-brown); margin-bottom: 0.75rem; font-size: 1.1rem; }
+      .contact-card a { color: var(--clr-brown); font-weight: 500; }
+      .contact-card a:hover { text-decoration: underline; }
+      .contact-card p { margin-bottom: 0.5rem; }
+      .menu-category-title { font-family: var(--font-heading); font-size: 1.5rem; color: var(--clr-brown); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--clr-warm); }
+      .menu-category-title:first-of-type { margin-top: 0; }
+      .menu-subtitle { font-size: 1rem; color: var(--clr-muted); margin-bottom: 1.2rem; font-style: italic; }
+      .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+      .menu-card { background: var(--clr-white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+      .menu-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+      .menu-img-wrapper { height: 170px; overflow: hidden; background: #eee; }
+      .menu-img-wrapper img { width: 100%; height: 100%; transition: transform 0.4s; }
+      .menu-card:hover .menu-img-wrapper img { transform: scale(1.04); }
+      .menu-content { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+      .menu-card h4 { font-family: var(--font-heading); font-size: 1rem; color: var(--clr-brown); margin-bottom: 0.3rem; line-height: 1.3; }
+      .menu-card p { font-size: 0.82rem; color: var(--clr-muted); margin-bottom: 0.6rem; flex-grow: 1; line-height: 1.4; }
+      .price { font-weight: 600; color: var(--clr-warm); font-size: 0.95rem; padding-top: 0.4rem; border-top: 1px solid #eee; }
+      .modal-overlay { position: fixed; inset: 0; background: rgba(44, 24, 16, 0.7); display: none; align-items: center; justify-content: center; z-index: 200; padding: 1rem; overflow-y: auto; }
+      .modal-overlay.active { display: flex; }
+      .modal { background: var(--clr-white); border-radius: var(--radius); max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+      .modal-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 50%; background: var(--clr-white); border: none; cursor: pointer; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 10; }
+      .modal-img { width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; }
+      .modal-body { padding: 1.8rem; }
+      .modal-body h2 { font-family: var(--font-heading); color: var(--clr-brown); font-size: 1.7rem; margin-bottom: 0.5rem; }
+      .modal-price { font-size: 1.3rem; font-weight: 600; color: var(--clr-warm); margin-bottom: 1rem; }
+      .modal-desc { font-size: 1.02rem; line-height: 1.7; margin-bottom: 2rem; color: var(--clr-dark); }
+      .similar-title { font-family: var(--font-heading); color: var(--clr-brown); font-size: 1.2rem; margin-bottom: 1rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+      .similar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+      .similar-card { background: var(--clr-cream); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+      .similar-card:hover { transform: translateY(-2px); }
+      .similar-card img { width: 100%; height: 100px; object-fit: cover; }
+      .similar-card-body { padding: 0.6rem; }
+      .similar-card h5 { font-family: var(--font-heading); color: var(--clr-brown); font-size: 0.85rem; margin-bottom: 0.2rem; line-height: 1.25; }
+      .similar-card .price { font-size: 0.8rem; padding-top: 0; border-top: none; }
+      .settings-modal { background: var(--clr-white); border-radius: var(--radius); padding: 2rem; max-width: 420px; width: 90%; position: relative; }
+      .settings-modal h2 { font-family: var(--font-heading); color: var(--clr-brown); margin-bottom: 1.2rem; font-size: 1.5rem; }
+      .lang-option { display: flex; align-items: center; gap: 1rem; padding: 0.9rem; border: 1.5px solid #e0d8c9; border-radius: var(--radius); margin-bottom: 0.75rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+      .lang-option:hover { border-color: var(--clr-warm); background: var(--clr-cream); }
+      .lang-option.selected { border-color: var(--clr-brown); background: var(--clr-cream); }
+      .lang-option input { width: 20px; height: 20px; cursor: pointer; }
+      .lang-option label { cursor: pointer; flex-grow: 1; font-size: 1rem; }
+      .lang-option .flag { font-size: 1.5rem; }
+      .lang-suggest { background: var(--clr-white); border-radius: var(--radius); padding: 2rem; max-width: 480px; width: 90%; text-align: center; }
+      .lang-suggest h2 { font-family: var(--font-heading); color: var(--clr-brown); margin-bottom: 0.5rem; font-size: 1.5rem; }
+      .lang-suggest p { color: var(--clr-muted); margin-bottom: 1.5rem; }
+      .lang-suggest-buttons { display: flex; flex-direction: column; gap: 0.75rem; }
+      .lang-suggest-btn { padding: 0.9rem; border: 1.5px solid #e0d8c9; border-radius: var(--radius); background: var(--clr-white); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; transition: all 0.2s; }
+      .lang-suggest-btn:hover { border-color: var(--clr-warm); background: var(--clr-cream); }
+      .lang-suggest-btn .flag { font-size: 1.4rem; }
+      .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .contact-info, .contact-form { background: var(--clr-white); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+      .contact-info h3, .contact-form h3 { font-family: var(--font-heading); margin-bottom: 1.2rem; color: var(--clr-brown); font-size: 1.4rem; }
+      .info-item { margin-bottom: 1.2rem; }
+      .info-item strong { display: block; color: var(--clr-brown); margin-bottom: 0.3rem; font-size: 0.95rem; }
+      .info-item span, .info-item a { color: var(--clr-dark); }
+      .info-item a:hover { text-decoration: underline; }
+      .map-container { margin-top: 1.5rem; width: 100%; height: 260px; border-radius: var(--radius); overflow: hidden; background: #e0d8c9; }
+      .map-container iframe { width: 100%; height: 100%; border: 0; }
+      .form-group { margin-bottom: 1.2rem; }
+      .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 500; font-size: 0.95rem; }
+      .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; font-family: inherit; }
+      .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--clr-warm); }
+      footer { background: var(--clr-dark); color: var(--clr-cream); padding: 2rem 0; text-align: center; margin-top: 2rem; }
+      footer p { margin-bottom: 0.5rem; }
+      .footer-links { margin: 1rem 0; }
+      .footer-links button { background: none; border: none; color: var(--clr-cream); opacity: 0.85; cursor: pointer; margin: 0 0.75rem; font-size: 1rem; transition: opacity 0.2s; }
+      .footer-links button:hover { opacity: 1; }
       @media (max-width: 768px) {
-        .hamburger {
-          display: flex;
-        }
-        .nav-links {
-          position: fixed;
-          top: 70px;
-          right: 0;
-          background: var(--clr-white);
-          flex-direction: column;
-          width: 75%;
-          height: calc(100vh - 70px);
-          padding: 5% 8%;
-          box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-          transform: translateX(100%);
-          transition: transform 0.3s ease;
-          z-index: 99;
-          gap: 1.5rem;
-        }
-        .nav-links.open {
-          transform: translateX(0);
-        }
-        .hero {
-          padding: 10% 0 8%;
-        }
-        .hero p {
-          max-width: 90%;
-        }
-        .section-subtitle {
-          max-width: 95%;
-        }
-        .about-grid {
-          grid-template-columns: 1fr;
-        }
+        .header-inner { justify-content: center; }
+        .nav-tabs { gap: 0.35rem; }
+        .nav-tab { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+        .about-hero { grid-template-columns: 1fr; }
+        .about-hero-img { height: 280px; }
+        .contact-wrapper { grid-template-columns: 1fr; }
+        .hero { padding: 3.5rem 0 3rem; }
+        .modal-img { height: 220px; }
+        .menu-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
       }
     </style>
   </head>
   <body>
-    <!-- HEADER -->
     <header>
-      <div class="container header-inner">
-        <a href="#home" class="logo">Pekara Braca</a>
-        <div class="header-controls">
-          <select id="langSelect" aria-label="Choose language">
-            <option value="sr">Srpski</option>
-            <option value="en">English</option>
-            <option value="hu">Magyar</option>
-          </select>
-          <button
-            class="hamburger"
-            id="hamburger"
-            aria-label="Toggle navigation"
-          >
-            <span></span><span></span><span></span>
-          </button>
+      <div class="container">
+        <div class="header-inner">
+          <div class="logo" onclick="showPage('home')">Pekara Braca</div>
+          <div class="header-controls">
+            <button class="settings-btn" onclick="openSettings()" aria-label="Settings">
+              <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z"/></svg>
+            </button>
+          </div>
         </div>
-        <nav>
-          <ul class="nav-links" id="navLinks">
-            <li><a href="#home" data-i18n="nav_home">Početna</a></li>
-            <li><a href="#about" data-i18n="nav_about">O nama</a></li>
-            <li><a href="#menu" data-i18n="nav_menu">Meni</a></li>
-            <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
-          </ul>
+        <nav class="nav-tabs" id="navTabs">
+          <button class="nav-tab active" data-page="home" data-i18n="nav_home">Početna</button>
+          <button class="nav-tab" data-page="menu" data-i18n="nav_menu">Meni</button>
+          <button class="nav-tab" data-page="about" data-i18n="nav_about">O nama</button>
+          <button class="nav-tab" data-page="find" data-i18n="nav_find">Pronađite nas</button>
         </nav>
       </div>
     </header>
 
     <main>
-      <!-- HERO -->
-      <section id="home" class="hero">
-        <div class="container">
-          <h1 data-i18n="hero_title">Tradicija pečena svakog dana</h1>
-          <p data-i18n="hero_desc">
-            Dobrodošli u Pekaru Braca. Autentični hlebovi, pite i torte,
-            pravljeni s ljubavlju u srcu Sente.
-          </p>
-          <a href="#menu" class="btn" data-i18n="hero_btn">Pogledaj meni</a>
-        </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section id="about" class="section">
-        <div class="container">
-          <h2 class="section-title" data-i18n="about_title">Naša priča</h2>
-          <p class="section-subtitle" data-i18n="about_subtitle">
-            Porodični biznis, voljen od zajednice. Pečemo kako treba.
-          </p>
-          <div class="about-grid">
-            <div class="about-img">
-              <!-- Fixed: Baker working on dough -->
-              <img src="https://images.unsplash.com/photo-1585476644320-b7669d717945?q=80&w=800&auto=format&fit=crop" alt="Pečar radi">
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div class="container">
+            <h1 data-i18n="hero_title">Tradicija pečena svakog dana</h1>
+            <p data-i18n="hero_desc">Dobrodošli u Pekaru Braca. Autentični hlebovi, pite, torte i napici, pravljeni s ljubavlju u srcu Sente.</p>
+            <div class="hero-buttons">
+              <button class="btn" onclick="showPage('menu')" data-i18n="hero_btn_menu">Pogledaj meni</button>
+              <button class="btn btn-secondary" style="color: var(--clr-white); border-color: var(--clr-white);" onclick="showPage('find')" data-i18n="hero_btn_visit">Posetite nas</button>
             </div>
-            <div class="about-text">
-              <h3 data-i18n="about_heading">
-                Ukorenjeni u Senti, pečeni s pažnjom
-              </h3>
-              <p data-i18n="about_p1">
-                Generacijama, Pekara Braca je stub svakodnevnog života u Senti.
-                Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i
-                pečemo sve od nule. Bez konzervansa. Samo iskusi, topli,
-                tradicionalni ukusi koji spajaju porodice.
-              </p>
-              <p data-i18n="about_p2">
-                Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku
-                ili svečanim tortama, svaki proizvod izlazi iz naših rerena
-                svež, mirisan i spreman za deljenje.
-              </p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <h2 class="section-title" data-i18n="features_title">Zašto Pekara Braca</h2>
+            <p class="section-subtitle" data-i18n="features_subtitle">Tri generacije porodične tradicije u svakom zalogaju.</p>
+            <div class="home-features">
+              <div class="feature-card"><div class="feature-icon"></div><h3 data-i18n="feat1_title">Lokalni sastojci</h3><p data-i18n="feat1_desc">Brašno i žitarice od proverenih lokalnih dobavljača iz Vojvodine.</p></div>
+              <div class="feature-card"><div class="feature-icon">🤲</div><h3 data-i18n="feat2_title">Ručna izrada</h3><p data-i18n="feat2_desc">Svaki proizvod mesimo i oblikujemo rukom, kao pre pedeset godina.</p></div>
+              <div class="feature-card"><div class="feature-icon">🌅</div><h3 data-i18n="feat3_title">Sveže svakog jutra</h3><p data-i18n="feat3_desc">Počinjemo pre zore da bi vas dočekao topao, mirisan hleb.</p></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- MENU -->
-      <section id="menu" class="section" style="background: var(--clr-white)">
-        <div class="container">
-          <h2 class="section-title" data-i18n="menu_title">Naši favoriti</h2>
-          <p class="section-subtitle" data-i18n="menu_subtitle">
-            Sveže pečeno svakog jutra. Cene podložne promenama.
-          </p>
-          <div class="menu-grid">
-            
-            <!-- Item 1: Pogača -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                 <!-- FIXED: Golden Round Flatbread (Perfect Pogača) -->
-                 <img src="https://images.unsplash.com/photo-1621236378690-679b6318f762?q=80&w=400&h=300&auto=format&fit=crop" alt="Tradicionalna pogača">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card1_t">Tradicionalna pogača</h4>
-                <p data-i18n="card1_d">
-                  Mekan, puterast hleb sa notom jogurta. Savršen uz sir ili
-                  kajmak.
-                </p>
-                <span class="price">150 RSD</span>
-              </div>
+      <section class="page" id="page-menu">
+        <div class="section">
+          <div class="container">
+            <h2 class="section-title" data-i18n="menu_title">Naš meni</h2>
+            <p class="section-subtitle" data-i18n="menu_subtitle">Sveže pečeno svakog jutra. Kliknite na proizvod za više detalja.</p>
+            <div id="menuContainer"></div>
+            <div style="text-align: center; margin-top: 2.5rem;">
+              <button class="btn" onclick="showPage('find')" data-i18n="menu_order_btn">Naručite po meri</button>
             </div>
-
-            <!-- Item 2: Mesni Burek -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                <!-- FIXED: Spiral Meat Pie (Classic Burek Look) -->
-                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400&h=300&auto=format&fit=crop" alt="Mesni burek">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card2_t">Mesni burek</h4>
-                <p data-i18n="card2_d">
-                  Hrskave kore punjene začinjenom junetinom i lukom.
-                </p>
-                <span class="price">220 RSD</span>
-              </div>
-            </div>
-
-            <!-- Item 3: Sir i Spanać -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                <!-- FIXED: Green Spinach Pie -->
-                <img src="https://images.unsplash.com/photo-1605968228969-5690c6994840?q=80&w=400&h=300&auto=format&fit=crop" alt="Burek sa sirom i spanaćem">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card3_t">Burek sa sirom i spanaćem</h4>
-                <p data-i18n="card3_d">
-                  Lagan, slan i sveže pečen. Lokalni doručak broj jedan.
-                </p>
-                <span class="price">200 RSD</span>
-              </div>
-            </div>
-
-            <!-- Item 4: Vanila Rolat -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                <!-- FIXED: Cream Roll -->
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&h=300&auto=format&fit=crop" alt="Vanila rolat">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card4_t">Vanila rolat</h4>
-                <p data-i18n="card4_d">
-                  Delikatan biskvit u bogatoj vanila kremi, posut šećerom u prahu.
-                </p>
-                <span class="price">250 RSD</span>
-              </div>
-            </div>
-
-            <!-- Item 5: Integralni Hleb -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                <!-- FIXED: Artisan Whole Grain Loaf -->
-                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=400&h=300&auto=format&fit=crop" alt="Hleb od integralnog brašna">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card5_t">Hleb od integralnog brašna</h4>
-                <p data-i18n="card5_d">
-                  Sitan, hranljiv kvasni hleb. Pečen svakog dana za dugotrajnu
-                  svežinu.
-                </p>
-                <span class="price">180 RSD</span>
-              </div>
-            </div>
-
-            <!-- Item 6: Kafa -->
-            <div class="menu-card">
-              <div class="menu-img-wrapper">
-                <!-- FIXED: Turkish Coffee Set -->
-                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=400&h=300&auto=format&fit=crop" alt="Turska kafa">
-              </div>
-              <div class="menu-content">
-                <h4 data-i18n="card6_t">Espresso / Turska kafa</h4>
-                <p data-i18n="card6_d">
-                  Jak, aromatičan, služen uz tradicionalni turski rahatlokum.
-                </p>
-                <span class="price">100 / 120 RSD</span>
-              </div>
-            </div>
-
-          </div>
-          <div style="text-align: center; margin-top: 3%">
-            <a href="#contact" class="btn" data-i18n="menu_order_btn"
-              >Naručite po meri</a
-            >
           </div>
         </div>
       </section>
 
-      <!-- CONTACT -->
-      <section id="contact" class="section">
-        <div class="container">
-          <h2 class="section-title" data-i18n="contact_title">Posetite nas</h2>
-          <p class="section-subtitle" data-i18n="contact_subtitle">
-            Otvoreni svakog dana. Svež hleb ne čeka.
-          </p>
-          <div class="contact-wrapper">
-            <div class="contact-info">
-              <h3
-                style="
-                  font-family: var(--font-heading);
-                  margin-bottom: 2%;
-                  color: var(--clr-brown);
-                "
-                data-i18n="location_title"
-              >
-                Lokacija i radno vreme
-              </h3>
-              <div class="info-item">
-                <strong data-i18n="location_addr_label">Adresa</strong>
-                <span data-i18n="location_addr_val"
-                  >Glavna ulica 42, 24400 Senta, Srbija</span
-                >
-              </div>
-              <div class="info-item">
-                <strong data-i18n="location_phone_label">Telefon</strong>
-                +381 24 XXX XXX
-              </div>
-              <div class="info-item">
-                <strong data-i18n="location_email_label">Email</strong>
-                info@pekarabraca.rs
-              </div>
-              <div class="info-item">
-                <strong data-i18n="location_hours_label">Radno vreme</strong>
-                <span data-i18n="location_hours_val"
-                  >Pon–Pet: 05:30 – 20:00<br />Sub: 05:30 – 18:00<br />Ned:
-                  06:00 – 15:00</span
-                >
-              </div>
-              
-              <div class="map-container">
-                <iframe 
-                  src="https://maps.google.com/maps?q=Senta%2C%20Serbia&t=&z=13&ie=UTF8&iwloc=&output=embed" 
-                  allowfullscreen>
-                </iframe>
+      <section class="page" id="page-about">
+        <div class="section">
+          <div class="container">
+            <h2 class="section-title" data-i18n="about_title">O nama</h2>
+            <p class="section-subtitle" data-i18n="about_subtitle">Porodični biznis, voljen od zajednice. Pečemo kako treba.</p>
+            <div class="about-hero">
+              <div class="about-hero-img"><img src="https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b1df19eb-d1d1-444e-a9d0-432aed536904.png" alt="Pečar radi"></div>
+              <div class="about-hero-text">
+                <h2 data-i18n="about_heading">Ukorenjeni u Senti, pečeni s pažnjom</h2>
+                <p data-i18n="about_p1">Generacijama, Pekara Braca je stub svakodnevnog života u Senti. Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i pečemo sve od nule. Bez konzervansa. Samo iskreni, topli, tradicionalni ukusi koji spajaju porodice.</p>
+                <p data-i18n="about_p2">Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku ili svečanim tortama, svaki proizvod izlazi iz naših rerena svež, mirisan i spreman za deljenje.</p>
               </div>
             </div>
+            <div class="about-values">
+              <div class="value-card"><h4 data-i18n="val1_title">Porodica</h4><p data-i18n="val1_desc">Tri generacije braće Braca koje dele istu strast prema pekarstvu.</p></div>
+              <div class="value-card"><h4 data-i18n="val2_title">Tradicija</h4><p data-i18n="val2_desc">Recepti koji se prenose sa kolena na koleno, bez prečica.</p></div>
+              <div class="value-card"><h4 data-i18n="val3_title">Zajednica</h4><p data-i18n="val3_desc">Ponosni smo što služimo naše komšije svakog dana već decenijama.</p></div>
+            </div>
+            <h2 class="section-title" style="margin-top: 2rem;" data-i18n="contact_info_title">Kontakt informacije</h2>
+            <p class="section-subtitle" data-i18n="contact_info_subtitle">Tu smo za vas — pišite, zovite ili svratite.</p>
+            <div class="contact-cards">
+              <div class="contact-card"><h4 data-i18n="contact_email_title">Email</h4><p><a href="mailto:info@pekarabraca.rs">info@pekarabraca.rs</a></p><p><a href="mailto:narudzbine@pekarabraca.rs">narudzbine@pekarabraca.rs</a></p></div>
+              <div class="contact-card"><h4 data-i18n="contact_phone_title">Telefon</h4><p><a href="tel:+38124123456">+381 24 123 456</a></p><p data-i18n="contact_phone_note">Pozivi tokom radnog vremena</p></div>
+              <div class="contact-card"><h4 data-i18n="contact_address_title">Adresa</h4><p data-i18n="contact_address_val">Glavna ulica 42<br>24400 Senta, Srbija</p></div>
+              <div class="contact-card"><h4 data-i18n="contact_hours_title">Radno vreme</h4><p data-i18n="contact_hours_val">Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="contact-form">
-              <h3
-                style="
-                  font-family: var(--font-heading);
-                  margin-bottom: 2%;
-                  color: var(--clr-brown);
-                "
-                data-i18n="form_title"
-              >
-                Pošaljite poruku
-              </h3>
-              <form id="contactForm">
-                <div class="form-group">
-                  <label for="name" data-i18n="form_name_label">Vaše ime</label>
-                  <input
-                    type="text"
-                    id="name"
-                    data-i18n-placeholder="form_name_ph"
-                    placeholder="Unesite ime"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="email" data-i18n="form_email_label">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    data-i18n-placeholder="form_email_ph"
-                    placeholder="vas@email.com"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="message" data-i18n="form_msg_label"
-                    >Poruka / Narudžbina</label
-                  >
-                  <textarea
-                    id="message"
-                    rows="4"
-                    data-i18n-placeholder="form_msg_ph"
-                    placeholder="Vaša poruka ovde..."
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  class="btn"
-                  style="width: 100%"
-                  data-i18n="form_submit"
-                >
-                  Pošalji poruku
-                </button>
-              </form>
+      <section class="page" id="page-find">
+        <div class="section">
+          <div class="container">
+            <h2 class="section-title" data-i18n="find_title">Pronađite nas</h2>
+            <p class="section-subtitle" data-i18n="find_subtitle">Otvoreni svakog dana. Svež hleb ne čeka.</p>
+            <div class="contact-wrapper">
+              <div class="contact-info">
+                <h3 data-i18n="location_title">Lokacija i radno vreme</h3>
+                <div class="info-item"><strong data-i18n="location_addr_label">Adresa</strong><span data-i18n="location_addr_val">Glavna ulica 42, 24400 Senta, Srbija</span></div>
+                <div class="info-item"><strong data-i18n="location_phone_label">Telefon</strong><a href="tel:+38124123456">+381 24 123 456</a></div>
+                <div class="info-item"><strong data-i18n="location_email_label">Email</strong><a href="mailto:info@pekarabraca.rs">info@pekarabraca.rs</a></div>
+                <div class="info-item"><strong data-i18n="location_hours_label">Radno vreme</strong><span data-i18n="location_hours_val">Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00</span></div>
+                <div class="map-container"><iframe src="https://maps.google.com/maps?q=Senta%2C%20Serbia&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe></div>
+              </div>
+              <div class="contact-form">
+                <h3 data-i18n="form_title">Pošaljite poruku</h3>
+                <form id="contactForm">
+                  <div class="form-group"><label for="name" data-i18n="form_name_label">Vaše ime</label><input type="text" id="name" data-i18n-placeholder="form_name_ph" placeholder="Unesite ime" required /></div>
+                  <div class="form-group"><label for="email" data-i18n="form_email_label">Email</label><input type="email" id="email" data-i18n-placeholder="form_email_ph" placeholder="vas@email.com" required /></div>
+                  <div class="form-group"><label for="message" data-i18n="form_msg_label">Poruka / Narudžbina</label><textarea id="message" rows="4" data-i18n-placeholder="form_msg_ph" placeholder="Vaša poruka ovde..." required></textarea></div>
+                  <button type="submit" class="btn" style="width: 100%" data-i18n="form_submit">Pošalji poruku</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER -->
+    <div class="modal-overlay" id="menuModal">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+        <img class="modal-img" id="modalImg" src="" alt="">
+        <div class="modal-body">
+          <h2 id="modalTitle"></h2>
+          <div class="modal-price" id="modalPrice"></div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <h4 class="similar-title" data-i18n="similar_title">Slični proizvodi</h4>
+          <div class="similar-grid" id="similarGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="settingsModal">
+      <div class="settings-modal">
+        <button class="modal-close" onclick="closeSettings()" aria-label="Close">×</button>
+        <h2 data-i18n="settings_title">Podešavanja jezika</h2>
+        <p style="color: var(--clr-muted); margin-bottom: 1.2rem;" data-i18n="settings_desc">Izaberite jezik za prikaz sajta.</p>
+        <div id="settingsLangOptions"></div>
+        <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="applySettings()" data-i18n="settings_save">Sačuvaj</button>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="langSuggestModal">
+      <div class="lang-suggest">
+        <h2 data-i18n="suggest_title">Dobrodošli!</h2>
+        <p data-i18n="suggest_desc">Izaberite jezik da biste nastavili.</p>
+        <div class="lang-suggest-buttons">
+          <button class="lang-suggest-btn" onclick="suggestLang('sr')"><span class="flag">🇷🇸</span> Srpski</button>
+          <button class="lang-suggest-btn" onclick="suggestLang('en')"><span class="flag">🇬🇧</span> English</button>
+          <button class="lang-suggest-btn" onclick="suggestLang('hu')"><span class="flag">🇭🇺</span> Magyar</button>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <div class="container">
-        <p
-          style="
-            font-family: var(--font-heading);
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-          "
-        >
-          Pekara Braca
-        </p>
+        <p style="font-family: var(--font-heading); font-size: 1.2rem;">Pekara Braca</p>
         <div class="footer-links">
-          <a href="#home" data-i18n="nav_home">Početna</a>
-          <a href="#about" data-i18n="nav_about">O nama</a>
-          <a href="#menu" data-i18n="nav_menu">Meni</a>
-          <a href="#contact" data-i18n="nav_contact">Kontakt</a>
+          <button onclick="showPage('home')" data-i18n="nav_home">Početna</button>
+          <button onclick="showPage('menu')" data-i18n="nav_menu">Meni</button>
+          <button onclick="showPage('about')" data-i18n="nav_about">O nama</button>
+          <button onclick="showPage('find')" data-i18n="nav_find">Pronađite nas</button>
         </div>
         <p>&copy; <span id="year"></span> Pekara Braca. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
+      // ===== IMAGES =====
+      const IMG = {
+        croissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18b0b48a9-31c3-448d-bd81-f9ed7eca173d.png',
+        chocoCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1d555546f-c420-4c4f-9ee4-e05313fa9e08.png',
+        fruitCroissants: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19a057069-16b9-4b4f-9167-8f9c0a566d8b.png',
+        cinnamonRolls: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18887e71b-b56b-47f5-a85c-0f50fc851cfa.png',
+        donuts: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/177866fd0-a520-430e-92ee-af00a127b077.png',
+        muffins: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1198ae77f-7e95-49d1-9461-11806a9186cb.png',
+        cupcakes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/153dd994e-1760-4ff6-8ea3-3e2214305f4d.png',
+        brownies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1be178354-29e8-4d94-bc1d-ab0d5418cc5d.png',
+        cookies: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1165701a7-285a-49f8-a6c8-95c6b87b773d.png',
+        macarons: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1735a5079-a79f-4f4e-926e-cf91ceb388d7.png',
+        eclairs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1673065e5-e84e-43ba-8918-c27747b198c2.png',
+        creamPuffs: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/10aff5317-0798-43a8-a3cf-97ca5b285a32.png',
+        danish: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/119db622d-8cf2-4de9-81f9-410ad9bc7aac.png',
+        appleStrudel: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/16f76b848-437d-462c-8e60-e180aa208279.png',
+        baklava: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1ab30620b-e9ce-4b0f-8c24-1dc586959ae9.png',
+        cheesecake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/17c2f660a-5f4f-4d6f-bc41-8d67c5219a66.png',
+        chocolateCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1b357b97d-9e47-4112-a697-e4d912ad6ad0.png',
+        carrotCake: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19df712e9-2b5f-4927-97d6-1534b9f3fc40.png',
+        fruitTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1720f13b0-e8b7-404e-9747-f7f0e2013036.png',
+        lemonTart: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/124260b62-5945-4cc6-a7a4-bc11206ead8d.png',
+        applePie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1f43cc7af-878f-49f3-bc57-1d81f415086c.png',
+        cherryPie: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/12d278cc4-55bf-4852-9820-a3b552320b16.png',
+        brioche: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1f6b4adc2-6d00-4aae-8aa7-9f330935b068.png',
+        waffles: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1dc44bf78-3064-41eb-9b1d-331ff1bea860.png',
+        pancakes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/110520313-1473-4dcc-8e1d-820b0d6eb8cd.png',
+        ricePudding: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/1411df533-20e8-4212-a918-026d756f0d2f.png',
+        pannaCotta: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/165442b72-9316-40b2-8a2d-f2d13097f165.png',
+        breads: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/18a835e4c-d636-4080-a655-839bc55b0df0.png',
+        baguettes: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/128aeebc1-a09c-463e-948f-98963b540a2d.png',
+        rolls: 'https://image.qwenlm.ai/public_source/ee92bc54-ebc8-476e-9802-b5c3fe6b6ee0/19134696e-ac45-46d9-83b4-8c06317c17d7.png'
+      };
+
+      // ===== MENU DATA =====
+      const menuData = [
+        // ===== SWEET BAKERY =====
+        { id: 'croissant-plain', cat: 'sweet', sub: 'croissants', img: IMG.croissants, price: '150 RSD',
+          i18n: { sr: { t: 'Običan kroasan', d: 'Klasičan francuski kroasan od lisnatog testa, hrskav spolja i mekan unutra.' }, en: { t: 'Plain Croissant', d: 'Classic French croissant made from flaky pastry, crispy outside and soft inside.' }, hu: { t: 'Simha croissant', d: 'Klasszikus francia croissant leveles tésztából, ropogós kívül, puha belül.' } } },
+        { id: 'croissant-choco', cat: 'sweet', sub: 'croissants', img: IMG.chocoCroissants, price: '180 RSD',
+          i18n: { sr: { t: 'Čokoladni kroasan', d: 'Hrskavi kroasan punjen tamnom čokoladom, pečen do zlatne boje.' }, en: { t: 'Chocolate Croissant', d: 'Flaky croissant filled with rich dark chocolate, baked golden brown.' }, hu: { t: 'Csokoládés croissant', d: 'Leveles croissant gazdag étcsokoládé töltelékkel, aranybarnára sütve.' } } },
+        { id: 'croissant-fruit', cat: 'sweet', sub: 'croissants', img: IMG.fruitCroissants, price: '190 RSD',
+          i18n: { sr: { t: 'Voćni kroasan', d: 'Kroasan sa džemom od malina ili borovnica, posut šećerom u prahu.' }, en: { t: 'Fruit Croissant', d: 'Croissant filled with raspberry or blueberry jam, dusted with powdered sugar.' }, hu: { t: 'Gyümölcsös croissant', d: 'Croissant málna- vagy áfonyalekvárral töltve, porcukorral megszórva.' } } },
+        { id: 'cinnamon-roll', cat: 'sweet', sub: 'rolls', img: IMG.cinnamonRolls, price: '170 RSD',
+          i18n: { sr: { t: 'Cimet rolnica', d: 'Mekana rolnica sa cimetom i šećerom, prekrivena belom glazurom.' }, en: { t: 'Cinnamon Roll', d: 'Soft roll with cinnamon and sugar, topped with white icing.' }, hu: { t: 'Fahéjas tekercs', d: 'Puha tekercs fahéjjal és cukorral, fehér mázzal bevonva.' } } },
+        { id: 'jam-roll', cat: 'sweet', sub: 'rolls', img: IMG.cinnamonRolls, price: '150 RSD',
+          i18n: { sr: { t: 'Rolnica sa džemom', d: 'Slatka rolnica punjena domaćim džemom od kajsije ili šljive.' }, en: { t: 'Jam-Filled Roll', d: 'Sweet roll filled with homemade apricot or plum jam.' }, hu: { t: 'Lekváros tekercs', d: 'Édes tekercs házi sárgabarack- vagy szilvalekvárral töltve.' } } },
+        { id: 'custard-pastry', cat: 'sweet', sub: 'rolls', img: IMG.creamPuffs, price: '160 RSD',
+          i18n: { sr: { t: 'Krem pecivo', d: 'Lisnato pecivo punjeno vanila kremom, posuto šećerom u prahu.' }, en: { t: 'Custard Pastry', d: 'Flaky pastry filled with vanilla custard cream, dusted with powdered sugar.' }, hu: { t: 'Krémestészta', d: 'Leveles tészta vaníliakrém töltelékkel, porcukorral megszórva.' } } },
+        { id: 'bun-sugar', cat: 'sweet', sub: 'rolls', img: IMG.cinnamonRolls, price: '120 RSD',
+          i18n: { sr: { t: 'Zemička sa šećerom', d: 'Mekana zemička posuta kristal šećerom i cimetom.' }, en: { t: 'Sugar Bun', d: 'Soft bun topped with crystal sugar and cinnamon.' }, hu: { t: 'Cukros buci', d: 'Puha buci kristálycukorral és fahéjjal megszórva.' } } },
+        { id: 'donut', cat: 'sweet', sub: 'donuts-muffins', img: IMG.donuts, price: '120 RSD',
+          i18n: { sr: { t: 'Krofna', d: 'Mekana krofna sa raznim glazurama i posipima.' }, en: { t: 'Donut', d: 'Soft donut with various glazes and toppings.' }, hu: { t: 'Fánk', d: 'Puha fánk különféle mázakkal és díszítésekkel.' } } },
+        { id: 'muffin', cat: 'sweet', sub: 'donuts-muffins', img: IMG.muffins, price: '150 RSD',
+          i18n: { sr: { t: 'Mafin', d: 'Pahuljasti mafin sa borovnicama ili čokoladnim kapljicama.' }, en: { t: 'Muffin', d: 'Fluffy muffin with blueberries or chocolate chips.' }, hu: { t: 'Muffin', d: 'Puhány muffin áfonyával vagy csokoládé darabkákkal.' } } },
+        { id: 'cupcake', cat: 'sweet', sub: 'donuts-muffins', img: IMG.cupcakes, price: '200 RSD',
+          i18n: { sr: { t: 'Cupcake', d: 'Ukrašen cupcake sa krem sirom i svežim voćem.' }, en: { t: 'Cupcake', d: 'Decorated cupcake with cream cheese frosting and fresh fruit.' }, hu: { t: 'Cupcake', d: 'Díszített cupcake krémsajtos habbal és friss gyümölccsel.' } } },
+        { id: 'brownie', cat: 'sweet', sub: 'donuts-muffins', img: IMG.brownies, price: '180 RSD',
+          i18n: { sr: { t: 'Brauni', d: 'Bogati čokoladni brauni sa orasima, mekan u sredini.' }, en: { t: 'Brownie', d: 'Rich chocolate brownie with walnuts, fudgy in the center.' }, hu: { t: 'Brownie', d: 'Gazdag csokoládés brownie dióval, puha középpel.' } } },
+        { id: 'cookie', cat: 'sweet', sub: 'cookies', img: IMG.cookies, price: '100 RSD',
+          i18n: { sr: { t: 'Kolačić', d: 'Hrskavi kolačić sa čokoladnim kapljicama ili ovsenim pahuljicama.' }, en: { t: 'Cookie', d: 'Crispy cookie with chocolate chips or oat flakes.' }, hu: { t: 'Keksz', d: 'Ropogós keksz csokoládé darabkákkal vagy zabpehellyel.' } } },
+        { id: 'biscuit', cat: 'sweet', sub: 'cookies', img: IMG.cookies, price: '80 RSD',
+          i18n: { sr: { t: 'Biskvit', d: 'Klasičan puterasti biskvit, savršen uz čaj ili kafu.' }, en: { t: 'Biscuit', d: 'Classic buttery biscuit, perfect with tea or coffee.' }, hu: { t: 'Kétszersült', d: 'Klasszikus vajas kétszersült, tökéletes tea vagy kávé mellé.' } } },
+        { id: 'macaron', cat: 'sweet', sub: 'cookies', img: IMG.macarons, price: '150 RSD',
+          i18n: { sr: { t: 'Makaron', d: 'Delikatni francuski makaron u raznim ukusima.' }, en: { t: 'Macaron', d: 'Delicate French macaron in various flavors.' }, hu: { t: 'Makaron', d: 'Delikát francia makaron különféle ízekben.' } } },
+        { id: 'eclair', cat: 'sweet', sub: 'eclairs-danish', img: IMG.eclairs, price: '180 RSD',
+          i18n: { sr: { t: 'Ekler', d: 'Izduženo pecivo od čoux testa punjeno kremom i preliveno čokoladom.' }, en: { t: 'Eclair', d: 'Elongated choux pastry filled with cream and topped with chocolate.' }, hu: { t: 'Eclair', d: 'Hosszúkás choux tészta krémmel töltve, csokoládéval bevonva.' } } },
+        { id: 'cream-puff', cat: 'sweet', sub: 'eclairs-danish', img: IMG.creamPuffs, price: '160 RSD',
+          i18n: { sr: { t: 'Krem rolna', d: 'Okroglo pecivo punjeno vanila ili čokoladnom kremom.' }, en: { t: 'Cream Puff', d: 'Round pastry filled with vanilla or chocolate cream.' }, hu: { t: 'Krémfánk', d: 'Kerek tészta vanília- vagy csokoládékrémmel töltve.' } } },
+        { id: 'danish', cat: 'sweet', sub: 'eclairs-danish', img: IMG.danish, price: '170 RSD',
+          i18n: { sr: { t: 'Danish pecivo', d: 'Lisnato pecivo sa voćem i krem sirom.' }, en: { t: 'Danish Pastry', d: 'Flaky pastry with fruit and cream cheese.' }, hu: { t: 'Dán tészta', d: 'Leveles tészta gyümölccsel és krémsajttal.' } } },
+        { id: 'fruit-danish', cat: 'sweet', sub: 'eclairs-danish', img: IMG.danish, price: '180 RSD',
+          i18n: { sr: { t: 'Voćni danish', d: 'Danish pecivo sa svežim sezonskim voćem.' }, en: { t: 'Fruit Danish', d: 'Danish pastry with fresh seasonal fruit.' }, hu: { t: 'Gyümölcsös dán', d: 'Dán tészta friss szezonális gyümölccsel.' } } },
+        { id: 'strudel-walnut', cat: 'sweet', sub: 'strudels', img: IMG.appleStrudel, price: '200 RSD',
+          i18n: { sr: { t: 'Štrudla sa orasima', d: 'Tradicionalna štrudla sa orasima i makom.' }, en: { t: 'Walnut Strudel', d: 'Traditional strudel with walnuts or poppy seeds.' }, hu: { t: 'Diós rétes', d: 'Hagyományos rétes dióval vagy mákkal.' } } },
+        { id: 'apple-strudel', cat: 'sweet', sub: 'strudels', img: IMG.appleStrudel, price: '220 RSD',
+          i18n: { sr: { t: 'Jabukova štrudla', d: 'Klasična štrudla sa jabukama, cimetom i grožđicama.' }, en: { t: 'Apple Strudel', d: 'Classic strudel with apples, cinnamon and raisins.' }, hu: { t: 'Almás rétes', d: 'Klasszikus rétes almával, fahéjjal és mazsolával.' } } },
+        { id: 'baklava', cat: 'sweet', sub: 'cakes-tarts', img: IMG.baklava, price: '200 RSD',
+          i18n: { sr: { t: 'Baklava', d: 'Tradicionalna baklava sa orasima i medenim sirupom.' }, en: { t: 'Baklava', d: 'Traditional baklava with walnuts and honey syrup.' }, hu: { t: 'Baklava', d: 'Hagyományos baklava dióval és mézes sziruppal.' } } },
+        { id: 'cheesecake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.cheesecake, price: '280 RSD',
+          i18n: { sr: { t: 'Čizkejk', d: 'Kremasti čizkejk sa podlogom od keksa.' }, en: { t: 'Cheesecake', d: 'Creamy cheesecake with biscuit base.' }, hu: { t: 'Cheesecake', d: 'Krémes cheesecake keksz alapokkal.' } } },
+        { id: 'chocolate-cake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.chocolateCake, price: '280 RSD',
+          i18n: { sr: { t: 'Čokoladna torta', d: 'Bogata čokoladna torta sa čokoladnom glazurom.' }, en: { t: 'Chocolate Cake', d: 'Rich chocolate cake with chocolate frosting.' }, hu: { t: 'Csokoládétorta', d: 'Gazdag csokoládétorta csokoládé mázzal.' } } },
+        { id: 'carrot-cake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.carrotCake, price: '260 RSD',
+          i18n: { sr: { t: 'Šargarepa torta', d: 'Sočna torta sa šargarepom, orasima i krem sirom.' }, en: { t: 'Carrot Cake', d: 'Moist cake with carrots, walnuts and cream cheese.' }, hu: { t: 'Répatorta', d: 'Nedves torta répával, dióval és krémsajttal.' } } },
+        { id: 'fruit-tart', cat: 'sweet', sub: 'cakes-tarts', img: IMG.fruitTart, price: '260 RSD',
+          i18n: { sr: { t: 'Voćna tarta', d: 'Hrskava tarta sa kremom i svežim voćem.' }, en: { t: 'Fruit Tart', d: 'Crispy tart with cream and fresh fruit.' }, hu: { t: 'Gyümölcsös tarta', d: 'Ropogós tarta krémmel és friss gyümölccsel.' } } },
+        { id: 'lemon-tart', cat: 'sweet', sub: 'cakes-tarts', img: IMG.lemonTart, price: '250 RSD',
+          i18n: { sr: { t: 'Limun tarta', d: 'Osvežavajuća tarta sa limunovim kremom.' }, en: { t: 'Lemon Tart', d: 'Refreshing tart with lemon curd filling.' }, hu: { t: 'Citromos tarta', d: 'Frissítő tarta citromkrém töltelékkel.' } } },
+        { id: 'apple-pie', cat: 'sweet', sub: 'cakes-tarts', img: IMG.applePie, price: '240 RSD',
+          i18n: { sr: { t: 'Pita sa jabukama', d: 'Klasična pita sa jabukama i cimetom.' }, en: { t: 'Apple Pie', d: 'Classic pie with apples and cinnamon.' }, hu: { t: 'Almás pite', d: 'Klasszikus pite almával és fahéjjal.' } } },
+        { id: 'cherry-pie', cat: 'sweet', sub: 'cakes-tarts', img: IMG.cherryPie, price: '240 RSD',
+          i18n: { sr: { t: 'Pita sa trešnjama', d: 'Slatka pita sa trešnjama i hrskavom korom.' }, en: { t: 'Cherry Pie', d: 'Sweet pie with cherries and flaky crust.' }, hu: { t: 'Meggyes pite', d: 'Édes pite meggyel és leveles tésztával.' } } },
+        { id: 'brioche', cat: 'sweet', sub: 'cakes-tarts', img: IMG.brioche, price: '220 RSD',
+          i18n: { sr: { t: 'Brioš', d: 'Mekan, puterast francuski hleb, blago sladak.' }, en: { t: 'Brioche', d: 'Soft, buttery French bread, slightly sweet.' }, hu: { t: 'Brioche', d: 'Puha, vajas francia kenyér, enyhén édes.' } } },
+        { id: 'waffle', cat: 'sweet', sub: 'cakes-tarts', img: IMG.waffles, price: '200 RSD',
+          i18n: { sr: { t: 'Vafl', d: 'Hrskavi vafl sa šećerom u prahu, voćem ili čokoladom.' }, en: { t: 'Waffle', d: 'Crispy waffle with powdered sugar, fruit or chocolate.' }, hu: { t: 'Gofri', d: 'Ropogós gofri porcukorral, gyümölccsel vagy csokoládéval.' } } },
+        { id: 'pancake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.pancakes, price: '180 RSD',
+          i18n: { sr: { t: 'Palačinka', d: 'Tanke palačinke sa džemom, čokoladom ili voćem.' }, en: { t: 'Pancake', d: 'Thin pancakes with jam, chocolate or fruit.' }, hu: { t: 'Palacsinta', d: 'Vékony palacsinta lekvárral, csokoládéval vagy gyümölccsel.' } } },
+        { id: 'rice-pudding', cat: 'sweet', sub: 'cakes-tarts', img: IMG.ricePudding, price: '150 RSD',
+          i18n: { sr: { t: 'Pirinač na mleku', d: 'Kremasti pirinač kuvan u mleku sa cimetom.' }, en: { t: 'Rice Pudding', d: 'Creamy rice cooked in milk with cinnamon.' }, hu: { t: 'Tejberizs', d: 'Krémes rizs tejben főzve fahéjjal.' } } },
+        { id: 'panna-cotta', cat: 'sweet', sub: 'cakes-tarts', img: IMG.pannaCotta, price: '220 RSD',
+          i18n: { sr: { t: 'Pana kota', d: 'Italijanski desert od pavlake sa voćnim prelivom.' }, en: { t: 'Panna Cotta', d: 'Italian cream dessert with fruit topping.' }, hu: { t: 'Panna cotta', d: 'Olasz tejszínes desszert gyümölcs öntettel.' } } },
+        { id: 'ice-cream', cat: 'sweet', sub: 'cakes-tarts', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Sladoled desert', d: 'Razni sladoledi sa prelivima i posipima.' }, en: { t: 'Ice Cream Dessert', d: 'Various ice creams with toppings and sprinkles.' }, hu: { t: 'Fagylalt desszert', d: 'Különböző fagylaltok öntetekkel és díszítésekkel.' } } },
+        { id: 'sponge-cake', cat: 'sweet', sub: 'cakes-tarts', img: IMG.brioche, price: '240 RSD',
+          i18n: { sr: { t: 'Sunđer torta', d: 'Lagana torta sa kremom i voćem.' }, en: { t: 'Sponge Cake', d: 'Light cake with cream and fruit.' }, hu: { t: 'Piskótatorta', d: 'Könnyű torta krémmel és gyümölccsel.' } } },
+        { id: 'cake-slice', cat: 'sweet', sub: 'cakes-tarts', img: IMG.chocolateCake, price: '260 RSD',
+          i18n: { sr: { t: 'Parče torte', d: 'Razna parčeta torti po dnevnom izboru.' }, en: { t: 'Cake Slice', d: 'Various cake slices by daily selection.' }, hu: { t: 'Tortaszelet', d: 'Különböző tortaszeletek napi választék szerint.' } } },
+        { id: 'sweet-bread', cat: 'sweet', sub: 'cakes-tarts', img: IMG.brioche, price: '200 RSD',
+          i18n: { sr: { t: 'Slatki hleb', d: 'Mekan slatki hleb sa grožđicama.' }, en: { t: 'Sweet Bread', d: 'Soft sweet bread with raisins.' }, hu: { t: 'Édes kenyér', d: 'Puha édes kenyér mazsolával.' } } },
+        { id: 'vanilla-cream', cat: 'sweet', sub: 'eclairs-danish', img: IMG.creamPuffs, price: '170 RSD',
+          i18n: { sr: { t: 'Vanila krem pecivo', d: 'Pecivo sa bogatom vanila kremom.' }, en: { t: 'Vanilla Cream Pastry', d: 'Pastry with rich vanilla cream.' }, hu: { t: 'Vaníliakrémes péksütemény', d: 'Péksütemény gazdag vaníliakrémmel.' } } },
+        { id: 'chocolate-pastry', cat: 'sweet', sub: 'eclairs-danish', img: IMG.eclairs, price: '180 RSD',
+          i18n: { sr: { t: 'Čokoladno pecivo', d: 'Pecivo sa čokoladnom kremom i glazurom.' }, en: { t: 'Chocolate Pastry', d: 'Pastry with chocolate cream and glaze.' }, hu: { t: 'Csokoládés péksütemény', d: 'Péksütemény csokoládékrémmel és mázzal.' } } },
+        { id: 'puff-sweet', cat: 'sweet', sub: 'eclairs-danish', img: IMG.danish, price: '160 RSD',
+          i18n: { sr: { t: 'Lisnato slatko pecivo', d: 'Lisnato pecivo sa slatkim nadevom.' }, en: { t: 'Puff Pastry Sweet', d: 'Flaky pastry with sweet filling.' }, hu: { t: 'Leveles édes tészta', d: 'Leveles tészta édes töltelékkel.' } } },
+        { id: 'jam-pastry', cat: 'sweet', sub: 'rolls', img: IMG.danish, price: '140 RSD',
+          i18n: { sr: { t: 'Pecivo sa džemom', d: 'Mekano pecivo punjeno džemom.' }, en: { t: 'Jam Pastry', d: 'Soft pastry filled with jam.' }, hu: { t: 'Lekváros péksütemény', d: 'Puha péksütemény lekvárral töltve.' } } },
+
+        // ===== SALTY BAKERY =====
+        { id: 'plain-bread', cat: 'salty', sub: 'breads', img: IMG.breads, price: '130 RSD',
+          i18n: { sr: { t: 'Običan hleb', d: 'Klasičan beli hleb, mekan i svež.' }, en: { t: 'Plain Bread', d: 'Classic white bread, soft and fresh.' }, hu: { t: 'Simha kenyér', d: 'Klasszikus fehér kenyér, puha és friss.' } } },
+        { id: 'white-bread', cat: 'salty', sub: 'breads', img: IMG.breads, price: '130 RSD',
+          i18n: { sr: { t: 'Beli hleb', d: 'Mekan beli hleb za svaki dan.' }, en: { t: 'White Bread', d: 'Soft white bread for every day.' }, hu: { t: 'Fehér kenyér', d: 'Puha fehér kenyér mindennapra.' } } },
+        { id: 'wheat-bread', cat: 'salty', sub: 'breads', img: IMG.breads, price: '150 RSD',
+          i18n: { sr: { t: 'Integralni hleb', d: 'Hranljiv hleb od integralnog brašna sa semenkama.' }, en: { t: 'Whole Wheat Bread', d: 'Nutritious bread made from whole wheat flour with seeds.' }, hu: { t: 'Teljes kiőrlésű kenyér', d: 'Tápláló kenyér teljes kiőrlésű lisztből magvakkal.' } } },
+        { id: 'multigrain', cat: 'salty', sub: 'breads', img: IMG.breads, price: '160 RSD',
+          i18n: { sr: { t: 'Višežitarne hleb', d: 'Hleb od više vrsta žitarica i semenki.' }, en: { t: 'Multigrain Bread', d: 'Bread made from multiple grains and seeds.' }, hu: { t: 'Többmagvas kenyér', d: 'Különböző gabonafélékből és magvakból készült kenyér.' } } },
+        { id: 'baguette', cat: 'salty', sub: 'breads', img: IMG.baguettes, price: '180 RSD',
+          i18n: { sr: { t: 'Baget', d: 'Hrskavi francuski baget sa mekom unutrašnjošću.' }, en: { t: 'Baguette', d: 'Crispy French baguette with soft interior.' }, hu: { t: 'Bagett', d: 'Ropogós francia bagett puha belsővel.' } } },
+        { id: 'roll', cat: 'salty', sub: 'breads', img: IMG.rolls, price: '80 RSD',
+          i18n: { sr: { t: 'Zemička', d: 'Mekana zemička, savršena za sendviče.' }, en: { t: 'Roll', d: 'Soft roll, perfect for sandwiches.' }, hu: { t: 'Zsemle', d: 'Puha zsemle, tökéletes szendvicsekhez.' } } },
+        { id: 'breadstick', cat: 'salty', sub: 'pretzels', img: IMG.rolls, price: '100 RSD',
+          i18n: { sr: { t: 'Štapić', d: 'Hrskavi hlebni štapići, idealni uz supu.' }, en: { t: 'Breadstick', d: 'Crispy breadsticks, ideal with soup.' }, hu: { t: 'Kenyérrúd', d: 'Ropogós kenyérrudak, ideális leves mellé.' } } },
+        { id: 'pretzel', cat: 'salty', sub: 'pretzels', img: IMG.rolls, price: '120 RSD',
+          i18n: { sr: { t: 'Pereca', d: 'Tradicionalna pereca sa krupnom soli.' }, en: { t: 'Pretzel', d: 'Traditional pretzel with coarse salt.' }, hu: { t: 'Perec', d: 'Hagyományos perec durva sóval.' } } },
+        { id: 'cheese-roll', cat: 'salty', sub: 'cheese-ham', img: IMG.rolls, price: '150 RSD',
+          i18n: { sr: { t: 'Sirna rolnica', d: 'Hrskava rolnica punjena topljenim sirom.' }, en: { t: 'Cheese Roll', d: 'Flaky roll filled with melted cheese.' }, hu: { t: 'Sajtos tekercs', d: 'Leveles tekercs olvasztott sajttal töltve.' } } },
+        { id: 'ham-cheese', cat: 'salty', sub: 'cheese-ham', img: IMG.rolls, price: '180 RSD',
+          i18n: { sr: { t: 'Šunka i sir pecivo', d: 'Pecivo sa šunkom i sirom u lisnatom testu.' }, en: { t: 'Ham & Cheese Pastry', d: 'Pastry with ham and cheese in flaky dough.' }, hu: { t: 'Sonkás-sajtos péksütemény', d: 'Péksütemény sonkával és sajttal leveles tésztában.' } } },
+        { id: 'sausage-roll', cat: 'salty', sub: 'cheese-ham', img: IMG.rolls, price: '170 RSD',
+          i18n: { sr: { t: 'Kobasica rolnica', d: 'Hrskava rolnica sa kobasicom u testu.' }, en: { t: 'Sausage Roll', d: 'Flaky roll with sausage wrapped in pastry.' }, hu: { t: 'Kolbászos tekercs', d: 'Leveles tekercs kolbásszal tésztába tekerve.' } } },
+        { id: 'meat-pie', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '220 RSD',
+          i18n: { sr: { t: 'Mesna pita', d: 'Pita sa začinjenim mlevenim mesom.' }, en: { t: 'Meat Pie', d: 'Pie with seasoned minced meat.' }, hu: { t: 'Húsos pite', d: 'Pite fűszerezett darált hússal.' } } },
+        { id: 'chicken-pastry', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '200 RSD',
+          i18n: { sr: { t: 'Pileće pecivo', d: 'Pecivo sa pilećim mesom i povrćem.' }, en: { t: 'Chicken Pastry', d: 'Pastry with chicken meat and vegetables.' }, hu: { t: 'Csirkés péksütemény', d: 'Péksütemény csirkehússal és zöldségekkel.' } } },
+        { id: 'spinach-pastry', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '180 RSD',
+          i18n: { sr: { t: 'Spanać pecivo', d: 'Pecivo sa spanaćem i sirom.' }, en: { t: 'Spinach Pastry', d: 'Pastry with spinach and cheese.' }, hu: { t: 'Spenótos péksütemény', d: 'Péksütemény spenóttal és sajttal.' } } },
+        { id: 'cheese-pastry', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '180 RSD',
+          i18n: { sr: { t: 'Sirno pecivo', d: 'Pecivo sa topljenim sirom.' }, en: { t: 'Cheese Pastry', d: 'Pastry with melted cheese.' }, hu: { t: 'Sajtos péksütemény', d: 'Péksütemény olvasztott sajttal.' } } },
+        { id: 'feta-pie', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '200 RSD',
+          i18n: { sr: { t: 'Pita sa fetom', d: 'Tradicionalna pita sa belim sirom.' }, en: { t: 'Feta Cheese Pie', d: 'Traditional pie with white cheese.' }, hu: { t: 'Fetás pite', d: 'Hagyományos pite fehér sajttal.' } } },
+        { id: 'quiche', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '240 RSD',
+          i18n: { sr: { t: 'Kiš', d: 'Francuska slana pita sa jajima, pavlakom i povrćem.' }, en: { t: 'Quiche', d: 'French savory pie with eggs, cream and vegetables.' }, hu: { t: 'Quiche', d: 'Francia sós pite tojással, tejszínnel és zöldségekkel.' } } },
+        { id: 'pizza-slice', cat: 'salty', sub: 'pizza', img: IMG.rolls, price: '200 RSD',
+          i18n: { sr: { t: 'Parče pice', d: 'Sveže pečeno parče pice sa sirom i paradajz sosom.' }, en: { t: 'Pizza Slice', d: 'Freshly baked pizza slice with cheese and tomato sauce.' }, hu: { t: 'Pizzaszelet', d: 'Frissen sült pizzaszelet sajttal és paradicsomszósszal.' } } },
+        { id: 'mini-pizza', cat: 'salty', sub: 'pizza', img: IMG.rolls, price: '180 RSD',
+          i18n: { sr: { t: 'Mini pica', d: 'Mala pica sa raznim prelivima.' }, en: { t: 'Mini Pizza', d: 'Small pizza with various toppings.' }, hu: { t: 'Mini pizza', d: 'Kis pizza különféle feltétekkel.' } } },
+        { id: 'calzone', cat: 'salty', sub: 'pizza', img: IMG.rolls, price: '250 RSD',
+          i18n: { sr: { t: 'Kalzone', d: 'Sklopljena pica punjena sirom, šunkom i pečurkama.' }, en: { t: 'Calzone', d: 'Folded pizza filled with cheese, ham and mushrooms.' }, hu: { t: 'Calzone', d: 'Összehajtott pizza sajttal, sonkával és gombával töltve.' } } },
+        { id: 'sandwich', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '250 RSD',
+          i18n: { sr: { t: 'Sendvič', d: 'Svež sendvič sa šunkom, sirom i povrćem.' }, en: { t: 'Sandwich', d: 'Fresh sandwich with ham, cheese and vegetables.' }, hu: { t: 'Szendvics', d: 'Friss szendvics sonkával, sajttal és zöldségekkel.' } } },
+        { id: 'toasted-sandwich', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '280 RSD',
+          i18n: { sr: { t: 'Tostovani sendvič', d: 'Topli tostovani sendvič sa topljenim sirom.' }, en: { t: 'Toasted Sandwich', d: 'Warm toasted sandwich with melted cheese.' }, hu: { t: 'Pirított szendvics', d: 'Meleg pirított szendvics olvasztott sajttal.' } } },
+        { id: 'focaccia', cat: 'salty', sub: 'sandwiches', img: IMG.breads, price: '220 RSD',
+          i18n: { sr: { t: 'Fokača', d: 'Italijanski hleb sa maslinovim uljem, ruzmarinom i solju.' }, en: { t: 'Focaccia', d: 'Italian bread with olive oil, rosemary and salt.' }, hu: { t: 'Focaccia', d: 'Olasz kenyér olívaolajjal, rozmaringgal és sóval.' } } },
+        { id: 'garlic-bread', cat: 'salty', sub: 'sandwiches', img: IMG.baguettes, price: '150 RSD',
+          i18n: { sr: { t: 'Beli luk hleb', d: 'Hrskavi hleb sa belim lukom i puterom.' }, en: { t: 'Garlic Bread', d: 'Crispy bread with garlic and butter.' }, hu: { t: 'Fokhagymás kenyér', d: 'Ropogós kenyér fokhagymával és vajjal.' } } },
+        { id: 'savory-croissant', cat: 'salty', sub: 'cheese-ham', img: IMG.croissants, price: '180 RSD',
+          i18n: { sr: { t: 'Slani kroasan', d: 'Kroasan sa slanim nadevom.' }, en: { t: 'Savory Croissant', d: 'Croissant with savory filling.' }, hu: { t: 'Sós croissant', d: 'Croissant sós töltelékkel.' } } },
+        { id: 'ham-croissant', cat: 'salty', sub: 'cheese-ham', img: IMG.chocoCroissants, price: '190 RSD',
+          i18n: { sr: { t: 'Kroasan sa šunkom', d: 'Hrskavi kroasan punjen šunkom.' }, en: { t: 'Ham Croissant', d: 'Flaky croissant filled with ham.' }, hu: { t: 'Sonkás croissant', d: 'Leveles croissant sonkával töltve.' } } },
+        { id: 'cheese-croissant', cat: 'salty', sub: 'cheese-ham', img: IMG.chocoCroissants, price: '180 RSD',
+          i18n: { sr: { t: 'Kroasan sa sirom', d: 'Kroasan punjen topljenim sirom.' }, en: { t: 'Cheese Croissant', d: 'Croissant filled with melted cheese.' }, hu: { t: 'Sajtos croissant', d: 'Croissant olvasztott sajttal töltve.' } } },
+        { id: 'egg-pastry', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '170 RSD',
+          i18n: { sr: { t: 'Jaje pecivo', d: 'Pecivo sa jajima i sirom.' }, en: { t: 'Egg Pastry', d: 'Pastry with eggs and cheese.' }, hu: { t: 'Tojásos péksütemény', d: 'Péksütemény tojással és sajttal.' } } },
+        { id: 'vegetable-pastry', cat: 'salty', sub: 'meat-pies', img: IMG.applePie, price: '170 RSD',
+          i18n: { sr: { t: 'Povrće pecivo', d: 'Pecivo sa mešavinom svežeg povrća.' }, en: { t: 'Vegetable Pastry', d: 'Pastry with mixed fresh vegetables.' }, hu: { t: 'Zöldséges péksütemény', d: 'Péksütemény vegyes friss zöldségekkel.' } } },
+        { id: 'stuffed-bun', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '180 RSD',
+          i18n: { sr: { t: 'Punjena zemička', d: 'Mekana zemička punjena sirom, šunkom ili povrćem.' }, en: { t: 'Stuffed Bun', d: 'Soft bun filled with cheese, ham or vegetables.' }, hu: { t: 'Töltött buci', d: 'Puha buci sajttal, sonkával vagy zöldségekkel töltve.' } } },
+        { id: 'stuffed-roll', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '170 RSD',
+          i18n: { sr: { t: 'Punjeni hlebni rolnica', d: 'Hlebna rolnica sa raznim nadevima.' }, en: { t: 'Stuffed Bread Roll', d: 'Bread roll with various fillings.' }, hu: { t: 'Töltött kenyértekercs', d: 'Kenyértekercs különféle töltelékekkel.' } } },
+        { id: 'empanada', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '200 RSD',
+          i18n: { sr: { t: 'Empanada', d: 'Latinoameričko pecivo punjeno mesom ili sirom.' }, en: { t: 'Empanada', d: 'Latin American pastry filled with meat or cheese.' }, hu: { t: 'Empanada', d: 'Latin-amerikai péksütemény hússal vagy sajttal töltve.' } } },
+        { id: 'samosa', cat: 'salty', sub: 'sandwiches', img: IMG.rolls, price: '180 RSD',
+          i18n: { sr: { t: 'Samosa', d: 'Trouglasto pecivo punjeno povrćem ili mesom.' }, en: { t: 'Samosa', d: 'Triangular pastry filled with vegetables or meat.' }, hu: { t: 'Samosza', d: 'Háromszög alakú tészta zöldséggel vagy hússal töltve.' } } },
+
+        // ===== SMALL SNACKS =====
+        { id: 'nuts', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '200 RSD',
+          i18n: { sr: { t: 'Mešavina orašastih', d: 'Mešavina badema, lešnika i oraha.' }, en: { t: 'Mixed Nuts', d: 'Mix of almonds, hazelnuts and walnuts.' }, hu: { t: 'Vegyes dió', d: 'Mandula, mogyoró és dió keveréke.' } } },
+        { id: 'roasted-almonds', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '250 RSD',
+          i18n: { sr: { t: 'Pečeni bademi', d: 'Hrskavi pečeni bademi sa solju.' }, en: { t: 'Roasted Almonds', d: 'Crispy roasted almonds with salt.' }, hu: { t: 'Pirított mandula', d: 'Ropogós pirított mandula sóval.' } } },
+        { id: 'peanuts', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '180 RSD',
+          i18n: { sr: { t: 'Kikiriki', d: 'Slani kikiriki, savršen grickalica.' }, en: { t: 'Peanuts', d: 'Salted peanuts, perfect snack.' }, hu: { t: 'Földimogyoró', d: 'Sós földimogyoró, tökéletes rágcsálnivaló.' } } },
+        { id: 'trail-mix', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '220 RSD',
+          i18n: { sr: { t: 'Planinarska mešavina', d: 'Mešavina orašastih, suvog voća i semenki.' }, en: { t: 'Trail Mix', d: 'Mix of nuts, dried fruit and seeds.' }, hu: { t: 'Túrós mix', d: 'Dió, szárított gyümölcs és magvak keveréke.' } } },
+        { id: 'chocolate-bar', cat: 'snacks', sub: 'snacks', img: IMG.brownies, price: '150 RSD',
+          i18n: { sr: { t: 'Čokoladica', d: 'Mlečna ili tamna čokolada.' }, en: { t: 'Chocolate Bar', d: 'Milk or dark chocolate bar.' }, hu: { t: 'Csokoládétábla', d: 'Tej- vagy étcsokoládé tábla.' } } },
+        { id: 'granola-bar', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '180 RSD',
+          i18n: { sr: { t: 'Granola pločica', d: 'Zdrava pločica sa ovsenim pahuljicama i medom.' }, en: { t: 'Granola Bar', d: 'Healthy bar with oats and honey.' }, hu: { t: 'Granola rúd', d: 'Egészséges rúd zabbal és mézzel.' } } },
+        { id: 'crackers', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '120 RSD',
+          i18n: { sr: { t: 'Krekeri', d: 'Hrskavi krekeri, odlični uz sir.' }, en: { t: 'Crackers', d: 'Crispy crackers, great with cheese.' }, hu: { t: 'Keksz', d: 'Ropogós kekszek, nagyszerű sajttal.' } } },
+        { id: 'chips', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '100 RSD',
+          i18n: { sr: { t: 'Čips', d: 'Hrskavi krompir čips.' }, en: { t: 'Chips', d: 'Crispy potato chips.' }, hu: { t: 'Chips', d: 'Ropogós burgonyachips.' } } },
+        { id: 'popcorn', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '120 RSD',
+          i18n: { sr: { t: 'Kokice', d: 'Slane ili slatke kokice.' }, en: { t: 'Popcorn', d: 'Salted or sweet popcorn.' }, hu: { t: 'Pattogatott kukorica', d: 'Sós vagy édes pattogatott kukorica.' } } },
+        { id: 'dried-fruit', cat: 'snacks', sub: 'snacks', img: IMG.cookies, price: '200 RSD',
+          i18n: { sr: { t: 'Suvo voće', d: 'Mešavina suvih kajsija, šljiva i grožđica.' }, en: { t: 'Dried Fruit', d: 'Mix of dried apricots, plums and raisins.' }, hu: { t: 'Szárított gyümölcs', d: 'Szárított sárgabarack, szilva és mazsola keveréke.' } } },
+
+        // ===== BAKERY COUNTER =====
+        { id: 'cheese-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '200 RSD',
+          i18n: { sr: { t: 'Sirni burek', d: 'Tradicionalni burek sa belim sirom u lisnatom testu.' }, en: { t: 'Cheese Burek', d: 'Traditional burek with white cheese in flaky phyllo.' }, hu: { t: 'Sajtos burek', d: 'Hagyományos burek fehér sajttal leveles tésztában.' } } },
+        { id: 'meat-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '220 RSD',
+          i18n: { sr: { t: 'Mesni burek', d: 'Burek sa začinjenim mlevenim mesom.' }, en: { t: 'Meat Burek', d: 'Burek with seasoned minced meat.' }, hu: { t: 'Húsos burek', d: 'Burek fűszerezett darált hússal.' } } },
+        { id: 'potato-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '180 RSD',
+          i18n: { sr: { t: 'Krompir burek', d: 'Burek sa krompirom i lukom.' }, en: { t: 'Potato Burek', d: 'Burek with potatoes and onions.' }, hu: { t: 'Krumplis burek', d: 'Burek krumplival és hagymával.' } } },
+        { id: 'spinach-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '200 RSD',
+          i18n: { sr: { t: 'Spanać burek', d: 'Burek sa spanaćem i sirom.' }, en: { t: 'Spinach Burek', d: 'Burek with spinach and cheese.' }, hu: { t: 'Spenótos burek', d: 'Burek spenóttal és sajttal.' } } },
+        { id: 'pizza-burek', cat: 'counter', sub: 'burek', img: IMG.applePie, price: '220 RSD',
+          i18n: { sr: { t: 'Pica burek', d: 'Burek sa prelivom kao pica - sir, šunka, pečurke.' }, en: { t: 'Pizza Burek', d: 'Burek with pizza toppings - cheese, ham, mushrooms.' }, hu: { t: 'Pizzás burek', d: 'Burek pizza feltétekkel - sajt, sonka, gomba.' } } },
+        { id: 'kiflice', cat: 'counter', sub: 'kiflice', img: IMG.rolls, price: '120 RSD',
+          i18n: { sr: { t: 'Kiflice', d: 'Male rolnice punjene sirom, džemom ili čokoladom.' }, en: { t: 'Kiflice', d: 'Small rolls filled with cheese, jam or chocolate.' }, hu: { t: 'Kifli', d: 'Kis tekercsek sajttal, lekvárral vagy csokoládéval töltve.' } } },
+        { id: 'pita-pastry', cat: 'counter', sub: 'kiflice', img: IMG.applePie, price: '180 RSD',
+          i18n: { sr: { t: 'Pita pecivo', d: 'Tradicionalna pita sa različitim nadevima.' }, en: { t: 'Pita Pastry', d: 'Traditional pita with various fillings.' }, hu: { t: 'Pite péksütemény', d: 'Hagyományos pite különféle töltelékekkel.' } } },
+        { id: 'savory-pies', cat: 'counter', sub: 'kiflice', img: IMG.applePie, price: '200 RSD',
+          i18n: { sr: { t: 'Slane pite', d: 'Razne slane pite po dnevnom izboru.' }, en: { t: 'Savory Pies', d: 'Various savory pies by daily selection.' }, hu: { t: 'Sós piték', d: 'Különböző sós piték napi választék szerint.' } } },
+        { id: 'sweet-rolls-counter', cat: 'counter', sub: 'kiflice', img: IMG.cinnamonRolls, price: '150 RSD',
+          i18n: { sr: { t: 'Slatke rolnice', d: 'Slatke rolnice sa raznim nadevima.' }, en: { t: 'Sweet Rolls', d: 'Sweet rolls with various fillings.' }, hu: { t: 'Édes tekercsek', d: 'Édes tekercsek különféle töltelékekkel.' } } },
+        { id: 'filled-croissants', cat: 'counter', sub: 'kiflice', img: IMG.chocoCroissants, price: '180 RSD',
+          i18n: { sr: { t: 'Punjeni kroasani', d: 'Kroasani sa čokoladom, kremom ili džemom.' }, en: { t: 'Filled Croissants', d: 'Croissants with chocolate, cream or jam.' }, hu: { t: 'Töltött croissantok', d: 'Croissantok csokoládéval, krémmel vagy lekvárral.' } } },
+        { id: 'sandwiches-counter', cat: 'counter', sub: 'kiflice', img: IMG.rolls, price: '250 RSD',
+          i18n: { sr: { t: 'Sendviči', d: 'Sveži sendviči po dnevnom izboru.' }, en: { t: 'Sandwiches', d: 'Fresh sandwiches by daily selection.' }, hu: { t: 'Szendvicsek', d: 'Friss szendvicsek napi választék szerint.' } } },
+
+        // ===== HOT DRINKS =====
+        { id: 'espresso', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '120 RSD',
+          i18n: { sr: { t: 'Espresso', d: 'Jak, koncentrisan espresso.' }, en: { t: 'Espresso', d: 'Strong, concentrated espresso.' }, hu: { t: 'Espresso', d: 'Erős, koncentrált espresso.' } } },
+        { id: 'double-espresso', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+          i18n: { sr: { t: 'Dupli espresso', d: 'Dupla doza espressa za prave ljubitelje kafe.' }, en: { t: 'Double Espresso', d: 'Double shot of espresso for true coffee lovers.' }, hu: { t: 'Dupla espresso', d: 'Dupla adag espresso az igazi kávérajongóknak.' } } },
+        { id: 'americano', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+          i18n: { sr: { t: 'Americano', d: 'Espresso razblažen vrućom vodom.' }, en: { t: 'Americano', d: 'Espresso diluted with hot water.' }, hu: { t: 'Americano', d: 'Espresso forró vízzel hígítva.' } } },
+        { id: 'cappuccino', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+          i18n: { sr: { t: 'Kapučino', d: 'Espresso sa toplom mlečnom penom.' }, en: { t: 'Cappuccino', d: 'Espresso with steamed milk foam.' }, hu: { t: 'Cappuccino', d: 'Espresso gőzölt tejhabbal.' } } },
+        { id: 'latte', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '200 RSD',
+          i18n: { sr: { t: 'Latte', d: 'Espresso sa puno topljenog mleka.' }, en: { t: 'Latte', d: 'Espresso with lots of steamed milk.' }, hu: { t: 'Latte', d: 'Espresso sok gőzölt tejjel.' } } },
+        { id: 'flat-white', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '220 RSD',
+          i18n: { sr: { t: 'Flat white', d: 'Espresso sa svilenkastom mlečnom penom.' }, en: { t: 'Flat White', d: 'Espresso with silky microfoam milk.' }, hu: { t: 'Flat white', d: 'Espresso selymes mikrohabos tejjel.' } } },
+        { id: 'macchiato', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+          i18n: { sr: { t: 'Makiato', d: 'Espresso sa malo mlečne pene.' }, en: { t: 'Macchiato', d: 'Espresso with a dash of milk foam.' }, hu: { t: 'Macchiato', d: 'Espresso egy kevés tejhabbal.' } } },
+        { id: 'mocha', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '220 RSD',
+          i18n: { sr: { t: 'Moka', d: 'Espresso sa čokoladom i mlekom.' }, en: { t: 'Mocha', d: 'Espresso with chocolate and milk.' }, hu: { t: 'Mocha', d: 'Espresso csokoládéval és tejjel.' } } },
+        { id: 'instant-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '100 RSD',
+          i18n: { sr: { t: 'Instant kafa', d: 'Brza instant kafa sa mlekom.' }, en: { t: 'Instant Coffee', d: 'Quick instant coffee with milk.' }, hu: { t: 'Instant kávé', d: 'Gyors instant kávé tejjel.' } } },
+        { id: 'turkish-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '120 RSD',
+          i18n: { sr: { t: 'Turska kafa', d: 'Tradicionalna turska kafa kuvana u džezvi.' }, en: { t: 'Turkish Coffee', d: 'Traditional Turkish coffee brewed in a cezve.' }, hu: { t: 'Török kávé', d: 'Hagyományos török kávé cezvében főzve.' } } },
+        { id: 'filter-coffee', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '150 RSD',
+          i18n: { sr: { t: 'Filter kafa', d: 'Klasična filter kafa.' }, en: { t: 'Filter Coffee', d: 'Classic filter coffee.' }, hu: { t: 'Szűrős kávé', d: 'Klasszikus szűrős kávé.' } } },
+        { id: 'decaf', cat: 'hot', sub: 'coffee', img: IMG.breads, price: '180 RSD',
+          i18n: { sr: { t: 'Kafa bez kofeina', d: 'Ukus kafe bez kofeina.' }, en: { t: 'Decaf Coffee', d: 'Coffee flavor without the caffeine.' }, hu: { t: 'Koffeinmentes kávé', d: 'Kávé íze koffein nélkül.' } } },
+        { id: 'hot-chocolate', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '180 RSD',
+          i18n: { sr: { t: 'Vruća čokolada', d: 'Bogata vruća čokolada sa mlekom.' }, en: { t: 'Hot Chocolate', d: 'Rich hot chocolate with milk.' }, hu: { t: 'Forró csokoládé', d: 'Gazdag forró csokoládé tejjel.' } } },
+        { id: 'hot-milk', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '100 RSD',
+          i18n: { sr: { t: 'Vruće mleko', d: 'Toplo mleko, odlično za decu.' }, en: { t: 'Hot Milk', d: 'Warm milk, great for children.' }, hu: { t: 'Forró tej', d: 'Meleg tej, gyerekeknek is kiváló.' } } },
+        { id: 'black-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '120 RSD',
+          i18n: { sr: { t: 'Crni čaj', d: 'Klasičan crni čaj.' }, en: { t: 'Black Tea', d: 'Classic black tea.' }, hu: { t: 'Fekete tea', d: 'Klasszikus fekete tea.' } } },
+        { id: 'green-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+          i18n: { sr: { t: 'Zeleni čaj', d: 'Osvežavajući zeleni čaj.' }, en: { t: 'Green Tea', d: 'Refreshing green tea.' }, hu: { t: 'Zöld tea', d: 'Frissítő zöld tea.' } } },
+        { id: 'herbal-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+          i18n: { sr: { t: 'Biljni čaj', d: 'Mešavina lekovitog bilja.' }, en: { t: 'Herbal Tea', d: 'Blend of medicinal herbs.' }, hu: { t: 'Gyógytea', d: 'Gyógynövények keveréke.' } } },
+        { id: 'chamomile', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+          i18n: { sr: { t: 'Kamilica', d: 'Umirujuća kamilica, idealna pred spavanje.' }, en: { t: 'Chamomile', d: 'Soothing chamomile, ideal before bed.' }, hu: { t: 'Kamilla', d: 'Nyugtató kamilla, ideális lefekvés előtt.' } } },
+        { id: 'mint-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '130 RSD',
+          i18n: { sr: { t: 'Nana čaj', d: 'Osvežavajući čaj od nane.' }, en: { t: 'Mint Tea', d: 'Refreshing mint tea.' }, hu: { t: 'Mentatea', d: 'Frissítő mentatea.' } } },
+        { id: 'ginger-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+          i18n: { sr: { t: 'Đumbir čaj', d: 'Začinjen čaj od đumbira sa limunom.' }, en: { t: 'Ginger Tea', d: 'Spicy ginger tea with lemon.' }, hu: { t: 'Gyömbértea', d: 'Fűszeres gyömbértea citrommal.' } } },
+        { id: 'fruit-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+          i18n: { sr: { t: 'Voćni čaj', d: 'Čaj sa ukusom šumskog voća.' }, en: { t: 'Fruit Tea', d: 'Tea with forest fruit flavor.' }, hu: { t: 'Gyümölcstea', d: 'Tea erdei gyümölcs ízzel.' } } },
+        { id: 'lemon-tea', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '140 RSD',
+          i18n: { sr: { t: 'Limun čaj', d: 'Čaj sa limunom i medom.' }, en: { t: 'Lemon Tea', d: 'Tea with lemon and honey.' }, hu: { t: 'Citromtea', d: 'Tea citrommal és mézzel.' } } },
+        { id: 'chai-latte', cat: 'hot', sub: 'tea-chocolate', img: IMG.ricePudding, price: '200 RSD',
+          i18n: { sr: { t: 'Čaj latte', d: 'Začinjen čaj sa mlekom i penom.' }, en: { t: 'Chai Latte', d: 'Spiced tea with milk and foam.' }, hu: { t: 'Chai latte', d: 'Fűszeres tea tejjel és habbal.' } } },
+
+        // ===== COLD DRINKS =====
+        { id: 'water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '80 RSD',
+          i18n: { sr: { t: 'Voda', d: 'Flaširana voda, negazirana.' }, en: { t: 'Water', d: 'Bottled still water.' }, hu: { t: 'Víz', d: 'Palackozott szénsavmentes víz.' } } },
+        { id: 'sparkling-water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '100 RSD',
+          i18n: { sr: { t: 'Gazirana voda', d: 'Mineralna voda sa gasom.' }, en: { t: 'Sparkling Water', d: 'Mineral water with carbonation.' }, hu: { t: 'Szénsavas víz', d: 'Szénsavas ásványvíz.' } } },
+        { id: 'mineral-water', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '100 RSD',
+          i18n: { sr: { t: 'Mineralna voda', d: 'Prirodna mineralna voda.' }, en: { t: 'Mineral Water', d: 'Natural mineral water.' }, hu: { t: 'Ásványvíz', d: 'Természetes ásványvíz.' } } },
+        { id: 'lemonade', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+          i18n: { sr: { t: 'Limonada', d: 'Domaća limunada sa mentom.' }, en: { t: 'Lemonade', d: 'Homemade lemonade with mint.' }, hu: { t: 'Limonádé', d: 'Házi limonádé mentával.' } } },
+        { id: 'fresh-lemonade', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sveža limunada', d: 'Cedjeni limun sa šećerom i ledom.' }, en: { t: 'Fresh Lemonade', d: 'Freshly squeezed lemon with sugar and ice.' }, hu: { t: 'Friss limonádé', d: 'Frissen facsart citrom cukorral és jéggel.' } } },
+        { id: 'iced-tea', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+          i18n: { sr: { t: 'Ledeni čaj', d: 'Hladan čaj sa limunom.' }, en: { t: 'Iced Tea', d: 'Cold tea with lemon.' }, hu: { t: 'Jeges tea', d: 'Hideg tea citrommal.' } } },
+        { id: 'iced-coffee', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Ledeni kafa', d: 'Hladna kafa sa mlekom i ledom.' }, en: { t: 'Iced Coffee', d: 'Cold coffee with milk and ice.' }, hu: { t: 'Jeges kávé', d: 'Hideg kávé tejjel és jéggel.' } } },
+        { id: 'cold-brew', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Cold brew kafa', d: 'Kafa hladno ekstrahovana 12 sati.' }, en: { t: 'Cold Brew Coffee', d: 'Coffee cold-extracted for 12 hours.' }, hu: { t: 'Cold brew kávé', d: '12 órán át hidegen áztatott kávé.' } } },
+        { id: 'milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '120 RSD',
+          i18n: { sr: { t: 'Mleko', d: 'Sveže kravlje mleko.' }, en: { t: 'Milk', d: 'Fresh cow milk.' }, hu: { t: 'Tej', d: 'Friss tehéntej.' } } },
+        { id: 'chocolate-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '150 RSD',
+          i18n: { sr: { t: 'Čokoladno mleko', d: 'Mleko sa čokoladom.' }, en: { t: 'Chocolate Milk', d: 'Milk with chocolate.' }, hu: { t: 'Csokoládés tej', d: 'Tej csokoládéval.' } } },
+        { id: 'strawberry-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+          i18n: { sr: { t: 'Jagoda mleko', d: 'Mleko sa ukusom jagode.' }, en: { t: 'Strawberry Milk', d: 'Milk with strawberry flavor.' }, hu: { t: 'Eper tej', d: 'Tej eper ízzel.' } } },
+        { id: 'vanilla-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+          i18n: { sr: { t: 'Vanila mleko', d: 'Mleko sa ukusom vanile.' }, en: { t: 'Vanilla Milk', d: 'Milk with vanilla flavor.' }, hu: { t: 'Vaníliás tej', d: 'Tej vanília ízzel.' } } },
+        { id: 'banana-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '160 RSD',
+          i18n: { sr: { t: 'Banana mleko', d: 'Mleko sa ukusom banane.' }, en: { t: 'Banana Milk', d: 'Milk with banana flavor.' }, hu: { t: 'Banános tej', d: 'Tej banán ízzel.' } } },
+        { id: 'oat-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Ovseno mleko', d: 'Biljno mleko od ovsa.' }, en: { t: 'Oat Milk', d: 'Plant-based milk from oats.' }, hu: { t: 'Zabtej', d: 'Növényi tej zabból.' } } },
+        { id: 'almond-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Bademovo mleko', d: 'Biljno mleko od badema.' }, en: { t: 'Almond Milk', d: 'Plant-based milk from almonds.' }, hu: { t: 'Mandulatej', d: 'Növényi tej mandulából.' } } },
+        { id: 'soy-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sojino mleko', d: 'Biljno mleko od soje.' }, en: { t: 'Soy Milk', d: 'Plant-based milk from soy.' }, hu: { t: 'Szójatej', d: 'Növényi tej szójából.' } } },
+        { id: 'coconut-milk', cat: 'cold', sub: 'milk-alt', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Kokosovo mleko', d: 'Kremasto mleko od kokosa.' }, en: { t: 'Coconut Milk', d: 'Creamy milk from coconut.' }, hu: { t: 'Kókusztej', d: 'Krémes tej kókuszdióból.' } } },
+        { id: 'orange-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sok od narandže', d: 'Cedjeni sok od narandže.' }, en: { t: 'Orange Juice', d: 'Freshly squeezed orange juice.' }, hu: { t: 'Narancslé', d: 'Frissen facsart narancslé.' } } },
+        { id: 'apple-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '160 RSD',
+          i18n: { sr: { t: 'Sok od jabuke', d: 'Bistar sok od jabuke.' }, en: { t: 'Apple Juice', d: 'Clear apple juice.' }, hu: { t: 'Almalé', d: 'Tiszta almalé.' } } },
+        { id: 'pineapple-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sok od ananasa', d: 'Tropski sok od ananasa.' }, en: { t: 'Pineapple Juice', d: 'Tropical pineapple juice.' }, hu: { t: 'Ananászlé', d: 'Trópusi ananászlé.' } } },
+        { id: 'peach-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '170 RSD',
+          i18n: { sr: { t: 'Sok od breskve', d: 'Slatki sok od breskve.' }, en: { t: 'Peach Juice', d: 'Sweet peach juice.' }, hu: { t: 'Őszibaracklé', d: 'Édes őszibaracklé.' } } },
+        { id: 'mango-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sok od manga', d: 'Egzotični sok od manga.' }, en: { t: 'Mango Juice', d: 'Exotic mango juice.' }, hu: { t: 'Mangólé', d: 'Egzotikus mangólé.' } } },
+        { id: 'mixed-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Mešani sok', d: 'Mešavina raznog voća.' }, en: { t: 'Mixed Fruit Juice', d: 'Blend of various fruits.' }, hu: { t: 'Vegyes gyümölcslé', d: 'Különböző gyümölcsök keveréke.' } } },
+        { id: 'lemon-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '160 RSD',
+          i18n: { sr: { t: 'Limunov sok', d: 'Svež sok od limuna.' }, en: { t: 'Lemon Juice', d: 'Fresh lemon juice.' }, hu: { t: 'Citromlé', d: 'Friss citromlé.' } } },
+        { id: 'cranberry-juice', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Sok od brusnice', d: 'Kiselkast sok od brusnice.' }, en: { t: 'Cranberry Juice', d: 'Tart cranberry juice.' }, hu: { t: 'Áfonyalé', d: 'Savanykás áfonyalé.' } } },
+        { id: 'fresh-oj', cat: 'cold', sub: 'juices', img: IMG.pannaCotta, price: '220 RSD',
+          i18n: { sr: { t: 'Sveže ceđeni sok od narandže', d: 'Narandža ceđena pred vama.' }, en: { t: 'Freshly Squeezed OJ', d: 'Orange squeezed right in front of you.' }, hu: { t: 'Frissen facsart narancslé', d: 'Narancs frissen facsarva ön előtt.' } } },
+        { id: 'cola', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+          i18n: { sr: { t: 'Kola', d: 'Klasična kola.' }, en: { t: 'Cola', d: 'Classic cola.' }, hu: { t: 'Kóla', d: 'Klasszikus kóla.' } } },
+        { id: 'diet-cola', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+          i18n: { sr: { t: 'Dijet kola', d: 'Kola bez šećera.' }, en: { t: 'Diet Cola', d: 'Sugar-free cola.' }, hu: { t: 'Diétás kóla', d: 'Cukormentes kóla.' } } },
+        { id: 'lemon-soda', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+          i18n: { sr: { t: 'Limun soda', d: 'Gazirano piće sa ukusom limuna.' }, en: { t: 'Lemon Soda', d: 'Carbonated lemon-flavored drink.' }, hu: { t: 'Citromos szóda', d: 'Szénsavas citrom ízű ital.' } } },
+        { id: 'orange-soda', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '120 RSD',
+          i18n: { sr: { t: 'Narandža soda', d: 'Gazirano piće sa ukusom narandže.' }, en: { t: 'Orange Soda', d: 'Carbonated orange-flavored drink.' }, hu: { t: 'Narancsos szóda', d: 'Szénsavas narancs ízű ital.' } } },
+        { id: 'energy-drink', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '180 RSD',
+          i18n: { sr: { t: 'Energetsko piće', d: 'Energetsko piće za dodatnu energiju.' }, en: { t: 'Energy Drink', d: 'Energy drink for an extra boost.' }, hu: { t: 'Energiaital', d: 'Energiaital extra löketért.' } } },
+        { id: 'sports-drink', cat: 'cold', sub: 'water-soda', img: IMG.pannaCotta, price: '150 RSD',
+          i18n: { sr: { t: 'Sportsko piće', d: 'Izotonično piće za hidrataciju.' }, en: { t: 'Sports Drink', d: 'Isotonic drink for hydration.' }, hu: { t: 'Sportital', d: 'Izotóniás ital hidratáláshoz.' } } },
+        { id: 'smoothie', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '250 RSD',
+          i18n: { sr: { t: 'Smoothie', d: 'Voćni smoothie sa jogurtom.' }, en: { t: 'Smoothie', d: 'Fruit smoothie with yogurt.' }, hu: { t: 'Smoothie', d: 'Gyümölcsös smoothie joghurttal.' } } },
+        { id: 'milkshake', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '280 RSD',
+          i18n: { sr: { t: 'Milkšejk', d: 'Gusti milkšejk sa sladoledom.' }, en: { t: 'Milkshake', d: 'Thick milkshake with ice cream.' }, hu: { t: 'Milkshake', d: 'Vastag milkshake fagylalttal.' } } },
+        { id: 'frappe', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Frape', d: 'Hladna pena kafa sa ledom.' }, en: { t: 'Frappe', d: 'Cold foam coffee with ice.' }, hu: { t: 'Frappe', d: 'Hideg habos kávé jéggel.' } } },
+        { id: 'frappe-coffee', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '220 RSD',
+          i18n: { sr: { t: 'Frape kafa', d: 'Klasična frappe kafa sa mlekom.' }, en: { t: 'Frappe Coffee', d: 'Classic frappe coffee with milk.' }, hu: { t: 'Frappe kávé', d: 'Klasszikus frappe kávé tejjel.' } } },
+        { id: 'iced-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '220 RSD',
+          i18n: { sr: { t: 'Ledeni latte', d: 'Hladan latte sa ledom.' }, en: { t: 'Iced Latte', d: 'Cold latte with ice.' }, hu: { t: 'Jeges latte', d: 'Hideg latte jéggel.' } } },
+        { id: 'vanilla-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+          i18n: { sr: { t: 'Vanila latte', d: 'Latte sa sirupom od vanile.' }, en: { t: 'Vanilla Latte', d: 'Latte with vanilla syrup.' }, hu: { t: 'Vaníliás latte', d: 'Latte vanília sziruppal.' } } },
+        { id: 'caramel-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+          i18n: { sr: { t: 'Karamel latte', d: 'Latte sa karamel sirupom.' }, en: { t: 'Caramel Latte', d: 'Latte with caramel syrup.' }, hu: { t: 'Karamellás latte', d: 'Latte karamell sziruppal.' } } },
+        { id: 'hazelnut-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '240 RSD',
+          i18n: { sr: { t: 'Lešnik latte', d: 'Latte sa sirupom od lešnika.' }, en: { t: 'Hazelnut Latte', d: 'Latte with hazelnut syrup.' }, hu: { t: 'Mogyorós latte', d: 'Latte mogyoró sziruppal.' } } },
+        { id: 'matcha-latte', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '260 RSD',
+          i18n: { sr: { t: 'Matcha latte', d: 'Latte sa matcha čajem.' }, en: { t: 'Matcha Latte', d: 'Latte with matcha tea.' }, hu: { t: 'Matcha latte', d: 'Latte matcha teával.' } } },
+        { id: 'protein-shake', cat: 'cold', sub: 'specialty', img: IMG.pannaCotta, price: '280 RSD',
+          i18n: { sr: { t: 'Proteinski šejk', d: 'Šejk bogat proteinima.' }, en: { t: 'Protein Shake', d: 'Protein-rich shake.' }, hu: { t: 'Fehérje shake', d: 'Fehérjében gazdag shake.' } } },
+        { id: 'non-alc-beer', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '200 RSD',
+          i18n: { sr: { t: 'Bezalkoholno pivo', d: 'Pivo bez alkohola.' }, en: { t: 'Non-Alcoholic Beer', d: 'Beer without alcohol.' }, hu: { t: 'Alkoholmentes sör', d: 'Sör alkohol nélkül.' } } },
+        { id: 'non-alc-sparkling', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '250 RSD',
+          i18n: { sr: { t: 'Bezalkoholno penušavo', d: 'Penušavo vino bez alkohola.' }, en: { t: 'Non-Alcoholic Sparkling', d: 'Sparkling wine without alcohol.' }, hu: { t: 'Alkoholmentes pezsgő', d: 'Pezsgő alkohol nélkül.' } } },
+        { id: 'cider', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '220 RSD',
+          i18n: { sr: { t: 'Sajder', d: 'Jabukovo vino.' }, en: { t: 'Cider', d: 'Apple cider.' }, hu: { t: 'Almabor', d: 'Almás bor.' } } },
+        { id: 'wine', cat: 'cold', sub: 'occasional', img: IMG.pannaCotta, price: '300 RSD',
+          i18n: { sr: { t: 'Vino po čaši', d: 'Crveno ili belo vino.' }, en: { t: 'Wine by the Glass', d: 'Red or white wine.' }, hu: { t: 'Boros pohár', d: 'Vörös vagy fehér bor.' } } }
+      ];
+
+      // ===== CATEGORY DEFINITIONS =====
+      const categories = [
+        { id: 'sweet', i18n: { sr: { t: ' Slatka peciva', d: 'Kroasani, rolnice, kolači i torte.' }, en: { t: '🍰 Sweet Bakery', d: 'Croissants, rolls, pastries and cakes.' }, hu: { t: '🍰 Édes péksütemények', d: 'Croissantok, tekercsek, péksütemények és torták.' } },
+          subs: [
+            { id: 'croissants', i18n: { sr: 'Kroasani', en: 'Croissants', hu: 'Croissantok' } },
+            { id: 'rolls', i18n: { sr: 'Slatke rolnice', en: 'Sweet Rolls', hu: 'Édes tekercsek' } },
+            { id: 'donuts-muffins', i18n: { sr: 'Krofne, mafini i kolačići', en: 'Donuts, Muffins & Cupcakes', hu: 'Fánkok, muffinok és cupcake-ek' } },
+            { id: 'cookies', i18n: { sr: 'Kolačići i makaroni', en: 'Cookies & Macarons', hu: 'Kekszen és makaronok' } },
+            { id: 'eclairs-danish', i18n: { sr: 'Ekleri i danish peciva', en: 'Eclairs & Danish Pastries', hu: 'Eclairek és dán péksütemények' } },
+            { id: 'strudels', i18n: { sr: 'Štrudle', en: 'Strudels', hu: 'Rétesek' } },
+            { id: 'cakes-tarts', i18n: { sr: 'Torte, pite i deserti', en: 'Cakes, Tarts & Desserts', hu: 'Torták, tarták és desszertek' } }
+          ]
+        },
+        { id: 'salty', i18n: { sr: { t: '🥖 Slana peciva', d: 'Hlebovi, perece i slane pite.' }, en: { t: '🥖 Salty Bakery', d: 'Breads, pretzels and savory pies.' }, hu: { t: '🥖 Sós péksütemények', d: 'Kenyerek, perecek és sós piték.' } },
+          subs: [
+            { id: 'breads', i18n: { sr: 'Hlebovi', en: 'Breads', hu: 'Kenyerek' } },
+            { id: 'pretzels', i18n: { sr: 'Perece i štapići', en: 'Pretzels & Breadsticks', hu: 'Perecek és kenyérrudak' } },
+            { id: 'cheese-ham', i18n: { sr: 'Sirna i šunkasta peciva', en: 'Cheese & Ham Pastries', hu: 'Sajtos és sonkás péksütemények' } },
+            { id: 'meat-pies', i18n: { sr: 'Mesne pite i kiš', en: 'Meat Pies & Quiche', hu: 'Húsos piték és quiche' } },
+            { id: 'pizza', i18n: { sr: 'Pica i kalzone', en: 'Pizza & Calzones', hu: 'Pizza és calzone' } },
+            { id: 'sandwiches', i18n: { sr: 'Sendviči i fokača', en: 'Sandwiches & Focaccia', hu: 'Szendvicsek és focaccia' } }
+          ]
+        },
+        { id: 'snacks', i18n: { sr: { t: '🥨 Grickalice', d: 'Orašasti, čokolade i zdrave užine.' }, en: { t: '🥨 Small Snacks', d: 'Nuts, chocolate and healthy bites.' }, hu: { t: '🥨 Rágcsálnivalók', d: 'Diók, csokoládé és egészséges falatok.' } },
+          subs: [{ id: 'snacks', i18n: { sr: 'Sve grickalice', en: 'All Snacks', hu: 'Minden rágcsálnivaló' } }]
+        },
+        { id: 'counter', i18n: { sr: { t: '🥪 Pekaarski šank', d: 'Burek, kiflice i tradicionalne pite.' }, en: { t: '🥪 Bakery Counter', d: 'Burek, kiflice and traditional pies.' }, hu: { t: '🥪 Pék pult', d: 'Burek, kifli és hagyományos piték.' } },
+          subs: [
+            { id: 'burek', i18n: { sr: 'Burek', en: 'Burek', hu: 'Burek' } },
+            { id: 'kiflice', i18n: { sr: 'Kiflice i pite', en: 'Kiflice & Pies', hu: 'Kiflik és piték' } }
+          ]
+        },
+        { id: 'hot', i18n: { sr: { t: '☕ Topli napici', d: 'Kafa, čaj i vruća čokolada.' }, en: { t: '☕ Hot Drinks', d: 'Coffee, tea and hot chocolate.' }, hu: { t: '☕ Forró italok', d: 'Kávé, tea és forró csokoládé.' } },
+          subs: [
+            { id: 'coffee', i18n: { sr: 'Kafa', en: 'Coffee', hu: 'Kávé' } },
+            { id: 'tea-chocolate', i18n: { sr: 'Čaj i vruća čokolada', en: 'Tea & Hot Chocolate', hu: 'Tea és forró csokoládé' } }
+          ]
+        },
+        { id: 'cold', i18n: { sr: { t: ' Hladni napici', d: 'Sokovi, limunade, mleko i specijalni napici.' }, en: { t: '🥤 Cold Drinks', d: 'Juices, lemonades, milk and specialty drinks.' }, hu: { t: '🥤 Hideg italok', d: 'Levek, limonádék, tej és különleges italok.' } },
+          subs: [
+            { id: 'water-soda', i18n: { sr: 'Voda i sokovi', en: 'Water & Sodas', hu: 'Víz és üdítők' } },
+            { id: 'juices', i18n: { sr: 'Sokovi', en: 'Juices', hu: 'Gyümölcslevek' } },
+            { id: 'milk-alt', i18n: { sr: 'Mleko i alternative', en: 'Milk & Alternatives', hu: 'Tej és alternatívák' } },
+            { id: 'specialty', i18n: { sr: 'Specijalni napici', en: 'Specialty Drinks', hu: 'Különleges italok' } },
+            { id: 'occasional', i18n: { sr: 'Povremeni napici', en: 'Occasional Drinks', hu: 'Alkalmi italok' } }
+          ]
+        }
+      ];
+
       // ===== TRANSLATIONS =====
       const translations = {
         sr: {
-          nav_home: "Početna",
-          nav_about: "O nama",
-          nav_menu: "Meni",
-          nav_contact: "Kontakt",
+          nav_home: "Početna", nav_menu: "Meni", nav_about: "O nama", nav_find: "Pronađite nas",
           hero_title: "Tradicija pečena svakog dana",
-          hero_desc:
-            "Dobrodošli u Pekaru Braca. Autentični hlebovi, pite i torte, pravljeni s ljubavlju u srcu Sente.",
-          hero_btn: "Pogledaj meni",
-          about_title: "Naša priča",
-          about_subtitle:
-            "Porodični biznis, voljen od zajednice. Pečemo kako treba.",
-          about_heading: "Ukorenjeni u Senti, pečeni s pažnjom",
-          about_p1:
-            "Generacijama, Pekara Braca je stub svakodnevnog života u Senti. Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i pečemo sve od nule. Bez konzervansa. Samo iskusi, topli, tradicionalni ukusi koji spajaju porodice.",
-          about_p2:
-            "Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku ili svečanim tortama, svaki proizvod izlazi iz naših rerena svež, mirisan i spreman za deljenje.",
-          menu_title: "Naši favoriti",
-          menu_subtitle: "Sveže pečeno svakog jutra. Cene podložne promenama.",
+          hero_desc: "Dobrodošli u Pekaru Braca. Autentični hlebovi, pite, torte i napici, pravljeni s ljubavlju u srcu Sente.",
+          hero_btn_menu: "Pogledaj meni", hero_btn_visit: "Posetite nas",
+          features_title: "Zašto Pekara Braca", features_subtitle: "Tri generacije porodične tradicije u svakom zalogaju.",
+          feat1_title: "Lokalni sastojci", feat1_desc: "Brašno i žitarice od proverenih lokalnih dobavljača iz Vojvodine.",
+          feat2_title: "Ručna izrada", feat2_desc: "Svaki proizvod mesimo i oblikujemo rukom, kao pre pedeset godina.",
+          feat3_title: "Sveže svakog jutra", feat3_desc: "Počinjemo pre zore da bi vas dočekao topao, mirisan hleb.",
+          menu_title: "Naš meni", menu_subtitle: "Sveže pečeno svakog jutra. Kliknite na proizvod za više detalja.",
           menu_order_btn: "Naručite po meri",
-          card1_t: "Tradicionalna pogača",
-          card1_d:
-            "Mekan, puterast hleb sa notom jogurta. Savršen uz sir ili kajmak.",
-          card2_t: "Mesni burek",
-          card2_d: "Hrskave kore punjene začinjenom junetinom i lukom.",
-          card3_t: "Burek sa sirom i spanaćem",
-          card3_d: "Lagan, slan i sveže pečen. Lokalni doručak broj jedan.",
-          card4_t: "Vanila rolat",
-          card4_d:
-            "Delikatan biskvit u bogatoj vanila kremi, posut šećerom u prahu.",
-          card5_t: "Hleb od integralnog brašna",
-          card5_d:
-            "Sitan, hranljiv kvasni hleb. Pečen svakog dana za dugotrajnu svežinu.",
-          card6_t: "Espresso / Turska kafa",
-          card6_d:
-            "Jak, aromatičan, služen uz tradicionalni turski rahatlokum.",
-          contact_title: "Posetite nas",
-          contact_subtitle: "Otvoreni svakog dana. Svež hleb ne čeka.",
+          similar_title: "Slični proizvodi",
+          about_title: "O nama", about_subtitle: "Porodični biznis, voljen od zajednice. Pečemo kako treba.",
+          about_heading: "Ukorenjeni u Senti, pečeni s pažnjom",
+          about_p1: "Generacijama, Pekara Braca je stub svakodnevnog života u Senti. Krećemo pre zore, ručno mesimo testo, biramo lokalne sastojke i pečemo sve od nule. Bez konzervansa. Samo iskreni, topli, tradicionalni ukusi koji spajaju porodice.",
+          about_p2: "Bilo da je reč o našoj prepoznatljivoj pogači, hrskavom bureku ili svečanim tortama, svaki proizvod izlazi iz naših rerena svež, mirisan i spreman za deljenje.",
+          val1_title: "Porodica", val1_desc: "Tri generacije braće Braca koje dele istu strast prema pekarstvu.",
+          val2_title: "Tradicija", val2_desc: "Recepti koji se prenose sa kolena na koleno, bez prečica.",
+          val3_title: "Zajednica", val3_desc: "Ponosni smo što služimo naše komšije svakog dana već decenijama.",
+          contact_info_title: "Kontakt informacije", contact_info_subtitle: "Tu smo za vas — pišite, zovite ili svratite.",
+          contact_email_title: "Email", contact_phone_title: "Telefon",
+          contact_phone_note: "Pozivi tokom radnog vremena",
+          contact_address_title: "Adresa", contact_address_val: "Glavna ulica 42<br>24400 Senta, Srbija",
+          contact_hours_title: "Radno vreme", contact_hours_val: "Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00",
+          find_title: "Pronađite nas", find_subtitle: "Otvoreni svakog dana. Svež hleb ne čeka.",
           location_title: "Lokacija i radno vreme",
-          location_addr_label: "Adresa",
-          location_addr_val: "Glavna ulica 42, 24400 Senta, Srbija",
-          location_phone_label: "Telefon",
-          location_email_label: "Email",
-          location_hours_label: "Radno vreme",
-          location_hours_val:
-            "Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00",
-          form_title: "Pošaljite poruku",
-          form_name_label: "Vaše ime",
-          form_name_ph: "Unesite ime",
-          form_email_label: "Email",
-          form_email_ph: "vas@email.com",
-          form_msg_label: "Poruka / Narudžbina",
-          form_msg_ph: "Vaša poruka ovde...",
+          location_addr_label: "Adresa", location_addr_val: "Glavna ulica 42, 24400 Senta, Srbija",
+          location_phone_label: "Telefon", location_email_label: "Email",
+          location_hours_label: "Radno vreme", location_hours_val: "Pon–Pet: 05:30 – 20:00<br>Sub: 05:30 – 18:00<br>Ned: 06:00 – 15:00",
+          form_title: "Pošaljite poruku", form_name_label: "Vaše ime", form_name_ph: "Unesite ime",
+          form_email_label: "Email", form_email_ph: "vas@email.com",
+          form_msg_label: "Poruka / Narudžbina", form_msg_ph: "Vaša poruka ovde...",
           form_submit: "Pošalji poruku",
+          settings_title: "Podešavanja jezika", settings_desc: "Izaberite jezik za prikaz sajta.", settings_save: "Sačuvaj",
+          suggest_title: "Dobrodošli!", suggest_desc: "Izaberite jezik da biste nastavili.",
+          form_success: "Hvala! Primili smo vašu poruku."
         },
         en: {
-          nav_home: "Home",
-          nav_about: "About",
-          nav_menu: "Menu",
-          nav_contact: "Contact",
+          nav_home: "Home", nav_menu: "Menu", nav_about: "About", nav_find: "Find Us",
           hero_title: "Tradition Baked Fresh Daily",
-          hero_desc:
-            "Welcome to Pekara Braca. Authentic breads, pastries & cakes, made with love in the heart of Senta.",
-          hero_btn: "View Our Menu",
-          about_title: "Our Story",
-          about_subtitle:
-            "Family-owned, community-loved. Baking the way it should be.",
-          about_heading: "Rooted in Senta, Crafted with Care",
-          about_p1:
-            "For generations, Pekara Braca has been a cornerstone of Senta’s daily life. We start before dawn, kneading dough by hand, selecting local grains, and baking everything from scratch. No preservatives. Just honest, warm, traditional flavors that bring families together.",
-          about_p2:
-            "Whether it’s our signature pogača, flaky burek, or celebration cakes, every item leaves our ovens fresh, fragrant, and ready to be shared.",
-          menu_title: "Our Favorites",
-          menu_subtitle:
-            "Freshly baked every morning. Prices subject to change.",
+          hero_desc: "Welcome to Pekara Braca. Authentic breads, pastries, cakes and drinks, made with love in the heart of Senta.",
+          hero_btn_menu: "View Menu", hero_btn_visit: "Visit Us",
+          features_title: "Why Pekara Braca", features_subtitle: "Three generations of family tradition in every bite.",
+          feat1_title: "Local Ingredients", feat1_desc: "Flour and grains from trusted local suppliers in Vojvodina.",
+          feat2_title: "Handmade", feat2_desc: "Every product is kneaded and shaped by hand, just like fifty years ago.",
+          feat3_title: "Fresh Every Morning", feat3_desc: "We start before dawn so you're greeted with warm, fragrant bread.",
+          menu_title: "Our Menu", menu_subtitle: "Freshly baked every morning. Click on a product for more details.",
           menu_order_btn: "Place a Custom Order",
-          card1_t: "Traditional Pogača",
-          card1_d:
-            "Soft, buttery flatbread with a hint of yogurt. Perfect with cheese or kajmak.",
-          card2_t: "Meat Burek",
-          card2_d:
-            "Flaky phyllo layers filled with seasoned minced beef & onions.",
-          card3_t: "Cheese & Spinach Burek",
-          card3_d:
-            "Light, savory, and freshly baked. A local breakfast staple.",
-          card4_t: "Vanilla Cream Roll",
-          card4_d:
-            "Delicate sponge wrapped in rich vanilla cream & dusted with powdered sugar.",
-          card5_t: "Whole Grain Loaf",
-          card5_d:
-            "Hearty, fiber-rich sourdough. Baked daily for lasting freshness.",
-          card6_t: "Espresso / Turkish Coffee",
-          card6_d:
-            "Strong, aromatic, served with a traditional Turkish delight.",
-          contact_title: "Visit Us",
-          contact_subtitle: "Open daily. Fresh bread waits for no one.",
+          similar_title: "Similar Products",
+          about_title: "About Us", about_subtitle: "Family-owned, community-loved. Baking the way it should be.",
+          about_heading: "Rooted in Senta, Crafted with Care",
+          about_p1: "For generations, Pekara Braca has been a cornerstone of Senta's daily life. We start before dawn, kneading dough by hand, selecting local grains, and baking everything from scratch. No preservatives. Just honest, warm, traditional flavors that bring families together.",
+          about_p2: "Whether it's our signature pogača, flaky burek, or celebration cakes, every item leaves our ovens fresh, fragrant, and ready to be shared.",
+          val1_title: "Family", val1_desc: "Three generations of the Braca brothers sharing the same passion for baking.",
+          val2_title: "Tradition", val2_desc: "Recipes passed down from generation to generation, no shortcuts.",
+          val3_title: "Community", val3_desc: "Proud to serve our neighbors every day for decades.",
+          contact_info_title: "Contact Information", contact_info_subtitle: "We're here for you — write, call, or stop by.",
+          contact_email_title: "Email", contact_phone_title: "Phone",
+          contact_phone_note: "Calls during opening hours",
+          contact_address_title: "Address", contact_address_val: "Glavna ulica 42<br>24400 Senta, Serbia",
+          contact_hours_title: "Opening Hours", contact_hours_val: "Mon–Fri: 05:30 – 20:00<br>Sat: 05:30 – 18:00<br>Sun: 06:00 – 15:00",
+          find_title: "Find Us", find_subtitle: "Open daily. Fresh bread waits for no one.",
           location_title: "Location & Hours",
-          location_addr_label: "Address",
-          location_addr_val: "Glavna ulica 42, 24400 Senta, Serbia",
-          location_phone_label: "Phone",
-          location_email_label: "Email",
-          location_hours_label: "Opening Hours",
-          location_hours_val:
-            "Mon–Fri: 05:30 – 20:00<br>Sat: 05:30 – 18:00<br>Sun: 06:00 – 15:00",
-          form_title: "Send a Message",
-          form_name_label: "Your Name",
-          form_name_ph: "Enter your name",
-          form_email_label: "Email",
-          form_email_ph: "you@email.com",
-          form_msg_label: "Message / Order Request",
-          form_msg_ph: "Type your message here...",
+          location_addr_label: "Address", location_addr_val: "Glavna ulica 42, 24400 Senta, Serbia",
+          location_phone_label: "Phone", location_email_label: "Email",
+          location_hours_label: "Opening Hours", location_hours_val: "Mon–Fri: 05:30 – 20:00<br>Sat: 05:30 – 18:00<br>Sun: 06:00 – 15:00",
+          form_title: "Send a Message", form_name_label: "Your Name", form_name_ph: "Enter your name",
+          form_email_label: "Email", form_email_ph: "you@email.com",
+          form_msg_label: "Message / Order Request", form_msg_ph: "Type your message here...",
           form_submit: "Send Message",
+          settings_title: "Language Settings", settings_desc: "Choose a language to display the site.", settings_save: "Save",
+          suggest_title: "Welcome!", suggest_desc: "Choose a language to continue.",
+          form_success: "Thank you! We received your message."
         },
         hu: {
-          nav_home: "Főoldal",
-          nav_about: "Rólunk",
-          nav_menu: "Étlap",
-          nav_contact: "Kapcsolat",
+          nav_home: "Főoldal", nav_menu: "Étlap", nav_about: "Rólunk", nav_find: "Elérhetőség",
           hero_title: "Hagyomány, naponta frissen sütve",
-          hero_desc:
-            "Üdvözöljük a Pekara Bracában. Eredeti kenyerek, péksütemények és torták, szeretettel készítve Zenta szívében.",
-          hero_btn: "Étlap megtekintése",
-          about_title: "Történetünk",
-          about_subtitle:
-            "Családi vállalkozás, a közösség kedvence. Úgy sütünk, ahogy kell.",
-          about_heading: "Zentában gyökerezve, odafigyeléssel készítve",
-          about_p1:
-            "Generációk óta a Pekara Braca Zenta mindennapi életének egyik alapköve. Hajnal előtt kelünk, kézzel gyúrjuk a tésztát, helyi alapanyagokat választunk, és mindent a nulláról sütünk. Tartósítószer nélkül. Csak őszinte, meleg, hagyományos ízek, amelyek összehozzák a családokat.",
-          about_p2:
-            "Legyen szó jellegzetes pogácsánkról, roppanós burekről vagy ünnepi tortákról, minden termék frissen, illatosan és megosztásra készen hagyja el sütőinket.",
-          menu_title: "Kedvenceink",
-          menu_subtitle: "Minden reggel frissen sütve. Az árak változhatnak.",
+          hero_desc: "Üdvözöljük a Pekara Bracában. Eredeti kenyerek, péksütemények, torták és italok, szeretettel készítve Zenta szívében.",
+          hero_btn_menu: "Étlap megtekintése", hero_btn_visit: "Látogasson el",
+          features_title: "Miért a Pekara Braca", features_subtitle: "Három generáció családi hagyománya minden falatban.",
+          feat1_title: "Helyi alapanyagok", feat1_desc: "Liszt és gabona megbízható vajdasági helyi beszállítóktól.",
+          feat2_title: "Kézi készítés", feat2_desc: "Minden terméket kézzel gyúrunk és formázunk, mint ötven évvel ezelőtt.",
+          feat3_title: "Minden reggel friss", feat3_desc: "Hajnal előtt kezdünk, hogy meleg, illatos kenyér fogadja Önt.",
+          menu_title: "Étlapunk", menu_subtitle: "Minden reggel frissen sütve. Kattintson egy termékre a részletekért.",
           menu_order_btn: "Egyedi rendelés",
-          card1_t: "Hagyományos pogácsa",
-          card1_d:
-            "Puha, vajas lapos kenyér joghurtos jegyekkel. Tökéletes sajttal vagy kajmakkal.",
-          card2_t: "Húsos burek",
-          card2_d:
-            "Roppant rétestészta rétegek fűszerezett darált marhahússal és hagymával töltve.",
-          card3_t: "Sajtos és spenótos burek",
-          card3_d:
-            "Könnyű, sós és frissen sütött. A helyi reggeli alapdarabja.",
-          card4_t: "Vaníliakrémes tekercs",
-          card4_d:
-            "Delikát piskóta gazdag vaníliakrémmel és porcukorral megszórva.",
-          card5_t: "Teljes kiőrlésű kenyér",
-          card5_d:
-            "Kiadós, rostokban gazdag kovászos kenyér. Naponta sütve a tartós frissességért.",
-          card6_t: "Espresso / Török kávé",
-          card6_d: "Erős, aromás, hagyományos török édes kíséretében.",
-          contact_title: "Látogasson el hozzánk",
-          contact_subtitle: "Naponta nyitva. A friss kenyér nem vár.",
+          similar_title: "Hasonló termékek",
+          about_title: "Rólunk", about_subtitle: "Családi vállalkozás, a közösség kedvence. Úgy sütünk, ahogy kell.",
+          about_heading: "Zentában gyökerezve, odafigyeléssel készítve",
+          about_p1: "Generációk óta a Pekara Braca Zenta mindennapi életének egyik alapköve. Hajnal előtt kelünk, kézzel gyúrjuk a tésztát, helyi alapanyagokat választunk, és mindent a nulláról sütünk. Tartósítószer nélkül. Csak őszinte, meleg, hagyományos ízek, amelyek összehozzák a családokat.",
+          about_p2: "Legyen szó jellegzetes pogácsánkról, roppanós burekről vagy ünnepi tortákról, minden termék frissen, illatosan és megosztásra készen hagyja el sütőinket.",
+          val1_title: "Család", val1_desc: "A Braca testvérek három generációja, akik ugyanazt a szenvedélyt osztják meg a pékség iránt.",
+          val2_title: "Hagyomány", val2_desc: "Nemzedékről nemzedékre átadott receptek, rövidítések nélkül.",
+          val3_title: "Közösség", val3_desc: "Büszkén szolgáljuk szomszédainkat minden nap, évtizedek óta.",
+          contact_info_title: "Elérhetőségek", contact_info_subtitle: "Itt vagyunk Önnek — írjon, hívjon vagy látogasson el.",
+          contact_email_title: "Email", contact_phone_title: "Telefon",
+          contact_phone_note: "Hívások nyitvatartási időben",
+          contact_address_title: "Cím", contact_address_val: "Fő utca 42<br>24400 Zenta, Szerbia",
+          contact_hours_title: "Nyitvatartás", contact_hours_val: "H–P: 05:30 – 20:00<br>Szo: 05:30 – 18:00<br>V: 06:00 – 15:00",
+          find_title: "Elérhetőségünk", find_subtitle: "Naponta nyitva. A friss kenyér nem vár.",
           location_title: "Cím és nyitvatartás",
-          location_addr_label: "Cím",
-          location_addr_val: "Fő utca 42, 24400 Zenta, Szerbia",
-          location_phone_label: "Telefon",
-          location_email_label: "Email",
-          location_hours_label: "Nyitvatartás",
-          location_hours_val:
-            "H–P: 05:30 – 20:00<br>Szo: 05:30 – 18:00<br>V: 06:00 – 15:00",
-          form_title: "Üzenet küldése",
-          form_name_label: "Név",
-          form_name_ph: "Írja be a nevét",
-          form_email_label: "Email",
-          form_email_ph: "pelda@email.hu",
-          form_msg_label: "Üzenet / Rendelés",
-          form_msg_ph: "Írja ide az üzenetét...",
+          location_addr_label: "Cím", location_addr_val: "Fő utca 42, 24400 Zenta, Szerbia",
+          location_phone_label: "Telefon", location_email_label: "Email",
+          location_hours_label: "Nyitvatartás", location_hours_val: "H–P: 05:30 – 20:00<br>Szo: 05:30 – 18:00<br>V: 06:00 – 15:00",
+          form_title: "Üzenet küldése", form_name_label: "Név", form_name_ph: "Írja be a nevét",
+          form_email_label: "Email", form_email_ph: "pelda@email.hu",
+          form_msg_label: "Üzenet / Rendelés", form_msg_ph: "Írja ide az üzenetét...",
           form_submit: "Üzenet küldése",
-        },
+          settings_title: "Nyelvi beállítások", settings_desc: "Válasszon nyelvet az oldal megjelenítéséhez.", settings_save: "Mentés",
+          suggest_title: "Üdvözöljük!", suggest_desc: "Válasszon nyelvet a folytatáshoz.",
+          form_success: "Köszönjük! Megkaptuk az üzenetét."
+        }
       };
 
-      // ===== LANGUAGE SWITCHER =====
+      let currentLang = 'sr';
+      let pendingLang = 'sr';
+
       function setLanguage(lang) {
+        currentLang = lang;
         document.documentElement.lang = lang;
         const dict = translations[lang];
-
-        // Text content
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
-          if (dict[key]) el.textContent = dict[key];
+          if (dict[key] !== undefined) el.innerHTML = dict[key];
         });
-
-        // Placeholders
         document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
           const key = el.getAttribute("data-i18n-placeholder");
           if (dict[key]) el.placeholder = dict[key];
         });
-
-        // Handle line breaks in specific elements
-        if (lang === "sr" || lang === "en" || lang === "hu") {
-          const hoursEl = document.querySelector(
-            '[data-i18n="location_hours_val"]',
-          );
-          if (hoursEl)
-            hoursEl.innerHTML = dict.location_hours_val.replace(/\n/g, "<br>");
-        }
-
         localStorage.setItem("pekarabraca_lang", lang);
-        document.getElementById("langSelect").value = lang;
+        renderMenu();
       }
 
-      // Init language
-      const savedLang = localStorage.getItem("pekarabraca_lang") || "sr";
-      setLanguage(savedLang);
-      document
-        .getElementById("langSelect")
-        .addEventListener("change", (e) => setLanguage(e.target.value));
+      function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + pageId).classList.add('active');
+        document.querySelectorAll('.nav-tab').forEach(t => {
+          t.classList.toggle('active', t.getAttribute('data-page') === pageId);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
 
-      // ===== MOBILE MENU =====
-      const hamburger = document.getElementById("hamburger");
-      const navLinks = document.getElementById("navLinks");
-
-      hamburger.addEventListener("click", () =>
-        navLinks.classList.toggle("open"),
-      );
-      document.querySelectorAll(".nav-links a").forEach((link) => {
-        link.addEventListener("click", () => navLinks.classList.remove("open"));
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', () => showPage(tab.getAttribute('data-page')));
       });
 
-      // ===== ACTIVE NAV HIGHLIGHT =====
-      const sections = document.querySelectorAll("section");
-      const navItems = document.querySelectorAll(".nav-links a");
+      function renderMenu() {
+        const container = document.getElementById('menuContainer');
+        container.innerHTML = '';
+        categories.forEach(cat => {
+          const catDiv = document.createElement('div');
+          const catTitle = document.createElement('h3');
+          catTitle.className = 'menu-category-title';
+          catTitle.textContent = cat.i18n[currentLang].t;
+          catDiv.appendChild(catTitle);
+          cat.subs.forEach(sub => {
+            const items = menuData.filter(m => m.cat === cat.id && m.sub === sub.id);
+            if (items.length === 0) return;
+            if (cat.subs.length > 1) {
+              const subTitle = document.createElement('p');
+              subTitle.className = 'menu-subtitle';
+              subTitle.textContent = sub.i18n[currentLang];
+              catDiv.appendChild(subTitle);
+            }
+            const grid = document.createElement('div');
+            grid.className = 'menu-grid';
+            items.forEach(item => {
+              const card = document.createElement('div');
+              card.className = 'menu-card';
+              card.onclick = () => openMenuDetail(item.id);
+              card.innerHTML = `
+                <div class="menu-img-wrapper"><img src="${item.img}" alt=""></div>
+                <div class="menu-content">
+                  <h4>${item.i18n[currentLang].t}</h4>
+                  <p>${item.i18n[currentLang].d.substring(0, 70)}${item.i18n[currentLang].d.length > 70 ? '...' : ''}</p>
+                  <span class="price">${item.price}</span>
+                </div>
+              `;
+              grid.appendChild(card);
+            });
+            catDiv.appendChild(grid);
+          });
+          container.appendChild(catDiv);
+        });
+      }
 
-      window.addEventListener("scroll", () => {
-        let current = "";
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop - 100;
-          if (window.scrollY >= sectionTop)
-            current = section.getAttribute("id");
+      function getSimilarItems(item) {
+        const sameSub = menuData.filter(m => m.cat === item.cat && m.sub === item.sub && m.id !== item.id);
+        if (sameSub.length >= 3) return sameSub.slice(0, 4);
+        const sameCat = menuData.filter(m => m.cat === item.cat && m.id !== item.id);
+        const result = [];
+        sameSub.forEach(s => result.push(s));
+        for (const s of sameCat) {
+          if (result.length >= 4) break;
+          if (!result.find(r => r.id === s.id)) result.push(s);
+        }
+        return result.slice(0, 4);
+      }
+
+      function openMenuDetail(itemId) {
+        const item = menuData.find(m => m.id === itemId);
+        if (!item) return;
+        document.getElementById('modalImg').src = item.img;
+        document.getElementById('modalImg').alt = item.i18n[currentLang].t;
+        document.getElementById('modalTitle').textContent = item.i18n[currentLang].t;
+        document.getElementById('modalPrice').textContent = item.price;
+        document.getElementById('modalDesc').textContent = item.i18n[currentLang].d;
+        const similarGrid = document.getElementById('similarGrid');
+        similarGrid.innerHTML = '';
+        getSimilarItems(item).forEach(sim => {
+          const card = document.createElement('div');
+          card.className = 'similar-card';
+          card.onclick = () => openMenuDetail(sim.id);
+          card.innerHTML = `
+            <img src="${sim.img}" alt="">
+            <div class="similar-card-body">
+              <h5>${sim.i18n[currentLang].t}</h5>
+              <span class="price">${sim.price}</span>
+            </div>
+          `;
+          similarGrid.appendChild(card);
         });
-        navItems.forEach((a) => {
-          a.classList.toggle(
-            "active",
-            a.getAttribute("href") === `#${current}`,
-          );
-        });
+        document.getElementById('menuModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        document.getElementById('menuModal').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('menuModal').addEventListener('click', (e) => {
+        if (e.target.id === 'menuModal') closeModal();
       });
 
-      // ===== DYNAMIC YEAR & FORM HANDLER =====
-      document.getElementById("year").textContent = new Date().getFullYear();
-      document
-        .getElementById("contactForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          // Simple user feedback
-          const lang = localStorage.getItem("pekarabraca_lang") || "sr";
-          let msg = "";
-          if(lang === 'sr') msg = "Hvala! Primili smo vašu poruku.";
-          else if(lang === 'en') msg = "Thank you! We received your message.";
-          else msg = "Köszönjük! Megkaptuk az üzenetét.";
-          
-          alert(msg);
-          this.reset();
+      function openSettings() {
+        pendingLang = currentLang;
+        const options = [
+          { code: 'sr', flag: '🇷🇸', label: 'Srpski' },
+          { code: 'en', flag: '🇬🇧', label: 'English' },
+          { code: 'hu', flag: '🇭🇺', label: 'Magyar' }
+        ];
+        const container = document.getElementById('settingsLangOptions');
+        container.innerHTML = '';
+        options.forEach(opt => {
+          const div = document.createElement('div');
+          div.className = 'lang-option' + (opt.code === currentLang ? ' selected' : '');
+          div.innerHTML = `
+            <input type="radio" name="settingsLang" value="${opt.code}" id="sl-${opt.code}" ${opt.code === currentLang ? 'checked' : ''}>
+            <label for="sl-${opt.code}"><span class="flag">${opt.flag}</span> ${opt.label}</label>
+          `;
+          div.onclick = (e) => {
+            if (e.target.tagName !== 'INPUT') div.querySelector('input').checked = true;
+            document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
+            div.classList.add('selected');
+            pendingLang = opt.code;
+          };
+          container.appendChild(div);
         });
+        document.getElementById('settingsModal').classList.add('active');
+      }
+
+      function closeSettings() {
+        document.getElementById('settingsModal').classList.remove('active');
+      }
+
+      function applySettings() {
+        setLanguage(pendingLang);
+        closeSettings();
+      }
+
+      document.getElementById('settingsModal').addEventListener('click', (e) => {
+        if (e.target.id === 'settingsModal') closeSettings();
+      });
+
+      function suggestLang(lang) {
+        setLanguage(lang);
+        document.getElementById('langSuggestModal').classList.remove('active');
+        localStorage.setItem("pekarabraca_lang_chosen", "true");
+      }
+
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert(translations[currentLang].form_success);
+        this.reset();
+      });
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const chosenBefore = localStorage.getItem("pekarabraca_lang_chosen");
+      const savedLang = localStorage.getItem("pekarabraca_lang") || 'sr';
+
+      if (!chosenBefore) {
+        const browserLang = navigator.language.toLowerCase();
+        let suggested = 'sr';
+        if (browserLang.startsWith('en')) suggested = 'en';
+        else if (browserLang.startsWith('hu')) suggested = 'hu';
+        document.getElementById('langSuggestModal').classList.add('active');
+        setLanguage(suggested);
+      } else {
+        setLanguage(savedLang);
+      }
+
+      renderMenu();
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeModal(); closeSettings(); }
+      });
     </script>
   </body>
 </html>
